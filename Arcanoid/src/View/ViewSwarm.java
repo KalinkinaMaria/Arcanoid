@@ -8,18 +8,18 @@ package View;
 import com.golden.gamedev.object.Sprite;
 
 /**
- * Изображение элемента роя
+ * Изображение роя
  * 
  * @author Мария
  */
-public class ViewSwarmElement extends ViewFieldElement{
+public class ViewSwarm  extends ViewFieldElement{
 
     /**
      * Конструктор
-     * @param view изображение элемента роя
-     * @param viewInCollision изображение элемента роя при столкновении
+     * @param view изображение роя
+     * @param viewInCollision изображение роя при столкновении
      */
-    public ViewSwarmElement(Sprite view, Sprite viewInCollision) {
+    public ViewSwarm(Sprite view, Sprite viewInCollision) {
         
     }
     
