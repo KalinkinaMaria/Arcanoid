@@ -17,7 +17,7 @@ import java.awt.Point;
  * 
  * @author Елена
  */
-public class FieldElement {
+public abstract class FieldElement {
     
     /** Подтип элемента для отличия элементов одного типа, которые могут сталкиваться между собой */
     private int subtype;
