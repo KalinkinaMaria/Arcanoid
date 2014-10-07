@@ -18,4 +18,10 @@ public class Arcanoid {
         // TODO code application logic here
     }
     
+    /**
+     * Закончить игру
+     */
+    public void endGame() {
+        
+    }
 }
