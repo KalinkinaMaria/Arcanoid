@@ -16,7 +16,7 @@ import java.util.HashMap;
  */
 public class Buffer {
     /** Таблица соответствий элемента поля и спрайта */
-    public HashMap<FieldElement, Sprite> table;
+    private HashMap<FieldElement, Sprite> table;
     
     /**
      * Конструктор
