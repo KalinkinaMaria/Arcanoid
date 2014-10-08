@@ -8,6 +8,8 @@ package arcanoid;
 import arcanoid.buffer.Buffer;
 import arcanoid.events.FieldElementCreatedEvent;
 import arcanoid.events.FieldElementCreatedListener;
+import arcanoid.events.FieldElementRemovedEvent;
+import arcanoid.events.FieldElementRemovedListener;
 import arcanoid.model.FieldElement;
 import java.util.ArrayList;
 
@@ -16,7 +18,7 @@ import java.util.ArrayList;
  * 
  * @author Мария
  */
-public class GameField implements FieldElementCreatedListener {
+public class GameField implements FieldElementCreatedListener, FieldElementRemovedListener {
     /** Таблица соответствий элемента поля со спрайтом */
     private Buffer table;
     /** Элементы поля */
@@ -54,6 +56,11 @@ public class GameField implements FieldElementCreatedListener {
 
     @Override
     public void addElement(FieldElementCreatedEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void removeElement(FieldElementRemovedEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

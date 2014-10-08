@@ -9,6 +9,7 @@ package arcanoid.model;
 import arcanoid.buffer.Buffer;
 import arcanoid.events.FieldElementCollisionListener;
 import arcanoid.events.FieldElementCreatedListener;
+import arcanoid.events.FieldElementRemovedListener;
 import arcanoid.service.ImpulseOfStrikeForce;
 import arcanoid.service.Size;
 import arcanoid.service.SpeedVector;
@@ -34,6 +35,8 @@ public abstract class FieldElement {
     private ArrayList<FieldElementCollisionListener> viewListeners = new ArrayList<>();
     /** Слушатели создания объекта*/
     private ArrayList<FieldElementCreatedListener> createListeners = new ArrayList<>();
+    /** Слушатели удаления объекта*/
+    private ArrayList<FieldElementRemovedListener> removeListeners = new ArrayList<>();
     
     /** 
      * Добавить слушателя создания элемента
@@ -47,6 +50,21 @@ public abstract class FieldElement {
      * Испустить сигнал, что элемент поля создан
      */
     private void fireFieldElementCreated() {
+        
+    }
+    
+    /** 
+     * Добавить слушателя удаления элемента
+     * @param listener слушатель
+     */
+    public void addFieldElementRemovedListener (FieldElementRemovedListener listener) {
+        
+    }
+    
+    /**
+     * Испустить сигнал, что элемент поля удален
+     */
+    private void fireFieldElementRemoved() {
         
     }
     

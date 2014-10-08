@@ -7,6 +7,8 @@ package arcanoid.view;
 
 import arcanoid.events.FieldElementCreatedEvent;
 import arcanoid.events.FieldElementCreatedListener;
+import arcanoid.events.FieldElementRemovedEvent;
+import arcanoid.events.FieldElementRemovedListener;
 import com.golden.gamedev.Game;
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.SpriteGroup;
@@ -17,7 +19,7 @@ import java.util.ArrayList;
  *
  * @author Мария
  */
-public class Ambiance extends Game implements FieldElementCreatedListener {
+public class Ambiance extends Game implements FieldElementCreatedListener, FieldElementRemovedListener {
     /** Задний фон */
     private Background background;
     /** Отскакивающие элементы */
@@ -53,6 +55,11 @@ public class Ambiance extends Game implements FieldElementCreatedListener {
 
     @Override
     public void addElement(FieldElementCreatedEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void removeElement(FieldElementRemovedEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

@@ -9,11 +9,12 @@ import arcanoid.model.FieldElement;
 import java.util.EventObject;
 
 /**
- * Событие добавления элемента
+ * Событие удаления элемента
  * 
  * @author Мария
  */
-public class FieldElementCreatedEvent extends EventObject {
+public class FieldElementRemovedEvent extends EventObject {
+
     /** Созданный элемент*/
     private FieldElement element;
     /**
@@ -21,7 +22,7 @@ public class FieldElementCreatedEvent extends EventObject {
      * @param source родительский объект
      * @param element созданный элемент
      */
-    public FieldElementCreatedEvent(Object source, FieldElement element) {
+    public FieldElementRemovedEvent(Object source, FieldElement element) {
         super(source);
         this.element = element;
     }
