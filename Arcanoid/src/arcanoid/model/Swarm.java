@@ -20,11 +20,6 @@ public class Swarm extends FieldElement implements Unbounced {
     /** Элементы роя*/
     private ArrayList<SwarmElement> elements;
     
-    @Override
-    public void handleCollision (ImpulseOfStrikeForce force) {
-        
-    }
-    
     /**
      * Создать элемент роя
      * 

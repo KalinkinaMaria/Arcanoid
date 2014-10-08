@@ -13,11 +13,6 @@ package arcanoid.model;
  */
 public class Racket extends FieldElement implements Bounced {
     
-    @Override
-    public void handleCollision (ImpulseOfStrikeForce force) {
-        
-    }
-    
     /**
      * Толкнуть мяч
      * 

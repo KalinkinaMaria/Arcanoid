@@ -3,23 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package arcanoid.view;
 
 import com.golden.gamedev.object.Sprite;
 
 /**
- * Изображение роя
+ * Изображение ракетки
  * 
  * @author Мария
  */
-public class ViewSwarm  extends ViewFieldElement{
+public class ViewRacket extends ViewFieldElement{
 
     /**
      * Конструктор
-     * @param view изображение роя
-     * @param viewInCollision изображение роя при столкновении
+     * @param view изображение ракетки
+     * @param viewInCollision изображение ракетки при столкновении
      */
-    public ViewSwarm(Sprite view, Sprite viewInCollision) {
+    public ViewRacket(Sprite view, Sprite viewInCollision) {
         
     }
     

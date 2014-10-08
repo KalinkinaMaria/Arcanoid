@@ -16,9 +16,4 @@ import arcanoid.service.ImpulseOfStrikeForce;
 public class Brick extends FieldElement implements Bounced {
     /** Прочность*/
     protected int strength;
-    
-    @Override
-    public void handleCollision (ImpulseOfStrikeForce force) {
-        
-    }
 }

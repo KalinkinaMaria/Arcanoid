@@ -3,31 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package arcanoid.collision;
 
 import com.golden.gamedev.object.Sprite;
+import com.golden.gamedev.object.collision.AdvanceCollisionGroup;
 
 /**
- * Изображение мяча
+ * Контроллер столкновения объекта с объектом
  * 
  * @author Мария
  */
-public class ViewBall extends ViewFieldElement{
+public class CollisionObjectWithObject extends AdvanceCollisionGroup{
 
     /**
-     * Конструктор
-     * @param view изображение мяча
-     * @param viewInCollision изображение мяча при столкновении
-     */
-    public ViewBall(Sprite view, Sprite viewInCollision) {
-        
-    }
-    
-    /**
-     * Показать коллизию
+     * Обработка столкновений
+     * @param sprite спрайт1
+     * @param sprite1 спрайт2
      */
     @Override
-    public void showCollision() {
+    public void collided(Sprite sprite, Sprite sprite1) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

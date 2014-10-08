@@ -15,9 +15,5 @@ import arcanoid.service.ImpulseOfStrikeForce;
  */
 public class DestroyableBrick extends Brick implements Bounced {
     
-    
-    @Override
-    public void handleCollision (ImpulseOfStrikeForce force) {
-        
-    }
+
 }

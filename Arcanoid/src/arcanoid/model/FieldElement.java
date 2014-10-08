@@ -144,7 +144,9 @@ public abstract class FieldElement {
      * 
      * @param force импульс силы удара
      */
-    public abstract void handleCollision(ImpulseOfStrikeForce force);
+    public void handleCollision(ImpulseOfStrikeForce force) {
+        
+    }
     
     /**
      * Задать скорость

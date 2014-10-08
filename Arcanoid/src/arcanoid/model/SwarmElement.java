@@ -14,9 +14,5 @@ import arcanoid.service.ImpulseOfStrikeForce;
  * @author Елена
  */
 public class SwarmElement extends FieldElement {
-    
-    @Override
-    public void handleCollision (ImpulseOfStrikeForce force) {
-        
-    }
+
 }

@@ -14,22 +14,7 @@ import java.awt.Point;
  * 
  * @author Елена
  */
-public class Ball extends FieldElement implements Bouncing, Bounced{
-
-    @Override
-    public void handleCollision (ImpulseOfStrikeForce force) {
-        
-    }
-    
-    @Override
-    public void handleCollision(Point position, SpeedVector difference) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void handleCollision(enum Axis axis, Point position) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+public class Ball extends Bouncing implements Bounced{
     
     /**
      * Клонироваться

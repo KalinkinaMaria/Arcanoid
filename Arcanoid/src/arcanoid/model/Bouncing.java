@@ -14,14 +14,16 @@ import java.awt.Point;
  * 
  * @author Елена
  */
-public interface Bouncing {
+public class Bouncing extends FieldElement{
     /**
      * Обработать столкновение
      * 
      * @param position позиция удара
      * @param difference приращение скорости
      */
-    public void handleCollision (Point position, SpeedVector difference);
+    public void handleCollision (Point position, SpeedVector difference, FieldElement element) {
+        
+    }
     
     /**
      * Обработать столкновение
@@ -29,5 +31,7 @@ public interface Bouncing {
      * @param axis ось
      * @param position позиция удара 
      */
-    public void handleCollision (enum Axis axis, Point position);
+    public void handleCollision (enum Axis axis, Point position, FieldElement element) {
+        
+    }
 }

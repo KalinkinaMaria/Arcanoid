@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Buffer;
+package arcanoid.buffer;
 
 import arcanoid.model.FieldElement;
 import com.golden.gamedev.object.Sprite;
