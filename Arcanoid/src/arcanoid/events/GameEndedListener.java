@@ -8,15 +8,16 @@ package arcanoid.events;
 import java.util.EventListener;
 
 /**
- * Слушатель падения мяча
+ * Слушатель события конца игры
  * 
  * @author Мария
  */
-public interface BallFailedListener extends EventListener {
+public interface GameEndedListener extends EventListener {
     /**
-     * Обработать падение мяча за нижнию границу
+     * Обработать событие конца игры
      * 
      * @param e 
      */
-    void fail(BallFailedEvent e);
+    void endGame(GameEndedEvent e);
+    
 }

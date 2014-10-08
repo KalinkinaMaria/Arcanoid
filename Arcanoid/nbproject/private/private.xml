@@ -3,10 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Мария.Maria/Documents/GitHub/Arcanoid/Arcanoid/src/arcanoid/Player.java</file>
-            <file>file:/C:/Users/Мария.Maria/Documents/GitHub/Arcanoid/Arcanoid/src/View/Ambiance.java</file>
-            <file>file:/C:/Users/Мария.Maria/Documents/GitHub/Arcanoid/Arcanoid/src/arcanoid/GameField.java</file>
-            <file>file:/C:/Users/Мария.Maria/Documents/GitHub/Arcanoid/Arcanoid/src/View/ViewBall.java</file>
+            <file>file:/C:/Users/Мария.Maria/Documents/GitHub/Arcanoid/Arcanoid/src/arcanoid/events/BallFailedEvent.java</file>
+            <file>file:/C:/Users/Мария.Maria/Documents/GitHub/Arcanoid/Arcanoid/src/arcanoid/events/SpritesCollidedListener.java</file>
+            <file>file:/C:/Users/Мария.Maria/Documents/GitHub/Arcanoid/Arcanoid/src/arcanoid/events/SpritesCollidedEvent.java</file>
+            <file>file:/C:/Users/Мария.Maria/Documents/GitHub/Arcanoid/Arcanoid/src/arcanoid/collision/CollisionObjectWithBoundary.java</file>
+            <file>file:/C:/Users/Мария.Maria/Documents/GitHub/Arcanoid/Arcanoid/src/arcanoid/collision/CollisionObjectWithObject.java</file>
+            <file>file:/C:/Users/Мария.Maria/Documents/GitHub/Arcanoid/Arcanoid/src/arcanoid/model/Ball.java</file>
+            <file>file:/C:/Users/Мария.Maria/Documents/GitHub/Arcanoid/Arcanoid/src/arcanoid/model/CollisionHandler.java</file>
+            <file>file:/C:/Users/Мария.Maria/Documents/GitHub/Arcanoid/Arcanoid/src/arcanoid/Arcanoid.java</file>
+            <file>file:/C:/Users/Мария.Maria/Documents/GitHub/Arcanoid/Arcanoid/src/arcanoid/events/BallFailedListener.java</file>
         </group>
     </open-files>
 </project-private>
