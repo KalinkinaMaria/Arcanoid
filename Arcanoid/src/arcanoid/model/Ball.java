@@ -15,6 +15,24 @@ import java.awt.Point;
  * @author Елена
  */
 public class Ball extends Bouncing implements Bounced{
+    /** Слушатели падения мяча*/
+    private ArrayList<BallFailedListener> failListeners = new ArrayList<> ();
+    
+    /**
+     * Добавить слушателя события падения мяча
+     * 
+     * @param listener слушатель
+     */
+    public void addBallFailedListener(BallFailedListener listener) {
+        
+    }
+    
+    /**
+     * Испустить событие о том, что мяч упал за нижнюю грпницу
+     */
+    private void fireBallFailed() {
+        
+    }
     
     /**
      * Клонироваться
@@ -24,4 +42,6 @@ public class Ball extends Bouncing implements Bounced{
     private Ball clone() {
         
     }
+    
+    
 }

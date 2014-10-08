@@ -5,11 +5,14 @@
  */
 package arcanoid;
 
+import arcanoid.events.BallFailedEvent;
+import arcanoid.events.BallFailedListener;
+
 /**
  *
  * @author Мария
  */
-public class Arcanoid {
+public class Arcanoid implements BallFailedListener {
 
     /**
      * @param args the command line arguments
@@ -23,5 +26,10 @@ public class Arcanoid {
      */
     public void endGame() {
         
+    }
+
+    @Override
+    public void fail(BallFailedEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

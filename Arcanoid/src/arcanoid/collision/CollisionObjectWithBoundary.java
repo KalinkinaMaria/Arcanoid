@@ -31,7 +31,7 @@ public class CollisionObjectWithBoundary extends CollisionBounds{
     /**
      * Испустить событие о том, что столкнулись спрайты
      */
-    public void fireSpritesCollided() {
+    private void fireSpritesCollided() {
         
     }
     
