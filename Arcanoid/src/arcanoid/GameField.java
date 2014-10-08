@@ -6,16 +6,22 @@
 package arcanoid;
 
 import arcanoid.buffer.Buffer;
+import arcanoid.events.FieldElementCreatedEvent;
+import arcanoid.events.FieldElementCreatedListener;
 import arcanoid.model.FieldElement;
+import java.util.ArrayList;
 
 /**
  * Игровое поле
  * 
  * @author Мария
  */
-public class GameField {
+public class GameField implements FieldElementCreatedListener {
     /** Таблица соответствий элемента поля со спрайтом */
     private Buffer table;
+    /** Элементы поля */
+    private ArrayList<FieldElement> elements;
+    
     /**
      * Конструктор
      */
@@ -35,7 +41,7 @@ public class GameField {
      * Удалить элемент
      * @param element элемент
      */
-    public void deleteElement(FieldElement element) {
+    public void removeElement(FieldElement element) {
         
     }
     
@@ -44,5 +50,10 @@ public class GameField {
      */
     public void createInitialAmbiance() {
         
+    }
+
+    @Override
+    public void addElement(FieldElementCreatedEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

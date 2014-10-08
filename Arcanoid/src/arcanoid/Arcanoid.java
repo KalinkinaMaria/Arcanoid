@@ -15,7 +15,8 @@ import arcanoid.events.GameEndedListener;
  * @author Мария
  */
 public class Arcanoid implements BallFailedListener, GameEndedListener {
-
+    /** Игровое поле*/
+    private GameField field;
     /** Игрок*/
     private Player player;
     
