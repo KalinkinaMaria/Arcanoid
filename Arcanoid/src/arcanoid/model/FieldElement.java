@@ -8,6 +8,7 @@ package arcanoid.model;
 
 import arcanoid.buffer.Buffer;
 import arcanoid.events.FieldElementCollisionListener;
+import arcanoid.events.FieldElementCreatedListener;
 import arcanoid.service.ImpulseOfStrikeForce;
 import arcanoid.service.Size;
 import arcanoid.service.SpeedVector;
@@ -31,6 +32,23 @@ public abstract class FieldElement {
     private SpeedVector speed;
     /** Слушатели столкновения элемента */
     private ArrayList<FieldElementCollisionListener> viewListeners = new ArrayList<>();
+    /** Слушатели создания объекта*/
+    private ArrayList<FieldElementCreatedListener> createListeners = new ArrayList<>();
+    
+    /** 
+     * Добавить слушателя создания элемента
+     * @param listener слушатель
+     */
+    public void addFieldElementCreatedListener (FieldElementCreatedListener listener) {
+        
+    }
+    
+    /**
+     * Испустить сигнал, что элемент поля создан
+     */
+    private void fireFieldElementCreated() {
+        
+    }
     
     /**
      * Добавить слушателя столкновения элемента
