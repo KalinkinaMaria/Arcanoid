@@ -6,6 +6,8 @@
 
 package arcanoid.model;
 
+import arcanoid.events.SpritesCollidedEvent;
+import arcanoid.events.SpritesCollidedListener;
 import com.golden.gamedev.object.Sprite;
 import java.util.Map;
 
@@ -14,7 +16,9 @@ import java.util.Map;
  * 
  * @author Елена
  */
-public class CollisionHandler {
+public class CollisionHandler implements SpritesCollidedListener{
+    
+    
     
     /**
      * Определить тип столкновения
@@ -32,5 +36,10 @@ public class CollisionHandler {
      */
     private FieldElement getElement (Sprite sprite) {
         
+    }
+
+    @Override
+    public void spritesCollided(SpritesCollidedEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

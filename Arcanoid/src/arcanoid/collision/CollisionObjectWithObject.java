@@ -5,8 +5,10 @@
  */
 package arcanoid.collision;
 
+import arcanoid.events.SpritesCollidedListener;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.AdvanceCollisionGroup;
+import java.util.ArrayList;
 
 /**
  * Контроллер столкновения объекта с объектом
@@ -14,7 +16,23 @@ import com.golden.gamedev.object.collision.AdvanceCollisionGroup;
  * @author Мария
  */
 public class CollisionObjectWithObject extends AdvanceCollisionGroup{
-
+    /** Список слушателей события */
+    private ArrayList<SpritesCollidedListener> collisionListener = new ArrayList<>();
+    
+    /**
+     * Добавление слушателей события о том, что столкнулись спрайты
+     * @param element слушатель
+     */
+    public void addSpritesCollidedListener(SpritesCollidedListener element) {
+        
+    }
+    
+    /**
+     * Испустить событие о том, что столкнулись спрайты
+     */
+    public void fireSpritesCollided() {
+        
+    }
     /**
      * Обработка столкновений
      * @param sprite спрайт1

@@ -5,8 +5,10 @@
  */
 package arcanoid.collision;
 
+import arcanoid.events.SpritesCollidedListener;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.CollisionBounds;
+import java.util.ArrayList;
 
 /**
  * Контроллер столкновения объекта с границей
@@ -15,6 +17,24 @@ import com.golden.gamedev.object.collision.CollisionBounds;
  */
 public class CollisionObjectWithBoundary extends CollisionBounds{
 
+    /** Список слушателей события */
+    private ArrayList<SpritesCollidedListener> collisionListener = new ArrayList<>();
+    
+    /**
+     * Добавление слушателей события о том, что столкнулись спрайты
+     * @param element слушатель
+     */
+    public void addSpritesCollidedListener(SpritesCollidedListener element) {
+        
+    }
+    
+    /**
+     * Испустить событие о том, что столкнулись спрайты
+     */
+    public void fireSpritesCollided() {
+        
+    }
+    
     /**
      * Конструктор
      * @param i
