@@ -6,8 +6,10 @@
 
 package arcanoid.model;
 
+import arcanoid.buffer.Buffer;
 import arcanoid.events.GameEndedListener;
 import arcanoid.service.ImpulseOfStrikeForce;
+import arcanoid.service.SpeedVector;
 import java.util.ArrayList;
 
 /**
@@ -22,6 +24,10 @@ public class Swarm extends FieldElement implements Unbounced {
     private ArrayList<SwarmElement> elements;
     /** Слушатели события конца игры*/
     private ArrayList<GameEndedListener> gameEndListeners = new ArrayList<>();
+
+    public Swarm(double weight, SpeedVector speed, int subtype, Buffer table) {
+        super(weight, speed, subtype, table);
+    }
     
     /**
      * Добавить слушателя события окончания игры

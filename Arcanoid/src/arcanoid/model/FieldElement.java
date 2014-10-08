@@ -84,80 +84,15 @@ public abstract class FieldElement {
     }
     
     /**
-     *  Конструктор
-     */
-    public FieldElement (Buffer table) {
-        subtype = -1;
-        weight = 0;
-        speed = new SpeedVector();
-        this.table = table;
-    }
-    
-    /**
-     * Конструктор
-     * @param subtype подтип
-     */
-    public FieldElement (int subtype, Buffer table) {
-        this(table);
-        this.subtype = subtype;
-    }
-    
-    /**
-     * Конструктор
-     * @param weight вес
-     */
-    public FieldElement (double weight, Buffer table) {
-        this(table);
-        this.weight = weight;
-    }
-    
-    /**
-     * Конструктор
-     * @param speed скорость
-     */
-    public FieldElement (SpeedVector speed, Buffer table) {
-        this(table);
-        this.speed = speed;
-    }
-    
-    /**
-     * Конструктор
-     * @param weight вес
-     * @param speed скорость
-     */
-    public FieldElement (double weight, SpeedVector speed, Buffer table) {
-        this(weight, table);
-        this.speed = speed;
-    }
-    
-    /**
-     * Конструктор
-     * @param weight вес 
-     * @param subtype подтип
-     */
-    public FieldElement (double weight, int subtype, Buffer table) {
-        this(weight, table);
-        this.subtype = subtype;
-    }
-    
-    /**
-     * Конструктор
-     * @param speed скорость
-     * @param subtype подтип
-     */
-    public FieldElement (SpeedVector speed, int subtype, Buffer table) {
-        this(speed, table);
-        this.subtype = subtype;
-    }
-    
-    /**
      * Конструктор
      * @param weight вес
      * @param speed скорость
      * @param subtype подтип
      */
     public FieldElement (double weight, SpeedVector speed, int subtype, Buffer table) {
-        this(weight, speed, table);
+        this.table = table;
+        this.speed = speed;
+        this.weight = weight;
         this.subtype = subtype;
     }
     
@@ -201,8 +136,9 @@ public abstract class FieldElement {
      * Обработать столкновение
      * 
      * @param force импульс силы удара
+     * @param element элемент
      */
-    public void handleCollision(ImpulseOfStrikeForce force) {
+    public void handleCollision(ImpulseOfStrikeForce force, FieldElement element) {
         
     }
     

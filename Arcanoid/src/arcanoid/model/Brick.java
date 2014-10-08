@@ -6,7 +6,9 @@
 
 package arcanoid.model;
 
+import arcanoid.buffer.Buffer;
 import arcanoid.service.ImpulseOfStrikeForce;
+import arcanoid.service.SpeedVector;
 
 /**
  * Кирпич
@@ -16,4 +18,8 @@ import arcanoid.service.ImpulseOfStrikeForce;
 public class Brick extends FieldElement implements Bounced {
     /** Прочность*/
     protected int strength;
+
+    public Brick(double weight, SpeedVector speed, int subtype, Buffer table) {
+        super(weight, speed, subtype, table);
+    }
 }

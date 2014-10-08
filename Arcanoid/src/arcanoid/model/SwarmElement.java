@@ -6,7 +6,9 @@
 
 package arcanoid.model;
 
+import arcanoid.buffer.Buffer;
 import arcanoid.service.ImpulseOfStrikeForce;
+import arcanoid.service.SpeedVector;
 
 /**
  * Элемент роя
@@ -14,5 +16,9 @@ import arcanoid.service.ImpulseOfStrikeForce;
  * @author Елена
  */
 public class SwarmElement extends FieldElement {
+
+    public SwarmElement(double weight, SpeedVector speed, int subtype, Buffer table) {
+        super(weight, speed, subtype, table);
+    }
 
 }

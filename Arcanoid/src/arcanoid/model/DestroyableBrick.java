@@ -6,7 +6,9 @@
 
 package arcanoid.model;
 
+import arcanoid.buffer.Buffer;
 import arcanoid.service.ImpulseOfStrikeForce;
+import arcanoid.service.SpeedVector;
 
 /**
  * Разрушаемый кирпич
@@ -14,6 +16,10 @@ import arcanoid.service.ImpulseOfStrikeForce;
  * @author Елена
  */
 public class DestroyableBrick extends Brick implements Bounced {
+
+    public DestroyableBrick(double weight, SpeedVector speed, int subtype, Buffer table) {
+        super(weight, speed, subtype, table);
+    }
     
 
 }
