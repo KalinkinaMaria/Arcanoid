@@ -5,6 +5,7 @@
  */
 package arcanoid.view;
 
+import arcanoid.events.FieldElementCollisionListener;
 import com.golden.gamedev.object.Sprite;
 
 /**
@@ -12,7 +13,7 @@ import com.golden.gamedev.object.Sprite;
  * 
  * @author Мария
  */
-public abstract class ViewFieldElement {
+public abstract class ViewFieldElement implements FieldElementCollisionListener {
     /** Изображение */
     private Sprite view;
     /** Изображение при столкновении*/

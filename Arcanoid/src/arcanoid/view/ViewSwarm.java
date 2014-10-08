@@ -5,6 +5,7 @@
  */
 package arcanoid.view;
 
+import arcanoid.events.FieldElementCollisionEvent;
 import com.golden.gamedev.object.Sprite;
 
 /**
@@ -28,6 +29,11 @@ public class ViewSwarm  extends ViewFieldElement{
      */
     @Override
     public void showCollision() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void paintCollision(FieldElementCollisionEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

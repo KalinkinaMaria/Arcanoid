@@ -7,11 +7,13 @@
 package arcanoid.model;
 
 import arcanoid.buffer.Buffer;
+import arcanoid.events.FieldElementCollisionListener;
 import arcanoid.service.ImpulseOfStrikeForce;
 import arcanoid.service.Size;
 import arcanoid.service.SpeedVector;
 import com.golden.gamedev.object.Sprite;
 import java.awt.Point;
+import java.util.ArrayList;
 
 /**
  * Элемент поля
@@ -27,6 +29,23 @@ public abstract class FieldElement {
     private double weight;
     /** Скорость */
     private SpeedVector speed;
+    /** Слушатели столкновения элемента */
+    private ArrayList<FieldElementCollisionListener> viewListeners = new ArrayList<>();
+    
+    /**
+     * Добавить слушателя столкновения элемента
+     * @param viewListener слушатель
+     */
+    public void addFieldElementCollisionListener(FieldElementCollisionListener viewListener) {
+        
+    }
+    
+    /**
+     * Испустить событие столкновение элемента
+     */
+    private void fireFieldElementCollision() {
+        
+    }
     
     /**
      *  Конструктор

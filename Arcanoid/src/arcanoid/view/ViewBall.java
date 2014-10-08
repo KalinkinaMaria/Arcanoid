@@ -5,6 +5,7 @@
  */
 package arcanoid.view;
 
+import arcanoid.events.FieldElementCollisionEvent;
 import com.golden.gamedev.object.Sprite;
 
 /**
@@ -12,7 +13,7 @@ import com.golden.gamedev.object.Sprite;
  * 
  * @author Мария
  */
-public class ViewBall extends ViewFieldElement{
+public class ViewBall extends ViewFieldElement {
 
     /**
      * Конструктор
@@ -28,6 +29,11 @@ public class ViewBall extends ViewFieldElement{
      */
     @Override
     public void showCollision() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void paintCollision(FieldElementCollisionEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
