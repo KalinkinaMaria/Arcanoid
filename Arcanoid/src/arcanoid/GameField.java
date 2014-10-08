@@ -5,6 +5,7 @@
  */
 package arcanoid;
 
+import arcanoid.buffer.Buffer;
 import arcanoid.model.FieldElement;
 
 /**
@@ -13,6 +14,8 @@ import arcanoid.model.FieldElement;
  * @author Мария
  */
 public class GameField {
+    /** Таблица соответствий элемента поля со спрайтом */
+    private Buffer table;
     /**
      * Конструктор
      */

@@ -6,6 +6,7 @@
 
 package arcanoid.model;
 
+import arcanoid.buffer.Buffer;
 import arcanoid.events.SpritesCollidedEvent;
 import arcanoid.events.SpritesCollidedListener;
 import com.golden.gamedev.object.Sprite;
@@ -17,8 +18,12 @@ import java.util.Map;
  * @author Елена
  */
 public class CollisionHandler implements SpritesCollidedListener{
+    /** Таблица соответствий элемента поля со спрайтом */
+    private Buffer table;
     
-    
+    public CollisionHandler (Buffer table) {
+        this.table = table;
+    }
     
     /**
      * Определить тип столкновения
