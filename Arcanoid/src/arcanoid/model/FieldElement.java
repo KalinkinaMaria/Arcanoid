@@ -24,11 +24,11 @@ import java.util.ArrayList;
  */
 public abstract class FieldElement {
     /** Таблица соответствий элемента поля со спрайтом */
-    private Buffer table;
+    protected Buffer table;
     /** Подтип элемента для отличия элементов одного типа, которые могут сталкиваться между собой */
-    private int subtype;
+    protected int subtype;
     /** Вес */
-    private double weight;
+    protected double weight;
     /** Скорость */
     private SpeedVector speed;
     /** Слушатели столкновения элемента */
@@ -89,11 +89,9 @@ public abstract class FieldElement {
      * @param speed скорость
      * @param subtype подтип
      */
-    public FieldElement (double weight, SpeedVector speed, int subtype, Buffer table) {
+    public FieldElement ( Buffer table) {
         this.table = table;
-        this.speed = speed;
-        this.weight = weight;
-        this.subtype = subtype;
+
     }
     
     /** 
@@ -138,7 +136,17 @@ public abstract class FieldElement {
      * @param force импульс силы удара
      * @param element элемент
      */
-    public void handleCollision(ImpulseOfStrikeForce force, FieldElement element) {
+    public void handleCollision(FieldElement element) {
+        // Вызывает в зависимости от типа 1 из 3 методов
+        // Сюда передается копия элмента до столкновения
+    }
+    
+    /**
+     * Обработать столкновение при соударение с темЮ от которого нельзя отскочить
+     * 
+     * @param impulse 
+     */
+    private void handelCollision(double impulse) {
         
     }
     

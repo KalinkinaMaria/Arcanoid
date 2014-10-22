@@ -16,8 +16,8 @@ import arcanoid.service.SpeedVector;
  */
 public class UndestroyableBrick extends Brick implements Bounced {
 
-    public UndestroyableBrick(double weight, SpeedVector speed, int subtype, Buffer table) {
-        super(weight, speed, subtype, table);
+    public UndestroyableBrick(Buffer table) {
+        super(table);
     }
 
 }

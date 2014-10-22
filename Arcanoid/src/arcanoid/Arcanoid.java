@@ -7,7 +7,7 @@ package arcanoid;
 
 import arcanoid.events.BallFailedEvent;
 import arcanoid.events.BallFailedListener;
-import arcanoid.events.GameEndedEvent;
+import arcanoid.events.GetCritycalWeightEvent;
 import arcanoid.events.GameEndedListener;
 
 /**
@@ -40,7 +40,7 @@ public class Arcanoid implements BallFailedListener, GameEndedListener {
     }
 
     @Override
-    public void endGame(GameEndedEvent e) {
+    public void endGame(GetCritycalWeightEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

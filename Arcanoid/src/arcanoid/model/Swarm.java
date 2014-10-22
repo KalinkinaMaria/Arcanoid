@@ -7,7 +7,8 @@
 package arcanoid.model;
 
 import arcanoid.buffer.Buffer;
-import arcanoid.events.GameEndedListener;
+import arcanoid.events.GetCritycalWeightListener;
+
 import arcanoid.service.ImpulseOfStrikeForce;
 import arcanoid.service.SpeedVector;
 import java.util.ArrayList;
@@ -17,16 +18,19 @@ import java.util.ArrayList;
  * 
  * @author Елена
  */
-public class Swarm extends FieldElement implements Unbounced {
+public class Swarm extends FieldElement {
     /** Критический вес*/
     private int criticalWeight;
     /** Элементы роя*/
     private ArrayList<SwarmElement> elements;
     /** Слушатели события конца игры*/
-    private ArrayList<GameEndedListener> gameEndListeners = new ArrayList<>();
+    private ArrayList<GetCritycalWeightListener> gameGetCritycalWeightListeners = new ArrayList<>();
 
-    public Swarm(double weight, SpeedVector speed, int subtype, Buffer table) {
-        super(weight, speed, subtype, table);
+    public Swarm(Buffer table, int elementNumber) {
+        super(table);
+        for (int i = elementNumber; i >=0; i --) {
+            addElement(new SwarmElement(table));
+        }
     }
     
     /**
@@ -34,7 +38,7 @@ public class Swarm extends FieldElement implements Unbounced {
      * 
      * @param listener слушатель
      */
-    public void addGameEndedListener(GameEndedListener listener) {
+    public void addGetCritycalWeightListener(GetCritycalWeightListener listener) {
         
     }
     
@@ -50,8 +54,17 @@ public class Swarm extends FieldElement implements Unbounced {
      * 
      * @param element элемент поля, перерождаемый в элемент роя 
      */
-    private void createSwarmElement(FieldElement element) {
+    private void createSwarmElement(Ball element) {
         
+    }
+    
+    public void attach(Ball element) {
+        
+    }
+    
+    private void addElement(SwarmElement element) {
+        elements.add(new SwarmElement(table));
+        this.weight += element.weight();
     }
     
     /**
@@ -70,5 +83,9 @@ public class Swarm extends FieldElement implements Unbounced {
      */
     public int criticalWeight() {
         
+    }
+    
+    public double weight() {
+        return this.weight;
     }
 }

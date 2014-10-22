@@ -16,10 +16,9 @@ import arcanoid.service.SpeedVector;
  * @author Елена
  */
 public class Brick extends FieldElement implements Bounced {
-    /** Прочность*/
-    protected int strength;
 
-    public Brick(double weight, SpeedVector speed, int subtype, Buffer table) {
-        super(weight, speed, subtype, table);
+
+    public Brick(Buffer table) {
+        super(table);
     }
 }

@@ -17,8 +17,11 @@ import arcanoid.service.SpeedVector;
  */
 public class DestroyableBrick extends Brick implements Bounced {
 
-    public DestroyableBrick(double weight, SpeedVector speed, int subtype, Buffer table) {
-        super(weight, speed, subtype, table);
+    /** Прочность*/
+    protected int strength;
+    
+    public DestroyableBrick(Buffer table) {
+        super(table);
     }
     
 

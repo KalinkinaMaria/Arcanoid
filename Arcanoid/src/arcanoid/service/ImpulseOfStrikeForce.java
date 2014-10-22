@@ -15,21 +15,12 @@ import arcanoid.model.FieldElement;
  */
 public class ImpulseOfStrikeForce {
     
-    /** Значение импульса */
-    private double value;
-    
-    /** 
-     * Конструктор
-     */
-    private ImpulseOfStrikeForce () {
-        value = 0;
-    }
     
     /**
      * Рассчитать импульс силы удара элемента
      * @param element 
      */
-    public ImpulseOfStrikeForce count(FieldElement element) {
+    public static double countImpulsrOfStrikeForce(FieldElement element) {
         
     }
 }

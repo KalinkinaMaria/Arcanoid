@@ -21,7 +21,7 @@ public class Bouncing extends FieldElement{
      * @param position позиция удара
      * @param difference приращение скорости
      */
-    public void handleCollision (Point position, SpeedVector difference, FieldElement element) {
+    protected void handleCollision (Point position, SpeedVector difference, FieldElement element) {
         
     }
     
@@ -31,7 +31,7 @@ public class Bouncing extends FieldElement{
      * @param axis ось
      * @param position позиция удара 
      */
-    public void handleCollision (enum Axis axis, Point position, FieldElement element) {
+    protected void handleCollision (enum Axis axis, Point position, FieldElement element) {
         
     }
 }

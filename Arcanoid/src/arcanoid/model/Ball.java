@@ -34,14 +34,5 @@ public class Ball extends Bouncing implements Bounced{
         
     }
     
-    /**
-     * Клонироваться
-     * 
-     * @return склонированный мяч
-     */
-    private Ball clone() {
-        
-    }
-    
     
 }
