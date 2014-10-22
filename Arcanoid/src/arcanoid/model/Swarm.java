@@ -24,7 +24,7 @@ public class Swarm extends FieldElement {
     /** Элементы роя*/
     private ArrayList<SwarmElement> elements;
     /** Слушатели события конца игры*/
-    private ArrayList<GetCritycalWeightListener> gameGetCritycalWeightListeners = new ArrayList<>();
+    private ArrayList<GameStateChangeListener> gameStateChangeListeners = new ArrayList<>();
 
     public Swarm(Buffer table, int elementNumber) {
         super(table);
@@ -38,7 +38,7 @@ public class Swarm extends FieldElement {
      * 
      * @param listener слушатель
      */
-    public void addGetCritycalWeightListener(GetCritycalWeightListener listener) {
+    public void addGameStateChangeListener(GameStateChangeListener listener) {
         
     }
     

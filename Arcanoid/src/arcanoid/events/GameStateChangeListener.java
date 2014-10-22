@@ -8,16 +8,21 @@ package arcanoid.events;
 import java.util.EventListener;
 
 /**
- * Слушатель события конца игры
+ * Слушатель падения мяча
  * 
  * @author Мария
  */
-public interface GetCritycalWeightListener extends EventListener {
+public interface GameStateChangeListener extends EventListener {
+    /**
+     * Обработать проигрыша
+     * 
+     * @param e 
+     */
+    void fail(GameStateChangeEvent e);
     /**
      * Обработать событие конца игры
      * 
      * @param e 
      */
     void endGame(GetCritycalWeightEvent e);
-    
 }

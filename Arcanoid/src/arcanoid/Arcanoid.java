@@ -5,16 +5,14 @@
  */
 package arcanoid;
 
-import arcanoid.events.BallFailedEvent;
-import arcanoid.events.BallFailedListener;
-import arcanoid.events.GetCritycalWeightEvent;
-import arcanoid.events.GameEndedListener;
+import arcanoid.events.GameStateChangeEvent;
+import arcanoid.events.GameStateChangeListener;
 
 /**
  *
  * @author Мария
  */
-public class Arcanoid implements BallFailedListener, GameEndedListener {
+public class Arcanoid implements GameStateChangeListener {
     /** Игровое поле*/
     private GameField field;
     /** Игрок*/
@@ -35,7 +33,7 @@ public class Arcanoid implements BallFailedListener, GameEndedListener {
     }
 
     @Override
-    public void fail(BallFailedEvent e) {
+    public void fail(GameStateChangeEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

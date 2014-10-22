@@ -16,21 +16,21 @@ import java.awt.Point;
  */
 public class Ball extends Bouncing implements Bounced{
     /** Слушатели падения мяча*/
-    private ArrayList<BallFailedListener> failListeners = new ArrayList<> ();
+    private ArrayList<GameStateChangeListener> failListeners = new ArrayList<> ();
     
     /**
      * Добавить слушателя события падения мяча
      * 
      * @param listener слушатель
      */
-    public void addBallFailedListener(BallFailedListener listener) {
+    public void addGameStateChangeListener(GameStateChangeListener listener) {
         
     }
     
     /**
      * Испустить событие о том, что мяч упал за нижнюю грпницу
      */
-    private void fireBallFailed() {
+    private void fireGameStateChange() {
         
     }
     

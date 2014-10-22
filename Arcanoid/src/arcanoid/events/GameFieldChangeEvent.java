@@ -8,23 +8,30 @@ package arcanoid.events;
 import arcanoid.model.FieldElement;
 import java.util.EventObject;
 
+enum ChangingType {
+    creation,
+    removing;
+}
+
 /**
- * Событие удаления элемента
+ * Событие добавления элемента
  * 
  * @author Мария
  */
-public class FieldElementRemovedEvent extends EventObject {
-
+public class GameFieldChangeEvent extends EventObject {
     /** Созданный элемент*/
     private FieldElement element;
+    /** Тип события*/
+    private ChangingType type;
     /**
      * Конструктор
      * @param source родительский объект
      * @param element созданный элемент
      */
-    public FieldElementRemovedEvent(Object source, FieldElement element) {
+    public GameFieldChangeEvent(Object source, FieldElement element, ChangingType type) {
         super(source);
         this.element = element;
+        this.type = type;
     }
     
 }

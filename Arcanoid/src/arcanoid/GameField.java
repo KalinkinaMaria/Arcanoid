@@ -6,7 +6,7 @@
 package arcanoid;
 
 import arcanoid.buffer.Buffer;
-import arcanoid.events.FieldElementCreatedEvent;
+import arcanoid.events.GameFieldChangeEvent;
 import arcanoid.events.FieldElementCreatedListener;
 import arcanoid.events.FieldElementRemovedEvent;
 import arcanoid.events.FieldElementRemovedListener;
@@ -55,7 +55,7 @@ public class GameField implements FieldElementCreatedListener, FieldElementRemov
     }
 
     @Override
-    public void addElement(FieldElementCreatedEvent e) {
+    public void addElement(GameFieldChangeEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

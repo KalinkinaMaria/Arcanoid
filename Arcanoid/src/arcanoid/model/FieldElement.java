@@ -7,9 +7,7 @@
 package arcanoid.model;
 
 import arcanoid.buffer.Buffer;
-import arcanoid.events.FieldElementCollisionListener;
-import arcanoid.events.FieldElementCreatedListener;
-import arcanoid.events.FieldElementRemovedListener;
+import arcanoid.events.GameFieldChangeListener;
 import arcanoid.service.ImpulseOfStrikeForce;
 import arcanoid.service.Size;
 import arcanoid.service.SpeedVector;
@@ -25,61 +23,25 @@ import java.util.ArrayList;
 public abstract class FieldElement {
     /** Таблица соответствий элемента поля со спрайтом */
     protected Buffer table;
-    /** Подтип элемента для отличия элементов одного типа, которые могут сталкиваться между собой */
-    protected int subtype;
     /** Вес */
     protected double weight;
     /** Скорость */
     private SpeedVector speed;
-    /** Слушатели столкновения элемента */
-    private ArrayList<FieldElementCollisionListener> viewListeners = new ArrayList<>();
-    /** Слушатели создания объекта*/
-    private ArrayList<FieldElementCreatedListener> createListeners = new ArrayList<>();
-    /** Слушатели удаления объекта*/
-    private ArrayList<FieldElementRemovedListener> removeListeners = new ArrayList<>();
+    /** Слушатели изменения игрового поля*/
+    private ArrayList<GameFieldChangeListener> gameFieldChangeListeners = new ArrayList<>();
     
     /** 
      * Добавить слушателя создания элемента
      * @param listener слушатель
      */
-    public void addFieldElementCreatedListener (FieldElementCreatedListener listener) {
+    public void addGameFieldChangeListener (GameFieldChangeListener listener) {
         
     }
     
     /**
      * Испустить сигнал, что элемент поля создан
      */
-    private void fireFieldElementCreated() {
-        
-    }
-    
-    /** 
-     * Добавить слушателя удаления элемента
-     * @param listener слушатель
-     */
-    public void addFieldElementRemovedListener (FieldElementRemovedListener listener) {
-        
-    }
-    
-    /**
-     * Испустить сигнал, что элемент поля удален
-     */
-    private void fireFieldElementRemoved() {
-        
-    }
-    
-    /**
-     * Добавить слушателя столкновения элемента
-     * @param viewListener слушатель
-     */
-    public void addFieldElementCollisionListener(FieldElementCollisionListener viewListener) {
-        
-    }
-    
-    /**
-     * Испустить событие столкновение элемента
-     */
-    private void fireFieldElementCollision() {
+    private void fireGameFieldChange() {
         
     }
     
