@@ -275,4 +275,76 @@ public class FieldElementTest {
         ball.handleCollision(racket);
         assertEquals(ball.speed(), new SpeedVector(5, 10));
     }
+    
+    /**
+     * Тест для тестирования обработки столкновения мяча с углом движущейся ракетки.
+     */
+    @Test
+    public void testHandleCollisionBallWithConerMovingRacket() {
+        System.out.println("Тест для тестирования обработки столкновения мяча с углом движущейся ракетки");
+        Racket racket = new Racket(table);
+        Ball ball = new Ball(table);
+        ball.setWeight(1);
+        //Установить позиции
+        table.addPair(racket, new Sprite(10, 10));
+        table.addPair(ball, new Sprite(30, 10));
+        // Устанавливаем скорости
+        ball.setSpeed(new SpeedVector(-5, -10));
+        ball.handleCollision(racket);
+        assertEquals(ball.speed(), new SpeedVector(5, 10));
+    }
+    
+    /**
+     * Тест для тестирования обработки столкновения мяча с другим мячом той же массы.
+     */
+    @Test
+    public void testHandleCollisionBallWithSameBall() {
+        System.out.println("Тест для тестирования обработки столкновения мяча с другим мячом той же массы");
+        Ball ball1 = new Ball(table);
+        Ball ball2 = new Ball(table);
+        ball1.setWeight(1);
+        ball2.setWeight(1);
+        // Устанавливаем скорости
+        ball1.setSpeed(new SpeedVector(2, -2));
+        ball2.setSpeed(new SpeedVector(2, 5));
+        ball1.handleCollision(ball2);
+        assertEquals(ball1.speed(), new SpeedVector(2, 5));
+        ball2.handleCollision(ball1);
+        assertEquals(ball2.speed(), new SpeedVector(2, -2));
+    }
+    
+    /**
+     * Тест для тестирования обработки столкновения мяча с другим мячом другой массы массы.
+     */
+    @Test
+    public void testHandleCollisionBallWithAnotherBall() {
+        System.out.println("Тест для тестирования обработки столкновения мяча с другим мячом другой массы");
+        Ball ball1 = new Ball(table);
+        Ball ball2 = new Ball(table);
+        ball1.setWeight(1);
+        ball2.setWeight(2);
+        // Устанавливаем скорости
+        ball1.setSpeed(new SpeedVector(2, -2));
+        ball2.setSpeed(new SpeedVector(2, 5));
+        ball1.handleCollision(ball2);
+        assertEquals(ball1.speed(), new SpeedVector(2, 22/3));
+        ball2.handleCollision(ball1);
+        assertEquals(ball2.speed(), new SpeedVector(2, -1/3));
+    }
+    
+    /**
+     * Тест для тестирования обработки столкновения ракетки с роем.
+     */
+    @Test
+    public void testHandleCollisionRacketWithSwarm() {
+        System.out.println("Тест для тестирования обработки столкновения ракетки с роем");
+        Racket racket = new Racket(table);
+        Swarm swarm = new Swarm(table, 2);
+        // Устанавливаем скорости
+        racket.setSpeed(new SpeedVector(2, 0));
+        racket.handleCollision(swarm);
+        assertEquals(racket.speed(), new SpeedVector(2,0));
+        swarm.handleCollision(racket);
+        assertEquals(swarm.weight(), 2);
+    }
 }
