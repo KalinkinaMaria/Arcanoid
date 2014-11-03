@@ -24,5 +24,5 @@ public interface GameStateChangeListener extends EventListener {
      * 
      * @param e 
      */
-    void endGame(GetCritycalWeightEvent e);
+    void endGame(GameStateChangeEvent e);
 }
