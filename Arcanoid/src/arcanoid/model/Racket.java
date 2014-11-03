@@ -12,7 +12,10 @@ package arcanoid.model;
  * @author Елена
  */
 public class Racket extends FieldElement implements Bounced {
-    
+
+    public Racket(Buffer table) {
+        super(table);
+    }
     /**
      * Толкнуть мяч
      * 

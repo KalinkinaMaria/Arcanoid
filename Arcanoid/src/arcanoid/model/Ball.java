@@ -14,9 +14,15 @@ import java.awt.Point;
  * 
  * @author Елена
  */
-public class Ball extends Bouncing implements Bounced{
+public class Ball extends Bouncing implements Bounced {
+    
+    
     /** Слушатели падения мяча*/
     private ArrayList<GameStateChangeListener> failListeners = new ArrayList<> ();
+    
+    public Ball(Buffer table) {
+        super(table);
+    }
     
     /**
      * Добавить слушателя события падения мяча

@@ -26,7 +26,7 @@ public abstract class FieldElement {
     /** Вес */
     protected double weight;
     /** Скорость */
-    private SpeedVector speed;
+    protected SpeedVector speed;
     /** Слушатели изменения игрового поля*/
     private ArrayList<GameFieldChangeListener> gameFieldChangeListeners = new ArrayList<>();
     
@@ -95,7 +95,6 @@ public abstract class FieldElement {
     /**
      * Обработать столкновение
      * 
-     * @param force импульс силы удара
      * @param element элемент
      */
     public void handleCollision(FieldElement element) {
@@ -104,7 +103,7 @@ public abstract class FieldElement {
     }
     
     /**
-     * Обработать столкновение при соударение с темЮ от которого нельзя отскочить
+     * Обработать столкновение при соударение с тем, от которого нельзя отскочить
      * 
      * @param impulse 
      */
