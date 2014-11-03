@@ -290,8 +290,9 @@ public class FieldElementTest {
         table.addPair(ball, new Sprite(30, 10));
         // Устанавливаем скорости
         ball.setSpeed(new SpeedVector(-5, -10));
+        racket.setSpeed(new SpeedVector(3,0));
         ball.handleCollision(racket);
-        assertEquals(ball.speed(), new SpeedVector(5, 10));
+        assertEquals(ball.speed(), new SpeedVector(8, 10));
     }
     
     /**
@@ -307,9 +308,11 @@ public class FieldElementTest {
         // Устанавливаем скорости
         ball1.setSpeed(new SpeedVector(2, -2));
         ball2.setSpeed(new SpeedVector(2, 5));
-        ball1.handleCollision(ball2);
+        Ball clone1 = ball1.clone();
+        Ball clone2 = ball2.clone();
+        ball1.handleCollision(clone2);
         assertEquals(ball1.speed(), new SpeedVector(2, 5));
-        ball2.handleCollision(ball1);
+        ball2.handleCollision(clone1);
         assertEquals(ball2.speed(), new SpeedVector(2, -2));
     }
     
@@ -326,9 +329,11 @@ public class FieldElementTest {
         // Устанавливаем скорости
         ball1.setSpeed(new SpeedVector(2, -2));
         ball2.setSpeed(new SpeedVector(2, 5));
-        ball1.handleCollision(ball2);
+        Ball clone1 = ball1.clone();
+        Ball clone2 = ball2.clone();
+        ball1.handleCollision(clone2);
         assertEquals(ball1.speed(), new SpeedVector(2, 22/3));
-        ball2.handleCollision(ball1);
+        ball2.handleCollision(clone1);
         assertEquals(ball2.speed(), new SpeedVector(2, -1/3));
     }
     
