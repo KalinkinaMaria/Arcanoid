@@ -42,7 +42,7 @@ public class BouncingTest {
      */
     @Test
     public void testHandleCollisionBallWithStopedRacket() {
-        System.out.println("Тест для тестирования обработки столкновения мяча с ракеткойв покое");
+        System.out.println("Тест для тестирования обработки столкновения мяча с ракеткой в покое");
         Racket racket = new Racket(table);
         Ball ball = new Ball(table);
         // Устанавливаем скорости

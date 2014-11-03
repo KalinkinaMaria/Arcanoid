@@ -46,9 +46,9 @@ public class Buffer {
     /**
      * Добавить пару
      * @param element элемент
-     * @param sprate спрайт
+     * @param sprite спрайт
      */
-    public void addPair(FieldElement element, Sprite sprate) {
+    public void addPair(FieldElement element, Sprite sprite) {
         
     }
     

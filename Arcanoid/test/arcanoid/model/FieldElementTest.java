@@ -9,6 +9,7 @@ import arcanoid.events.GameFieldChangeListener;
 import arcanoid.service.Buffer;
 import arcanoid.service.Size;
 import arcanoid.service.SpeedVector;
+import com.golden.gamedev.object.Sprite;
 import java.awt.Point;
 
 import org.junit.After;
@@ -39,6 +40,7 @@ public class FieldElementTest {
     
     @Before
     public void setUp() {
+        table = new Buffer();
     }
     
     @After
@@ -53,6 +55,9 @@ public class FieldElementTest {
         System.out.println("Тест для тестирования обработки столкновения мяча с ракеткойв покое");
         Racket racket = new Racket(table);
         Ball ball = new Ball(table);
+        //Установить позиции
+        table.addPair(racket, new Sprite(10, 10));
+        table.addPair(ball, new Sprite(15, 10));
         // Устанавливаем скорости
         racket.setSpeed(new SpeedVector());
         ball.setSpeed(new SpeedVector(10,-5));
@@ -68,6 +73,9 @@ public class FieldElementTest {
         System.out.println("Тест для тестирования обработки столкновения мяча с ракеткой в движении");
         Racket racket = new Racket(table);
         Ball ball = new Ball(table);
+        //Установить позиции
+        table.addPair(racket, new Sprite(10, 10));
+        table.addPair(ball, new Sprite(15, 10));
         // Устанавливаем скорости
         racket.setSpeed(new SpeedVector(3, 0));
         ball.setSpeed(new SpeedVector(10,-5));
@@ -97,6 +105,9 @@ public class FieldElementTest {
         System.out.println("Тест для тестирования обработки столкновения мяча с  кирпичом");
         DestroyableBrick brick = new DestroyableBrick(table);
         Ball ball = new Ball(table);
+        //Установить позиции
+        table.addPair(brick, new Sprite(10, 10));
+        table.addPair(ball, new Sprite(15, 20));
         // Устанавливаем скорости
         ball.setSpeed(new SpeedVector(10,5));
         ball.handleCollision(brick);
@@ -111,6 +122,9 @@ public class FieldElementTest {
         System.out.println("Тест для тестирования обработки столкновения ракетки в покое с мячом");
         Racket racket = new Racket(table);
         Ball ball = new Ball(table);
+        //Установить позиции
+        table.addPair(racket, new Sprite(10, 10));
+        table.addPair(ball, new Sprite(15, 10));
         // Устанавливаем скорости
         racket.setSpeed(new SpeedVector());
         ball.setSpeed(new SpeedVector(10,-5));
@@ -126,6 +140,9 @@ public class FieldElementTest {
         System.out.println("Тест для тестирования обработки столкновения ракетки в движении с мячом");
         Racket racket = new Racket(table);
         Ball ball = new Ball(table);
+        //Установить позиции
+        table.addPair(racket, new Sprite(10, 10));
+        table.addPair(ball, new Sprite(15, 10));
         // Устанавливаем скорости
         racket.setSpeed(new SpeedVector(3, 0));
         ball.setSpeed(new SpeedVector(10,-5));
@@ -157,6 +174,9 @@ public class FieldElementTest {
         DestroyableBrick brick = new DestroyableBrick(table);
         Ball ball = new Ball(table);
         ball.setWeight(1);
+        //Установить позиции
+        table.addPair(brick, new Sprite(10, 10));
+        table.addPair(ball, new Sprite(15, 20));
         // Устанавливаем скорости
         ball.setSpeed(new SpeedVector(10,5));
         brick.handleCollision(ball);
@@ -173,6 +193,9 @@ public class FieldElementTest {
         Ball ball = new Ball(table);
         ball.setWeight(1);
         brick.setStrength(1);
+        //Установить позиции
+        table.addPair(brick, new Sprite(10, 10));
+        table.addPair(ball, new Sprite(15, 20));
         // Устанавливаем скорости
         ball.setSpeed(new SpeedVector(10,5));
         brick.handleCollision(ball);
@@ -189,6 +212,9 @@ public class FieldElementTest {
         Ball ball = new Ball(table);
         ball.setWeight(1);
         brick.setStrength(15);
+        //Установить позиции
+        table.addPair(brick, new Sprite(10, 10));
+        table.addPair(ball, new Sprite(15, 20));
         // Устанавливаем скорости
         ball.setSpeed(new SpeedVector(10,5));
         brick.handleCollision(ball);
@@ -196,4 +222,57 @@ public class FieldElementTest {
         assertEquals(brick.strength(), 10);
     }
     
+    /**
+     * Тест для тестирования обработки столкновения мяча с боковой стороной кирпича.
+     */
+    @Test
+    public void testHandleCollisionBallWithSideBrick() {
+        System.out.println("Тест для тестирования обработки столкновения мяча с боковой стороной кирпича");
+        DestroyableBrick brick = new DestroyableBrick(table);
+        Ball ball = new Ball(table);
+        ball.setWeight(1);
+        //Установить позиции
+        table.addPair(brick, new Sprite(10, 10));
+        table.addPair(ball, new Sprite(30, 15));
+        // Устанавливаем скорости
+        ball.setSpeed(new SpeedVector(-5,10));
+        ball.handleCollision(brick);
+        assertEquals(ball.speed(), new SpeedVector(5, 10));
+    }
+    
+    /**
+     * Тест для тестирования обработки столкновения мяча с углом кирпича.
+     */
+    @Test
+    public void testHandleCollisionBallWithConerBrick() {
+        System.out.println("Тест для тестирования обработки столкновения мяча с углом кирпича");
+        DestroyableBrick brick = new DestroyableBrick(table);
+        Ball ball = new Ball(table);
+        ball.setWeight(1);
+        //Установить позиции
+        table.addPair(brick, new Sprite(10, 10));
+        table.addPair(ball, new Sprite(30, 20));
+        // Устанавливаем скорости
+        ball.setSpeed(new SpeedVector(-5,10));
+        ball.handleCollision(brick);
+        assertEquals(ball.speed(), new SpeedVector(5, 10));
+    }
+    
+    /**
+     * Тест для тестирования обработки столкновения мяча с углом ракетки.
+     */
+    @Test
+    public void testHandleCollisionBallWithConerRacket() {
+        System.out.println("Тест для тестирования обработки столкновения мяча с углом ракетки");
+        Racket racket = new Racket(table);
+        Ball ball = new Ball(table);
+        ball.setWeight(1);
+        //Установить позиции
+        table.addPair(racket, new Sprite(10, 10));
+        table.addPair(ball, new Sprite(30, 10));
+        // Устанавливаем скорости
+        ball.setSpeed(new SpeedVector(-5, -10));
+        ball.handleCollision(racket);
+        assertEquals(ball.speed(), new SpeedVector(5, 10));
+    }
 }
