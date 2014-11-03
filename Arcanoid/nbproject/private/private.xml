@@ -4,11 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Мария.Maria/Documents/GitHub/Arcanoid/Arcanoid/test/arcanoid/model/DestroyableBrickTest.java</file>
-            <file>file:/C:/Users/Мария.Maria/Documents/GitHub/Arcanoid/Arcanoid/src/arcanoid/model/DestroyableBrick.java</file>
-            <file>file:/C:/Users/Мария.Maria/Documents/GitHub/Arcanoid/Arcanoid/test/arcanoid/collision/CollisionObjectWithBoundaryTest.java</file>
+            <file>file:/C:/Users/Мария.Maria/Documents/GitHub/Arcanoid/Arcanoid/test/arcanoid/service/ImpulseOfStrikeForceTest.java</file>
             <file>file:/C:/Users/Мария.Maria/Documents/GitHub/Arcanoid/Arcanoid/test/arcanoid/model/RacketTest.java</file>
-            <file>file:/C:/Users/Мария.Maria/Documents/GitHub/Arcanoid/Arcanoid/src/arcanoid/model/Swarm.java</file>
-            <file>file:/C:/Users/Мария.Maria/Documents/GitHub/Arcanoid/Arcanoid/test/arcanoid/collision/CollisionObjectWithObjectTest.java</file>
+            <file>file:/C:/Users/Мария.Maria/Documents/GitHub/Arcanoid/Arcanoid/test/arcanoid/model/SwarmTest.java</file>
+            <file>file:/C:/Users/Мария.Maria/Documents/GitHub/Arcanoid/Arcanoid/test/arcanoid/service/SpeedVectorTest.java</file>
         </group>
     </open-files>
 </project-private>

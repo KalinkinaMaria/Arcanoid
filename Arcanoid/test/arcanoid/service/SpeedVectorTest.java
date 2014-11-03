@@ -47,7 +47,6 @@ public class SpeedVectorTest {
         SpeedVector result = new SpeedVector(15, 10);
         SpeedVector expResult = notNullVector.sum(nullVector);
         assertEquals(expResult, result);
-        fail("Суммирование нулевого и ненулевого вектора закончилось не успешно.");
     }
     
     /**
@@ -60,7 +59,6 @@ public class SpeedVectorTest {
         SpeedVector result = new SpeedVector(7, 4);
         SpeedVector expResult = vector1.sum(vector2);
         assertEquals(expResult, result);
-        fail("Суммирование двух произвольных векторов закончилось не успешно.");
     }
     
     /**
@@ -73,7 +71,6 @@ public class SpeedVectorTest {
         SpeedVector result = new SpeedVector(4, 2);
         SpeedVector expResult = vector1.sum(vector2);
         assertEquals(expResult, result);
-        fail("Суммирование одинаковых векторов закончилось не успешно.");
     }
     
     /**
@@ -86,7 +83,6 @@ public class SpeedVectorTest {
         SpeedVector result = new SpeedVector(0, 0);
         SpeedVector expResult = vector1.sum(vector2);
         assertEquals(expResult, result);
-        fail("Суммирование противоположенных векторов закончилось не успешно.");
     }
     
     /**
@@ -98,7 +94,6 @@ public class SpeedVectorTest {
         SpeedVector result = new SpeedVector(2, -1);
         SpeedVector expResult = vector1.reflect(Axis.X);
         assertEquals(expResult, result);
-        fail("Отражение вектора от оси X закончилось не успешно.");
     }
     
     /**
@@ -110,7 +105,6 @@ public class SpeedVectorTest {
         SpeedVector result = new SpeedVector(-2, 1);
         SpeedVector expResult = vector1.reflect(Axis.Y);
         assertEquals(expResult, result);
-        fail("Отражение вектора от оси Y закончилось не успешно.");
     }
     
     /**
@@ -122,7 +116,6 @@ public class SpeedVectorTest {
         SpeedVector result = new SpeedVector(0, 0);
         SpeedVector expResult = vector1.reflect(Axis.Y);
         assertEquals(expResult, result);
-        fail("Отражение нулевого вектора закончилось не успешно.");
     }
     
     /**
