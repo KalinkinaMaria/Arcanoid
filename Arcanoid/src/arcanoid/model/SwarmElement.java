@@ -17,8 +17,9 @@ import arcanoid.service.SpeedVector;
  */
 public class SwarmElement extends FieldElement {
 
-    public SwarmElement(Buffer table) {
+    public SwarmElement(Buffer table, double weight) {
         super(table);
+        this.weight = weight;
     }
 
 }
