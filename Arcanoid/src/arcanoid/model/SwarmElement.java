@@ -6,7 +6,7 @@
 
 package arcanoid.model;
 
-import arcanoid.buffer.Buffer;
+import arcanoid.service.Buffer;
 import arcanoid.service.ImpulseOfStrikeForce;
 import arcanoid.service.SpeedVector;
 
