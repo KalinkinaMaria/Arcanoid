@@ -31,4 +31,20 @@ public class DestroyableBrick extends Brick implements Bounced {
     private void changeStrength(int deltaStrength) {
         
     }
+    
+    /**
+     * Задать прочность кирпича
+     * @param strength прочность
+     */
+    public void setStrength(int strength) {
+        
+    }
+    
+    /**
+     * Получить прочность
+     * @return прочность
+     */
+    public int strength() {
+        
+    }
 }
