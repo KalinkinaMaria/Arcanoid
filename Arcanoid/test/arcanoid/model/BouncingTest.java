@@ -9,6 +9,7 @@ import arcanoid.service.Buffer;
 import arcanoid.service.SpeedVector;
 import com.golden.gamedev.object.Sprite;
 import java.awt.Point;
+import javafx.scene.chart.Axis;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -124,4 +125,95 @@ public class BouncingTest {
         ball2.handleCollision(new Point(), new SpeedVector(2, -2), clone1);
         assertEquals(ball2.speed(), new SpeedVector(2, -1/3));
     }
+    
+    // Тесты на отражение
+    /**
+     * Тест для тестирования обработки столкновения мяча с ракеткой в покое.
+     */
+    @Test
+    public void testHandleCollisionBallWithStopedRacket() {
+        System.out.println("Тест для тестирования обработки столкновения мяча с ракеткойв покое");
+        Racket racket = new Racket(table);
+        Ball ball = new Ball(table);
+        //Установить позиции
+        table.addPair(racket, new Sprite(10, 10));
+        table.addPair(ball, new Sprite(15, 10));
+        // Устанавливаем скорости
+        racket.setSpeed(new SpeedVector());
+        ball.setSpeed(new SpeedVector(10,-5));
+        ball.handleCollision(Axis.X, new Point(15, 10));
+        assertEquals(ball.speed(), new SpeedVector(10,5));
+    }
+    
+    /**
+     * Тест для тестирования обработки столкновения мяча с кирпичом.
+     */
+    @Test
+    public void testHandleCollisionBallWithBrick() {
+        System.out.println("Тест для тестирования обработки столкновения мяча с  кирпичом");
+        DestroyableBrick brick = new DestroyableBrick(table);
+        Ball ball = new Ball(table);
+        //Установить позиции
+        table.addPair(brick, new Sprite(10, 10));
+        table.addPair(ball, new Sprite(15, 20));
+        // Устанавливаем скорости
+        ball.setSpeed(new SpeedVector(10,5));
+        ball.handleCollision(Axis.X, new Point(15, 20));
+        assertEquals(ball.speed(), new SpeedVector(10,-5));
+    }
+    
+    /**
+     * Тест для тестирования обработки столкновения мяча с боковой стороной кирпича.
+     */
+    @Test
+    public void testHandleCollisionBallWithSideBrick() {
+        System.out.println("Тест для тестирования обработки столкновения мяча с боковой стороной кирпича");
+        DestroyableBrick brick = new DestroyableBrick(table);
+        Ball ball = new Ball(table);
+        ball.setWeight(1);
+        //Установить позиции
+        table.addPair(brick, new Sprite(10, 10));
+        table.addPair(ball, new Sprite(30, 15));
+        // Устанавливаем скорости
+        ball.setSpeed(new SpeedVector(-5,10));
+        ball.handleCollision(Axis.Y, new Point(30, 15));
+        assertEquals(ball.speed(), new SpeedVector(5, 10));
+    }
+    
+    /**
+     * Тест для тестирования обработки столкновения мяча с углом кирпича.
+     */
+    @Test
+    public void testHandleCollisionBallWithConerBrick() {
+        System.out.println("Тест для тестирования обработки столкновения мяча с углом кирпича");
+        DestroyableBrick brick = new DestroyableBrick(table);
+        Ball ball = new Ball(table);
+        ball.setWeight(1);
+        //Установить позиции
+        table.addPair(brick, new Sprite(10, 10));
+        table.addPair(ball, new Sprite(30, 20));
+        // Устанавливаем скорости
+        ball.setSpeed(new SpeedVector(-5,10));
+        ball.handleCollision(Axis.X, new Point(30, 10));
+        assertEquals(ball.speed(), new SpeedVector(5, 10));
+    }
+    
+    /**
+     * Тест для тестирования обработки столкновения мяча с углом ракетки.
+     */
+    @Test
+    public void testHandleCollisionBallWithConerRacket() {
+        System.out.println("Тест для тестирования обработки столкновения мяча с углом ракетки");
+        Racket racket = new Racket(table);
+        Ball ball = new Ball(table);
+        ball.setWeight(1);
+        //Установить позиции
+        table.addPair(racket, new Sprite(10, 10));
+        table.addPair(ball, new Sprite(30, 10));
+        // Устанавливаем скорости
+        ball.setSpeed(new SpeedVector(-5, -10));
+        ball.handleCollision(Axis.X, new Point(30, 10));
+        assertEquals(ball.speed(), new SpeedVector(5, 10));
+    }
+   
 }
