@@ -7,6 +7,7 @@
 package arcanoid.service;
 
 import arcanoid.model.FieldElement;
+import arcanoid.model.Ball;
 
 /**
  * Импульс силы удара
@@ -19,8 +20,9 @@ public class ImpulseOfStrikeForce {
     /**
      * Рассчитать импульс силы удара элемента
      * @param element 
+     * @return  значение импульса
      */
-    public static double countImpulsrOfStrikeForce(FieldElement element) {
+    public static double count(FieldElement element) {
         
     }
 }

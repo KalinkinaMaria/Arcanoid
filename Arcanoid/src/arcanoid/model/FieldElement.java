@@ -47,9 +47,6 @@ public abstract class FieldElement {
     
     /**
      * Конструктор
-     * @param weight вес
-     * @param speed скорость
-     * @param subtype подтип
      */
     public FieldElement ( Buffer table) {
         this.table = table;
@@ -118,5 +115,14 @@ public abstract class FieldElement {
      */
     public void setSpeed (SpeedVector speed) {
         this.speed = speed;
+    }
+    
+    /**
+     * Задать вес
+     * 
+     * @param weight вес
+     */
+    public void setWeight (double weight) {
+        this.weight = weight;
     }
 }
