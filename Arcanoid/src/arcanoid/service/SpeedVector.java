@@ -73,4 +73,14 @@ public class SpeedVector {
     public SpeedVector multiplication (double constant) {
         
     }
+    
+    /**
+     * Сравнение
+     * @param other
+     * @return
+     */
+    @Override
+    public boolean equals(Object other) {
+        return (getClass() == other.getClass() && this.speedX == ((SpeedVector)other).speedX && this.speedY == ((SpeedVector)other).speedY);
+    }
 }
