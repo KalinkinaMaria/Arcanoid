@@ -6,7 +6,9 @@
 package arcanoid.collision;
 
 import arcanoid.events.SpritesCollidedListener;
+import com.golden.gamedev.GameLoader;
 import com.golden.gamedev.object.Sprite;
+import java.awt.Dimension;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -40,29 +42,14 @@ public class CollisionObjectWithBoundaryTest {
     }
 
     /**
-     * Test of addSpritesCollidedListener method, of class CollisionObjectWithBoundary.
-     */
-    @Test
-    public void testAddSpritesCollidedListener() {
-        System.out.println("addSpritesCollidedListener");
-        SpritesCollidedListener element = null;
-        CollisionObjectWithBoundary instance = null;
-        instance.addSpritesCollidedListener(element);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of collided method, of class CollisionObjectWithBoundary.
      */
     @Test
     public void testCollided() {
         System.out.println("collided");
-        Sprite sprite = null;
-        CollisionObjectWithBoundary instance = null;
-        instance.collided(sprite);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        GameLoader game = new GameLoader();
+        game.setup(new BallWithRacketCollision(), new Dimension(800,600), false);
+        game.start();
     }
     
 }
