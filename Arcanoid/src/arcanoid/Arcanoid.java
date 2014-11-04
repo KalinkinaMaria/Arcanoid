@@ -12,7 +12,7 @@ import arcanoid.events.GameStateChangeListener;
  *
  * @author Мария
  */
-public class Arcanoid implements GameStateChangeListener {
+public class Arcanoid implements GameFieldChangeListener {
     /** Игровое поле*/
     private GameField field;
     /** Игрок*/

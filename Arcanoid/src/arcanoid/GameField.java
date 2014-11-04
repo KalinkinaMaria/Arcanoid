@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * 
  * @author Мария
  */
-public class GameField implements FieldElementCreatedListener, FieldElementRemovedListener {
+public class GameField implements GameStateChangeListener {
     /** Таблица соответствий элемента поля со спрайтом */
     private Buffer table;
     /** Элементы поля */
