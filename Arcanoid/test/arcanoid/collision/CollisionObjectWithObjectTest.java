@@ -9,24 +9,28 @@ import arcanoid.events.SpritesCollidedListener;
 import com.golden.gamedev.GameLoader;
 import com.golden.gamedev.object.Sprite;
 import java.awt.Dimension;
+import java.nio.Buffer;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
  * @author Мария
  */
 public class CollisionObjectWithObjectTest {
+    private Buffer table;
     
     public CollisionObjectWithObjectTest() {
+        table = new Buffer();
     }
     
     @BeforeClass
     public static void setUpClass() {
+        
     }
     
     @AfterClass
@@ -35,6 +39,7 @@ public class CollisionObjectWithObjectTest {
     
     @Before
     public void setUp() {
+        table = new Buffer();
     }
     
     @After
@@ -48,7 +53,7 @@ public class CollisionObjectWithObjectTest {
     public void testCollidedBallWithRacket() {
         System.out.println("Тест на столкновение мяча и ракетки");
         GameLoader game = new GameLoader();
-        game.setup(new BallWithRacketCollision(), new Dimension(800,600), false);
+        game.setup(new BallWithRacketCollision(table), new Dimension(800,600), false);
         game.start();
     }
     

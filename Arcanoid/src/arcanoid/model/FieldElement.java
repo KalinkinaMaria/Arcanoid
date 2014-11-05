@@ -29,6 +29,8 @@ public abstract class FieldElement {
     protected SpeedVector speed;
     /** Слушатели изменения игрового поля*/
     private ArrayList<GameFieldChangeListener> gameFieldChangeListeners = new ArrayList<>();
+    /** Слушатели окончания обработки столкновения ДЛЯ ТЕСТОВ*/
+    private ArrayList<CollisionHandleEndListener> collisionHandleEndListeners = new ArrayList<>();
     
     /** 
      * Добавить слушателя создания элемента
@@ -42,6 +44,21 @@ public abstract class FieldElement {
      * Испустить сигнал, что элемент поля создан
      */
     private void fireGameFieldChange() {
+        
+    }
+    
+    /** 
+     * Добавить слушателя окончания обработки ДЛЯ ТЕСТОВ
+     * @param listener слушатель
+     */
+    public void addCollisionHandleEndListener (CollisionHandleEndListener listener) {
+        
+    }
+    
+    /**
+     * Испустить сигнал, что элемент закончил обработку ДЛЯ ТЕСТОВ
+     */
+    private void fireCollisionHandleEnd() {
         
     }
     

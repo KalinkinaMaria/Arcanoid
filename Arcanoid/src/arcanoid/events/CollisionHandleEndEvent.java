@@ -13,11 +13,11 @@ package arcanoid.events;
  */
 public class CollisionHandleEndEvent extends EventObject {
     /** Первый элемент*/
-    private FieldElement firstElement;
+    public FieldElement firstElement;
     /** Второй элемент */
-    private FieldElement secondElement;
+    public FieldElement secondElement;
     /** Третий элемент */
-    private FieldElement thirdElement;
+    public FieldElement thirdElement;
     
     /**
      * Конструктор
