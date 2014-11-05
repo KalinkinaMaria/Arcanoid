@@ -94,7 +94,7 @@ public class FieldElementTest {
         // Устанавливаем скорости
         ball.setSpeed(new SpeedVector(10,-10));
         ball.handleCollision(swarm);
-        assertEquals(ball.speed(), new SpeedVector());
+        assertEquals(ball.speed(), null);
     }
     
     /**

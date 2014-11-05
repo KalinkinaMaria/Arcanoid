@@ -163,7 +163,7 @@ public class CollisionObjectWithObjectTest {
     public void testCollidedTreeBalls() {
         System.out.println("Тест на столкновение трех мячей");
         GameLoader game = new GameLoader();
-        game.setup(new BallWithRacketCollision(), new Dimension(800,600), false);
+        game.setup(new TreeBalls(table), new Dimension(800,600), false);
         game.start();
     }
     
