@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package arcanoid.collision;
 
 import arcanoid.events.CollisionHandleEndEvent;
@@ -16,14 +17,12 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.nio.Buffer;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertEquals;
 
 /**
  *
  * @author Елена
  */
-public class BallWithRacketCollision extends Game implements CollisionHandleEndListener {
+public class BallWithCornerRacket extends Game implements CollisionHandleEndListener {
     /** Игровое поле */
     private PlayField  playfield;
     /** Группа шарика */
@@ -39,7 +38,7 @@ public class BallWithRacketCollision extends Game implements CollisionHandleEndL
      * Конструктор
      * @param table Буфер
      */
-    public BallWithRacketCollision(Buffer table) {
+    public BallWithCornerRacket(Buffer table) {
         this.table = table;
     }
     
@@ -58,7 +57,7 @@ public class BallWithRacketCollision extends Game implements CollisionHandleEndL
         // Создание спрайтов
         BufferedImage ballImage = getImage("img/ball.png");
         BufferedImage racketImage = getImage("img/r.png");
-        Sprite ball = new Sprite(ballImage, 280, 480);
+        Sprite ball = new Sprite(ballImage, 400, 500);
         Sprite racket = new Sprite(racketImage, 220, 525);
         //Заполняем буфер
         Ball ballElement = new Ball(table);
@@ -66,7 +65,7 @@ public class BallWithRacketCollision extends Game implements CollisionHandleEndL
         table.addPair(ballElement, ball);
         table.addPair(racketElement, racket);
         ballElement.addCollisionHandleEndListener(this);
-        ball.setSpeed(1, -1);
+        ball.setSpeed(-0.5, -1);
         // Добавление в спрайт группу и установка коллизии
         ballGroup.add(ball);
         racketGroup.add(racket);
@@ -98,7 +97,7 @@ public class BallWithRacketCollision extends Game implements CollisionHandleEndL
      */
     @Override
     public void checkAssertion(CollisionHandleEndEvent e) {
-        assertEquals(e.firstElement.speed(), new SpeedVector(1,1));
+        assertEquals(e.firstElement.speed(), new SpeedVector(0.5,1));
         assertEquals(e.secondElement.speed(), new SpeedVector());
     }
 }
