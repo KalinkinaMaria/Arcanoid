@@ -34,7 +34,7 @@ public class BallWithRacketCollision extends Game {
         // Создание спрайтов
         BufferedImage ballImage = getImage("img/ball.png");
         BufferedImage racketImage = getImage("img/r.png");
-        Sprite ball = new Sprite(ballImage, 300, 500);
+        Sprite ball = new Sprite(ballImage, 280, 480);
         Sprite racket = new Sprite(racketImage, 220, 525);
         ball.setSpeed(1, -1);
         // Добавление в спрайт группу и установка коллизии

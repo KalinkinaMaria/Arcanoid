@@ -41,15 +41,5 @@ public class CollisionObjectWithBoundaryTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of collided method, of class CollisionObjectWithBoundary.
-     */
-    @Test
-    public void testCollided() {
-        System.out.println("collided");
-        GameLoader game = new GameLoader();
-        game.setup(new BallWithRacketCollision(), new Dimension(800,600), false);
-        game.start();
-    }
-    
+
 }

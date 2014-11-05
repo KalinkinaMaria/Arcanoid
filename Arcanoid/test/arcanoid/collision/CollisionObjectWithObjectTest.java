@@ -6,7 +6,9 @@
 package arcanoid.collision;
 
 import arcanoid.events.SpritesCollidedListener;
+import com.golden.gamedev.GameLoader;
 import com.golden.gamedev.object.Sprite;
+import java.awt.Dimension;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -39,43 +41,129 @@ public class CollisionObjectWithObjectTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of addSpritesCollidedListener method, of class CollisionObjectWithObject.
+     /**
+     * Тест на столкновение мяча и ракетки
      */
     @Test
-    public void testAddSpritesCollidedListener() {
-        System.out.println("addSpritesCollidedListener");
-        SpritesCollidedListener element = null;
-        CollisionObjectWithObject instance = new CollisionObjectWithObject();
-        instance.addSpritesCollidedListener(element);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testCollidedBallWithRacket() {
+        System.out.println("Тест на столкновение мяча и ракетки");
+        GameLoader game = new GameLoader();
+        game.setup(new BallWithRacketCollision(), new Dimension(800,600), false);
+        game.start();
     }
-
-    /**
-     * Test of fireSpritesCollided method, of class CollisionObjectWithObject.
-     */
-    @Test
-    public void testFireSpritesCollided() {
-        System.out.println("fireSpritesCollided");
-        CollisionObjectWithObject instance = new CollisionObjectWithObject();
-        instance.fireSpritesCollided();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    
+    public void checkAssertBallWithRacket() {
+        
     }
-
+    
     /**
-     * Test of collided method, of class CollisionObjectWithObject.
+     * Тест на столкновение мяча и угла ракетки
      */
     @Test
-    public void testCollided() {
-        System.out.println("collided");
-        Sprite sprite = null;
-        Sprite sprite1 = null;
-        CollisionObjectWithObject instance = new CollisionObjectWithObject();
-        instance.collided(sprite, sprite1);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testCollidedBallWithCornerRacket() {
+        System.out.println(" Тест на столкновение мяча и угла ракетки");
+        GameLoader game = new GameLoader();
+        game.setup(new BallWithRacketCollision(), new Dimension(800,600), false);
+        game.start();
+    }
+    
+    /**
+     * Тест на столкновение мяча и кирпича
+     */
+    @Test
+    public void testCollidedBallWithBrick() {
+        System.out.println("Тест на столкновение мяча и кирпича");
+        GameLoader game = new GameLoader();
+        game.setup(new BallWithRacketCollision(), new Dimension(800,600), false);
+        game.start();
+    }
+    
+    /**
+     * Тест на столкновение мяча и двух кирпичей на одной линии
+     */
+    @Test
+    public void testCollidedBallWithTwoHorizontalBrick() {
+        System.out.println("Тест на столкновение мяча и двух кирпичей на одной линии");
+        GameLoader game = new GameLoader();
+        game.setup(new BallWithRacketCollision(), new Dimension(800,600), false);
+        game.start();
+    }
+    
+    /**
+     * Тест на столкновение мяча и двух кирпичей в углу
+     */
+    @Test
+    public void testCollidedBallWithTwoCornerBrick() {
+        System.out.println("Тест на столкновение мяча и двух кирпичей в углу");
+        GameLoader game = new GameLoader();
+        game.setup(new BallWithRacketCollision(), new Dimension(800,600), false);
+        game.start();
+    }
+    
+    /**
+     * Тест на столкновение мяча и угла кирпича
+     */
+    @Test
+    public void testCollidedBallWithCornerBrick() {
+        System.out.println("Тест на столкновение мяча и угла кирпича");
+        GameLoader game = new GameLoader();
+        game.setup(new BallWithRacketCollision(), new Dimension(800,600), false);
+        game.start();
+    }
+    
+    /**
+     * Тест на столкновение мяча и боковой стороны кирпича
+     */
+    @Test
+    public void testCollidedBallWithSideBrick() {
+        System.out.println("Тест на столкновение мяча и боковой стороны кирпича");
+        GameLoader game = new GameLoader();
+        game.setup(new BallWithRacketCollision(), new Dimension(800,600), false);
+        game.start();
+    }
+    
+    /**
+     * Тест на столкновение мяча и роя
+     */
+    @Test
+    public void testCollidedBallWithSwarm() {
+        System.out.println("Тест на столкновение мяча и роя");
+        GameLoader game = new GameLoader();
+        game.setup(new BallWithRacketCollision(), new Dimension(800,600), false);
+        game.start();
+    }
+    
+    /**
+     * Тест на столкновение мяча и такого же мяча
+     */
+    @Test
+    public void testCollidedBallWithSameBall() {
+        System.out.println("Тест на столкновение мяча и такого же мяча");
+        GameLoader game = new GameLoader();
+        game.setup(new BallWithRacketCollision(), new Dimension(800,600), false);
+        game.start();
+    }
+    
+    /**
+     * Тест на столкновение мяча и другого мяча
+     */
+    @Test
+    public void testCollidedBallWithAnotherBall() {
+        System.out.println("Тест на столкновение мяча и другого мяча");
+        GameLoader game = new GameLoader();
+        game.setup(new BallWithRacketCollision(), new Dimension(800,600), false);
+        game.start();
+    }
+    
+    /**
+     * Тест на столкновение трех мячей
+     */
+    @Test
+    public void testCollidedTreeBalls() {
+        System.out.println("Тест на столкновение трех мячей");
+        GameLoader game = new GameLoader();
+        game.setup(new BallWithRacketCollision(), new Dimension(800,600), false);
+        game.start();
     }
     
 }
