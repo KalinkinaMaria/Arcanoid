@@ -97,7 +97,7 @@ public class CollisionObjectWithObjectTest {
     public void testCollidedBallWithTwoCornerBrick() {
         System.out.println("Тест на столкновение мяча и двух кирпичей в углу");
         GameLoader game = new GameLoader();
-        game.setup(new BallWithRacketCollision(), new Dimension(800,600), false);
+        game.setup(new BallWithTwoCornerBrick(table), new Dimension(800,600), false);
         game.start();
     }
     
