@@ -152,7 +152,7 @@ public class CollisionObjectWithObjectTest {
     public void testCollidedBallWithAnotherBall() {
         System.out.println("Тест на столкновение мяча и другого мяча");
         GameLoader game = new GameLoader();
-        game.setup(new BallWithRacketCollision(), new Dimension(800,600), false);
+        game.setup(new BallWithAnotherBall(table), new Dimension(800,600), false);
         game.start();
     }
     
