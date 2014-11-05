@@ -52,10 +52,6 @@ public class CollisionObjectWithObjectTest {
         game.start();
     }
     
-    public void checkAssertBallWithRacket() {
-        
-    }
-    
     /**
      * Тест на столкновение мяча и угла ракетки
      */
