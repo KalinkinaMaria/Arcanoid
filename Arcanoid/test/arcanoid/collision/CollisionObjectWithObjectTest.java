@@ -64,7 +64,7 @@ public class CollisionObjectWithObjectTest {
     public void testCollidedBallWithCornerRacket() {
         System.out.println(" Тест на столкновение мяча и угла ракетки");
         GameLoader game = new GameLoader();
-        game.setup(new BallWithRacketCollision(), new Dimension(800,600), false);
+        game.setup(new BallWithCornerRacket(table), new Dimension(800,600), false);
         game.start();
     }
     
@@ -75,7 +75,7 @@ public class CollisionObjectWithObjectTest {
     public void testCollidedBallWithBrick() {
         System.out.println("Тест на столкновение мяча и кирпича");
         GameLoader game = new GameLoader();
-        game.setup(new BallWithRacketCollision(), new Dimension(800,600), false);
+        game.setup(new BallWithBrick(table), new Dimension(800,600), false);
         game.start();
     }
     
@@ -86,7 +86,7 @@ public class CollisionObjectWithObjectTest {
     public void testCollidedBallWithTwoHorizontalBrick() {
         System.out.println("Тест на столкновение мяча и двух кирпичей на одной линии");
         GameLoader game = new GameLoader();
-        game.setup(new BallWithRacketCollision(), new Dimension(800,600), false);
+        game.setup(new BallWithTwoHorizontalBrick(table), new Dimension(800,600), false);
         game.start();
     }
     

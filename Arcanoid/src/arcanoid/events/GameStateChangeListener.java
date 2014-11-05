@@ -19,6 +19,7 @@ public interface GameStateChangeListener extends EventListener {
      * @param e 
      */
     void fail(GameStateChangeEvent e);
+    
     /**
      * Обработать событие конца игры
      * 
