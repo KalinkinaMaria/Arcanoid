@@ -119,7 +119,7 @@ public class CollisionObjectWithObjectTest {
     public void testCollidedBallWithSideBrick() {
         System.out.println("Тест на столкновение мяча и боковой стороны кирпича");
         GameLoader game = new GameLoader();
-        game.setup(new BallWithRacketCollision(), new Dimension(800,600), false);
+        game.setup(new BallWithSideBrick(table), new Dimension(800,600), false);
         game.start();
     }
     
