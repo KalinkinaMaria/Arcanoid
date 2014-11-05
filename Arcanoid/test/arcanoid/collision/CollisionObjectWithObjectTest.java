@@ -130,7 +130,7 @@ public class CollisionObjectWithObjectTest {
     public void testCollidedBallWithSwarm() {
         System.out.println("Тест на столкновение мяча и роя");
         GameLoader game = new GameLoader();
-        game.setup(new BallWithRacketCollision(), new Dimension(800,600), false);
+        game.setup(new BallWithSwarm(table), new Dimension(800,600), false);
         game.start();
     }
     

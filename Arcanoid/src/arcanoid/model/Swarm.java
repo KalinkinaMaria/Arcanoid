@@ -34,6 +34,13 @@ public class Swarm extends FieldElement {
     }
     
     /**
+     * Вернуть все элементы роя
+     */
+    public ArrayList<SwarmElement> elements() {
+        
+    }
+    
+    /**
      * Добавить слушателя события окончания игры
      * 
      * @param listener слушатель
