@@ -55,6 +55,10 @@ public abstract class FieldElement {
         
     }
     
+    public ArrayList<SpeedVector> countSpeed(FieldElement element) {
+        
+    }
+    
     /**
      * Испустить сигнал, что элемент закончил обработку ДЛЯ ТЕСТОВ
      */
