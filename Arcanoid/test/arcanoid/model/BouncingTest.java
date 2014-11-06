@@ -54,17 +54,19 @@ public class BouncingTest {
     public void testHandleCollisionBoucingWithMovingBounced() {
         System.out.println("Тестирование столкновения отскакивающего с тем от которого можно отскочить в движении");
         Racket racket = new Racket(table);
-        Ball ball = new Ball(table);
+        Bouncing ball = new Bouncing(table);
         SpeedVector vector1 = new SpeedVector(3, 0);
         SpeedVector vector2 = new SpeedVector(10,-5);
         //Установить позиции
+        Point position = new Point(15, 10);
         table.addPair(racket, new Sprite(10, 10));
         table.addPair(ball, new Sprite(15, 10));
         // Устанавливаем скорости
         racket.setSpeed(vector1);
         ball.setSpeed(vector2);
-        ball.handleCollision(new Point(15, 10), vector1, racket);
+        ball.handleCollision(position, vector1, racket);
         assertEquals(ball.speed(), vector2.sum(vector1));
+        assertEquals(ball.position(), position);
     }
     
     /**
@@ -74,18 +76,20 @@ public class BouncingTest {
     public void testHandleCollisionBoucingWithConerMovingBounced() {
         System.out.println("Тестирование столкновения отскакивающего с углом того от которого можно отскочить в движении");
         Racket racket = new Racket(table);
-        Ball ball = new Ball(table);
+        Bouncing ball = new Ball(table);
         ball.setWeight(1);
         SpeedVector vector1 = new SpeedVector(-5, -10);
         SpeedVector vector2 = new SpeedVector(3,0);
         //Установить позиции
+        Point position = new Point(30, 10);
         table.addPair(racket, new Sprite(10, 10));
         table.addPair(ball, new Sprite(30, 10));
         // Устанавливаем скорости
         ball.setSpeed(vector1);
         racket.setSpeed(vector2);
-        ball.handleCollision(new Point(30, 10), vector2, racket);
-        assertEquals(ball.speed(), vector1.reflect(Axic.X));
+        ball.handleCollision(position, vector2, racket);
+        assertEquals(ball.speed(), vector1.reflect(Axis.X));
+        assertEquals(ball.position(), position);
     }
     
     /**
@@ -94,21 +98,28 @@ public class BouncingTest {
     @Test
     public void testHandleCollisionBouncingWithSameBouncing() {
         System.out.println("Тестирование отскока отскакивающиго от того же отскакивающего");
-        Ball ball1 = new Ball(table);
-        Ball ball2 = new Ball(table);
+        Bouncing ball1 = new Bouncing(table);
+        Bouncing ball2 = new Bouncing(table);
         ball1.setWeight(1);
         ball2.setWeight(1);
         SpeedVector vector1 = new SpeedVector(2, -2);
         SpeedVector vector2 = new SpeedVector(2, 5);
+        Point position1 = new Point(10, 10);
+        Point position2 = new Point(15, 10);
+        
+        table.addPair(ball1, new Sprite(10, 10));
+        table.addPair(ball2, new Sprite(15, 10));
         // Устанавливаем скорости
         ball1.setSpeed(vector1);
         ball2.setSpeed(vector2);
-        Ball clone1 = ball1.clone();
-        Ball clone2 = ball2.clone();
+        Bouncing clone1 = ball1.clone();
+        Bouncing clone2 = ball2.clone();
         ball1.handleCollision(new Point(),vector2, clone2);
         assertEquals(ball1.speed(), vector2);
+        assertEquals(ball1.position(), position1);
         ball2.handleCollision(new Point(), vector1, clone1);
         assertEquals(ball2.speed(), vector1);
+        assertEquals(ball1.position(), position2);
     }
     
     /**
@@ -117,21 +128,27 @@ public class BouncingTest {
     @Test
     public void testHandleCollisionBouncingWithAnotherBouncing() {
         System.out.println("Тестирование отскока отскакивающиго от другого отскакивающего");
-        Ball ball1 = new Ball(table);
-        Ball ball2 = new Ball(table);
+        Bouncing ball1 = new Bouncing(table);
+        Bouncing ball2 = new Bouncing(table);
         ball1.setWeight(1);
         ball2.setWeight(2);
+        Point position1 = new Point(10, 10);
+        Point position2 = new Point(15, 10);
+        table.addPair(ball1, new Sprite(10, 10));
+        table.addPair(ball2, new Sprite(15, 10));
         SpeedVector vector1 = new SpeedVector(2, -2);
         SpeedVector vector2 = new SpeedVector(2, 5);
         // Устанавливаем скорости
         ball1.setSpeed(vector1);
         ball2.setSpeed(vector2);
-        Ball clone1 = ball1.clone();
-        Ball clone2 = ball2.clone();
+        Bouncing clone1 = ball1.clone();
+        Bouncing clone2 = ball2.clone();
         ball1.handleCollision(new Point(),vector2, clone2);
-        assertEquals(ball1.speed(), new SpeedVector(2, 22/3));
+        assertEquals(ball1.speed(), ball1.countSpeed(ball2).get(0));
+        assertEquals(ball1.position(), position1);
         ball2.handleCollision(new Point(), vector1, clone1);
-        assertEquals(ball2.speed(), new SpeedVector(2, -1/3));
+        assertEquals(ball2.speed(), ball1.countSpeed(ball2).get(1));
+        assertEquals(ball2.position(), position2);
     }
     
     // Тесты на отражение
@@ -139,89 +156,64 @@ public class BouncingTest {
      * Тест для тестирования обработки столкновения мяча с ракеткой в покое.
      */
     @Test
-    public void testHandleCollisionBallWithStopedRacket() {
+    public void testHandleCollisionBouncingWithBouncedAxisX() {
         System.out.println("Тест для тестирования обработки столкновения мяча с ракеткойв покое");
         Racket racket = new Racket(table);
-        Ball ball = new Ball(table);
+        Bouncing ball = new Bouncing(table);
         //Установить позиции
+        Point position = new Point(15, 10);
         table.addPair(racket, new Sprite(10, 10));
         table.addPair(ball, new Sprite(15, 10));
         // Устанавливаем скорости
-        racket.setSpeed(new SpeedVector());
-        ball.setSpeed(new SpeedVector(10,-5));
-        ball.handleCollision(Axis.X, new Point(15, 10));
-        assertEquals(ball.speed(), new SpeedVector(10,5));
-    }
-    
-    /**
-     * Тест для тестирования обработки столкновения мяча с кирпичом.
-     */
-    @Test
-    public void testHandleCollisionBallWithBrick() {
-        System.out.println("Тест для тестирования обработки столкновения мяча с  кирпичом");
-        DestroyableBrick brick = new DestroyableBrick(table);
-        Ball ball = new Ball(table);
-        //Установить позиции
-        table.addPair(brick, new Sprite(10, 10));
-        table.addPair(ball, new Sprite(15, 20));
-        // Устанавливаем скорости
-        ball.setSpeed(new SpeedVector(10,5));
-        ball.handleCollision(Axis.X, new Point(15, 20));
-        assertEquals(ball.speed(), new SpeedVector(10,-5));
+        SpeedVector vector1 = new SpeedVector();
+        SpeedVector vector2 = new SpeedVector(10,-5);
+        racket.setSpeed(vector1);
+        ball.setSpeed(vector2);
+        ball.handleCollision(Axis.X, position);
+        assertEquals(ball.speed(), vector1.reflect(Axis.X));
+        assertEquals(ball.position(), position);
     }
     
     /**
      * Тест для тестирования обработки столкновения мяча с боковой стороной кирпича.
      */
     @Test
-    public void testHandleCollisionBallWithSideBrick() {
+    public void testHandleCollisionBouncingWithBouncedAxisY() {
         System.out.println("Тест для тестирования обработки столкновения мяча с боковой стороной кирпича");
         DestroyableBrick brick = new DestroyableBrick(table);
-        Ball ball = new Ball(table);
+        Bouncing ball = new Bouncing(table);
         ball.setWeight(1);
         //Установить позиции
+        Point position = new Point(30, 15);
         table.addPair(brick, new Sprite(10, 10));
         table.addPair(ball, new Sprite(30, 15));
         // Устанавливаем скорости
-        ball.setSpeed(new SpeedVector(-5,10));
-        ball.handleCollision(Axis.Y, new Point(30, 15));
-        assertEquals(ball.speed(), new SpeedVector(5, 10));
+        SpeedVector vector1 = new SpeedVector(-5,10);
+        ball.setSpeed(vector1);
+        ball.handleCollision(Axis.Y, position);
+        assertEquals(ball.speed(), vector1.reflect(Axis.Y));
+        assertEquals(ball.position(), position);
     }
     
     /**
      * Тест для тестирования обработки столкновения мяча с углом кирпича.
      */
     @Test
-    public void testHandleCollisionBallWithConerBrick() {
+    public void testHandleCollisionBouncingWithConerBounced() {
         System.out.println("Тест для тестирования обработки столкновения мяча с углом кирпича");
         DestroyableBrick brick = new DestroyableBrick(table);
-        Ball ball = new Ball(table);
+        Bouncing ball = new Bouncing(table);
         ball.setWeight(1);
         //Установить позиции
         table.addPair(brick, new Sprite(10, 10));
         table.addPair(ball, new Sprite(30, 20));
+        Point position = new Point(30, 10);
         // Устанавливаем скорости
-        ball.setSpeed(new SpeedVector(-5,10));
-        ball.handleCollision(Axis.X, new Point(30, 10));
-        assertEquals(ball.speed(), new SpeedVector(5, 10));
-    }
-    
-    /**
-     * Тест для тестирования обработки столкновения мяча с углом ракетки.
-     */
-    @Test
-    public void testHandleCollisionBallWithConerRacket() {
-        System.out.println("Тест для тестирования обработки столкновения мяча с углом ракетки");
-        Racket racket = new Racket(table);
-        Ball ball = new Ball(table);
-        ball.setWeight(1);
-        //Установить позиции
-        table.addPair(racket, new Sprite(10, 10));
-        table.addPair(ball, new Sprite(30, 10));
-        // Устанавливаем скорости
-        ball.setSpeed(new SpeedVector(-5, -10));
-        ball.handleCollision(Axis.X, new Point(30, 10));
-        assertEquals(ball.speed(), new SpeedVector(5, 10));
+        SpeedVector vector1 = new SpeedVector(-5,10);
+        ball.setSpeed(vector1);
+        ball.handleCollision(Axis.X, position);
+        assertEquals(ball.speed(), vector1.reflect(Axis.X));
+        assertEquals(ball.position(), position);
     }
    
 }
