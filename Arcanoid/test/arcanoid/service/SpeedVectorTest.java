@@ -5,6 +5,8 @@
  */
 package arcanoid.service;
 
+import com.golden.gamedev.object.Sprite;
+import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -116,6 +118,56 @@ public class SpeedVectorTest {
         SpeedVector result = new SpeedVector(0, 0);
         SpeedVector expResult = vector1.reflect(Axis.Y);
         assertEquals(expResult, result);
+    }
+    
+    /**
+     * Тест изменения скоростей при столкновении двух отскакивающих с одинаковой массой
+     */
+    @Test
+    public void testCountSpeedSameWeight() {
+        Buffer table = new Buffer();
+        FieldElement element1 = new FieldElement(table);
+        FieldElement element2 = new FieldElement(table);
+        // Устанавливаем вес
+        element1.setWeight(1);
+        element2.setWeight(1);
+        
+        table.addPair(element1, new Sprite(10, 10));
+        table.addPair(element1, new Sprite(15, 10));
+        //Устанавливаем скорость
+        SpeedVector vector1 = new SpeedVector(0.5, 1);
+        SpeedVector vector2 = new SpeedVector(-0.3, 1);
+        element1.setSpeed(vector1);
+        element2.setSpeed(vector2);
+        ArrayList<SpeedVector> result = new ArrayList<>();
+        result.add(vector2);
+        result.add(vector1);
+        assertEquals(element1.countSpeed(element2), result);
+    }
+    
+    /**
+     * Тест изменения скоростей при столкновении двух отскакивающих с разной массой
+     */
+    @Test
+    public void testCountSpeedSameWeight() {
+        Buffer table = new Buffer();
+        FieldElement element1 = new FieldElement(table);
+        FieldElement element2 = new FieldElement(table);
+        // Устанавливаем вес
+        element1.setWeight(1);
+        element2.setWeight(3);
+        
+        table.addPair(element1, new Sprite(10, 10));
+        table.addPair(element1, new Sprite(15, 10));
+        //Устанавливаем скорость
+        SpeedVector vector1 = new SpeedVector(0.5, 1);
+        SpeedVector vector2 = new SpeedVector(-0.3, 1);
+        element1.setSpeed(vector1);
+        element2.setSpeed(vector2);
+        ArrayList<SpeedVector> result = new ArrayList<>();
+        result.add(new SpeedVector(-0.575, 1));
+        result.add(new SpeedVector(0.1, 1));
+        assertEquals(element1.countSpeed(element2), result);
     }
     
 }
