@@ -25,9 +25,11 @@ import static org.junit.Assert.*;
  */
 public class FieldElementTest {
     private Buffer table;
+    private GameField field;
     
     public FieldElementTest() {
         table = new Buffer();
+        field = new GameField();
     }
     
     @BeforeClass
@@ -41,6 +43,7 @@ public class FieldElementTest {
     @Before
     public void setUp() {
         table = new Buffer();
+        field = new GameField();
     }
     
     @After
@@ -91,10 +94,11 @@ public class FieldElementTest {
         System.out.println("Тест для тестирования обработки столкновения мяча с роем");
         Swarm swarm = new Swarm(table, 1);
         Ball ball = new Ball(table);
+        field.addElement(ball);
         // Устанавливаем скорости
         ball.setSpeed(new SpeedVector(10,-10));
         ball.handleCollision(swarm);
-        assertEquals(ball.speed(), null);
+        assertFalse(field.containsElement(ball));
     }
     
     /**
@@ -174,13 +178,15 @@ public class FieldElementTest {
         DestroyableBrick brick = new DestroyableBrick(table);
         Ball ball = new Ball(table);
         ball.setWeight(1);
+        field.addElement(brick);
+        field.addElement(ball);
         //Установить позиции
         table.addPair(brick, new Sprite(10, 10));
         table.addPair(ball, new Sprite(15, 20));
         // Устанавливаем скорости
         ball.setSpeed(new SpeedVector(10,5));
         brick.handleCollision(ball);
-        assertEquals(brick, null);
+        assertFalse(field.containsElement(brick));
     }
     
     /**
@@ -193,13 +199,15 @@ public class FieldElementTest {
         Ball ball = new Ball(table);
         ball.setWeight(1);
         brick.setStrength(1);
+        field.addElement(brick);
+        field.addElement(ball);
         //Установить позиции
         table.addPair(brick, new Sprite(10, 10));
         table.addPair(ball, new Sprite(15, 20));
         // Устанавливаем скорости
         ball.setSpeed(new SpeedVector(10,5));
         brick.handleCollision(ball);
-        assertEquals(brick, null);
+        assertFalse(field.containsElement(brick));
     }
     
     /**
