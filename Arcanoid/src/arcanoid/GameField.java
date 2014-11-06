@@ -40,6 +40,15 @@ public class GameField implements GameStateChangeListener {
     }
     
     /**
+     * Проверить наличие элемента
+     * @param element элемент
+     * @return флаг - наличие элемента
+     */
+    public boolean containsElement(FieldElement element) {
+        
+    }
+    
+    /**
      * Удалить элемент
      * @param element элемент
      */
