@@ -75,7 +75,7 @@ public class CollisionObjectWithObjectTest {
     public void testCollidedBallWithBrick() {
         System.out.println("Тест на столкновение мяча и кирпича");
         GameLoader game = new GameLoader();
-        game.setup(new BallWithBrick(table), new Dimension(800,600), false);
+        game.setup(new BallWithBricks(table, 1), new Dimension(800,600), false);
         game.start();
     }
     
@@ -86,7 +86,7 @@ public class CollisionObjectWithObjectTest {
     public void testCollidedBallWithTwoHorizontalBrick() {
         System.out.println("Тест на столкновение мяча и двух кирпичей на одной линии");
         GameLoader game = new GameLoader();
-        game.setup(new BallWithTwoHorizontalBrick(table), new Dimension(800,600), false);
+        game.setup(new BallWithBricks(table, 0), new Dimension(800,600), false);
         game.start();
     }
     
@@ -97,7 +97,7 @@ public class CollisionObjectWithObjectTest {
     public void testCollidedBallWithTwoCornerBrick() {
         System.out.println("Тест на столкновение мяча и двух кирпичей в углу");
         GameLoader game = new GameLoader();
-        game.setup(new BallWithTwoCornerBrick(table), new Dimension(800,600), false);
+        game.setup(new BallWithBricks(table, 4), new Dimension(800,600), false);
         game.start();
     }
     
@@ -108,7 +108,7 @@ public class CollisionObjectWithObjectTest {
     public void testCollidedBallWithCornerBrick() {
         System.out.println("Тест на столкновение мяча и угла кирпича");
         GameLoader game = new GameLoader();
-        game.setup(new BallWithCornerBrick(table), new Dimension(800,600), false);
+        game.setup(new BallWithBricks(table, 2), new Dimension(800,600), false);
         game.start();
     }
     
@@ -119,7 +119,7 @@ public class CollisionObjectWithObjectTest {
     public void testCollidedBallWithSideBrick() {
         System.out.println("Тест на столкновение мяча и боковой стороны кирпича");
         GameLoader game = new GameLoader();
-        game.setup(new BallWithSideBrick(table), new Dimension(800,600), false);
+        game.setup(new BallWithBricks(table, 3), new Dimension(800,600), false);
         game.start();
     }
     
