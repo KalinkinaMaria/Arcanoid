@@ -53,7 +53,7 @@ public class CollisionObjectWithObjectTest {
     public void testCollidedBallWithRacket() {
         System.out.println("Тест на столкновение мяча и ракетки");
         GameLoader game = new GameLoader();
-        game.setup(new BallWithRacketCollision(table), new Dimension(800,600), false);
+        game.setup(new RacketCollisions(table, 1), new Dimension(800,600), false);
         game.start();
     }
     
@@ -64,7 +64,7 @@ public class CollisionObjectWithObjectTest {
     public void testCollidedBallWithCornerRacket() {
         System.out.println(" Тест на столкновение мяча и угла ракетки");
         GameLoader game = new GameLoader();
-        game.setup(new RacketCollisions(table), new Dimension(800,600), false);
+        game.setup(new RacketCollisions(table, 0), new Dimension(800,600), false);
         game.start();
     }
     
@@ -141,7 +141,7 @@ public class CollisionObjectWithObjectTest {
     public void testCollidedBallWithSameBall() {
         System.out.println("Тест на столкновение мяча и такого же мяча");
         GameLoader game = new GameLoader();
-        game.setup(BallWithSameBall(table), new Dimension(800,600), false);
+        game.setup(new BallsCollision(table, 1), new Dimension(800,600), false);
         game.start();
     }
     
@@ -152,7 +152,7 @@ public class CollisionObjectWithObjectTest {
     public void testCollidedBallWithAnotherBall() {
         System.out.println("Тест на столкновение мяча и другого мяча");
         GameLoader game = new GameLoader();
-        game.setup(new BallWithAnotherBall(table), new Dimension(800,600), false);
+        game.setup(new BallsCollision(table, 2), new Dimension(800,600), false);
         game.start();
     }
     
@@ -163,7 +163,7 @@ public class CollisionObjectWithObjectTest {
     public void testCollidedTreeBalls() {
         System.out.println("Тест на столкновение трех мячей");
         GameLoader game = new GameLoader();
-        game.setup(new BallsCollision(table), new Dimension(800,600), false);
+        game.setup(new BallsCollision(table, 3), new Dimension(800,600), false);
         game.start();
     }
     

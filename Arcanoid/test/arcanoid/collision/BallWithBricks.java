@@ -16,6 +16,7 @@ import com.golden.gamedev.object.SpriteGroup;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
+import java.nio.Buffer;
 import static org.junit.Assert.assertEquals;
 
 /**
