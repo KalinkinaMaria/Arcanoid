@@ -102,6 +102,28 @@ public class CollisionObjectWithObjectTest {
     }
     
     /**
+     * Тест мяч пролетает между кирпичами
+     */
+    @Test
+    public void testBallBetweenTwoBrick() {
+        System.out.println("Тест мяч пролетает между кирпичами");
+        GameLoader game = new GameLoader();
+        game.setup(new BallWithBricks(table, 5), new Dimension(800,600), false);
+        game.start();
+    }
+    
+    /**
+     * Тест на столкновение мяча и двух кирпичей c расстоянием
+     */
+    @Test
+    public void testCollidedBallWithTwoBrickWithDistance() {
+        System.out.println("Тест на столкновение мяча и двух кирпичей c расстоянием");
+        GameLoader game = new GameLoader();
+        game.setup(new BallWithBricks(table, 6), new Dimension(800,600), false);
+        game.start();
+    }
+    
+    /**
      * Тест на столкновение мяча и угла кирпича
      */
     @Test

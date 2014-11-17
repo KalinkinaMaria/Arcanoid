@@ -96,6 +96,18 @@ public class BallWithBricks extends Game implements CollisionHandleEndListener {
                 secondPoint = new Point(320, 500);
                 thirdPoint = new Point(400, 470);
                 break;
+            case 5:
+                speedVector = new SpeedVector(0, 0.5);
+                firstPoint = new Point(400, 531);
+                secondPoint = new Point(320, 500);
+                thirdPoint = new Point(320, 556);
+                break;
+            case 6:
+                speedVector = new SpeedVector(0, 0.5);
+                firstPoint = new Point(400, 520);
+                secondPoint = new Point(320, 500);
+                thirdPoint = new Point(320, 540);
+                break;
 
         }
         // Создание спрайтов
@@ -170,6 +182,14 @@ public class BallWithBricks extends Game implements CollisionHandleEndListener {
                 break;
             case 4:
                 assertEquals(e.firstElement.speed(), new SpeedVector(0.5,-1));
+                assertFalse(field.containsElement(e.secondElement));
+                assertFalse(field.containsElement(e.thirdElement));
+                break;
+            case 5:
+                fail("Clash!!!");
+                break;
+            case 6:
+                assertEquals(e.firstElement.speed(), new SpeedVector(0, -0.5));
                 assertFalse(field.containsElement(e.secondElement));
                 assertFalse(field.containsElement(e.thirdElement));
                 break;
