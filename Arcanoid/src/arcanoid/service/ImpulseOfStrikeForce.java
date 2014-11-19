@@ -23,6 +23,6 @@ public class ImpulseOfStrikeForce {
      * @return  значение импульса
      */
     public static double count(FieldElement element) {
-        
+        return element.weight()*element.speed();
     }
 }

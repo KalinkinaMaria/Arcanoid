@@ -111,6 +111,15 @@ public abstract class FieldElement {
     }
     
     /**
+     * Получить вес
+     * 
+     * @return вес
+     */
+    public double weight() {
+        return weight;
+    }
+    
+    /**
      * Обработать столкновение
      * 
      * @param element элемент
