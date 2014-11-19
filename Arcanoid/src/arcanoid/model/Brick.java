@@ -6,9 +6,7 @@
 
 package arcanoid.model;
 
-import arcanoid.buffer.Buffer;
-import arcanoid.service.ImpulseOfStrikeForce;
-import arcanoid.service.SpeedVector;
+import arcanoid.service.Buffer;
 
 /**
  * Кирпич

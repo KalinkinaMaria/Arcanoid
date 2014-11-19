@@ -47,7 +47,7 @@ public class Player {
      * @return кол-во жизней
      */
     public int lives() {
-        
+        return lives;
     }
     
     /**
@@ -55,7 +55,7 @@ public class Player {
      * @return счет
      */
     public int score() {
-        
+        return score;
     }
     
     /**

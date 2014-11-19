@@ -6,8 +6,9 @@
 
 package arcanoid.model;
 
-import arcanoid.service.SpeedVector;
+import arcanoid.service.Buffer;
 import java.awt.Point;
+import arcanoid.service.SpeedVector.Axis;
 
 /**
  * Элемент, который может отскочить
@@ -24,7 +25,7 @@ public class Bouncing extends FieldElement{
      * Обработать столкновение
      * 
      * @param position позиция удара
-     * @param difference приращение скорости
+     * @param element элемент
      */
     protected void handleCollision (Point position, FieldElement element) {
         
@@ -36,7 +37,7 @@ public class Bouncing extends FieldElement{
      * @param axis ось
      * @param position позиция удара 
      */
-    protected void handleCollision (enum Axis axis, Point position) {
+    protected void handleCollision (Axis axis, Point position) {
         
     }
 }

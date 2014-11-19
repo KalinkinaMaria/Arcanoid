@@ -8,17 +8,17 @@ package arcanoid.events;
 import arcanoid.model.FieldElement;
 import java.util.EventObject;
 
-enum ChangingType {
-    creation,
-    removing;
-}
-
 /**
  * Событие добавления элемента
  * 
  * @author Мария
  */
 public class GameFieldChangeEvent extends EventObject {
+    public enum ChangingType {
+        creation,
+        removing;
+    }
+    
     /** Созданный элемент*/
     private FieldElement element;
     /** Тип события*/

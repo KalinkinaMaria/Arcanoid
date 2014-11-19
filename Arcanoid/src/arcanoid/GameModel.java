@@ -5,11 +5,15 @@
  */
 package arcanoid;
 
+import arcanoid.events.GameFieldChangeEvent;
+import arcanoid.events.GameStateChangeEvent;
+import arcanoid.events.GameStateChangeListener;
+
 /**
  *
  * @author Елена
  */
-public class GameModel implements GameFieldChangeListener {
+public class GameModel implements GameStateChangeListener {
     /** Игровое поле*/
     private GameField field;
     /** Игрок*/
@@ -28,7 +32,7 @@ public class GameModel implements GameFieldChangeListener {
     }
 
     @Override
-    public void endGame(GetCritycalWeightEvent e) {
+    public void endGame(GameStateChangeEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

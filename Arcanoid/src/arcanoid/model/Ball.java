@@ -6,8 +6,9 @@
 
 package arcanoid.model;
 
-import arcanoid.service.SpeedVector;
-import java.awt.Point;
+import arcanoid.events.GameStateChangeListener;
+import arcanoid.service.Buffer;
+import java.util.ArrayList;
 
 /**
  * Мяч

@@ -3,11 +3,27 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Мария.Maria/Documents/GitHub/Arcanoid/Arcanoid/test/arcanoid/model/DestroyableBrickTest.java</file>
-            <file>file:/C:/Users/Мария.Maria/Documents/GitHub/Arcanoid/Arcanoid/test/arcanoid/service/ImpulseOfStrikeForceTest.java</file>
-            <file>file:/C:/Users/Мария.Maria/Documents/GitHub/Arcanoid/Arcanoid/test/arcanoid/model/RacketTest.java</file>
-            <file>file:/C:/Users/Мария.Maria/Documents/GitHub/Arcanoid/Arcanoid/test/arcanoid/model/SwarmTest.java</file>
-            <file>file:/C:/Users/Мария.Maria/Documents/GitHub/Arcanoid/Arcanoid/test/arcanoid/service/SpeedVectorTest.java</file>
+            <file>file:/C:/Users/Елена/Documents/GitHub/Arcanoid/Arcanoid/test/arcanoid/collision/BallsCollision.java</file>
+            <file>file:/C:/Users/Елена/Documents/GitHub/Arcanoid/Arcanoid/src/arcanoid/events/GameFieldChangeListener.java</file>
+            <file>file:/C:/Users/Елена/Documents/GitHub/Arcanoid/Arcanoid/src/arcanoid/GameModel.java</file>
+            <file>file:/C:/Users/Елена/Documents/GitHub/Arcanoid/Arcanoid/src/arcanoid/service/Buffer.java</file>
+            <file>file:/C:/Users/Елена/Documents/GitHub/Arcanoid/Arcanoid/src/arcanoid/GameField.java</file>
+            <file>file:/C:/Users/Елена/Documents/GitHub/Arcanoid/Arcanoid/src/arcanoid/model/Racket.java</file>
+            <file>file:/C:/Users/Елена/Documents/GitHub/Arcanoid/Arcanoid/src/arcanoid/events/CollisionHandleEndListener.java</file>
+            <file>file:/C:/Users/Елена/Documents/GitHub/Arcanoid/Arcanoid/test/arcanoid/collision/RacketCollisions.java</file>
+            <file>file:/C:/Users/Елена/Documents/GitHub/Arcanoid/Arcanoid/src/arcanoid/service/Size.java</file>
+            <file>file:/C:/Users/Елена/Documents/GitHub/Arcanoid/Arcanoid/src/arcanoid/events/GameFieldChangeEvent.java</file>
+            <file>file:/C:/Users/Елена/Documents/GitHub/Arcanoid/Arcanoid/test/arcanoid/model/BouncingTest.java</file>
+            <file>file:/C:/Users/Елена/Documents/GitHub/Arcanoid/Arcanoid/src/arcanoid/model/FieldElement.java</file>
+            <file>file:/C:/Users/Елена/Documents/GitHub/Arcanoid/Arcanoid/src/arcanoid/service/ImpulseOfStrikeForce.java</file>
+            <file>file:/C:/Users/Елена/Documents/GitHub/Arcanoid/Arcanoid/test/arcanoid/model/DestroyableBrickTest.java</file>
+            <file>file:/C:/Users/Елена/Documents/GitHub/Arcanoid/Arcanoid/src/arcanoid/model/Bouncing.java</file>
+            <file>file:/C:/Users/Елена/Documents/GitHub/Arcanoid/Arcanoid/src/arcanoid/service/SpeedVector.java</file>
+            <file>file:/C:/Users/Елена/Documents/GitHub/Arcanoid/Arcanoid/test/arcanoid/collision/BallWithBricks.java</file>
+            <file>file:/C:/Users/Елена/Documents/GitHub/Arcanoid/Arcanoid/src/arcanoid/Player.java</file>
+            <file>file:/C:/Users/Елена/Documents/GitHub/Arcanoid/Arcanoid/src/arcanoid/Arcanoid.java</file>
+            <file>file:/C:/Users/Елена/Documents/GitHub/Arcanoid/Arcanoid/test/arcanoid/collision/CollisionObjectWithObjectTest.java</file>
+            <file>file:/C:/Users/Елена/Documents/GitHub/Arcanoid/Arcanoid/test/arcanoid/model/FieldElementTest.java</file>
         </group>
     </open-files>
 </project-private>

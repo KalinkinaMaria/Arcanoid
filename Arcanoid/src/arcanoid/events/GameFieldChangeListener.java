@@ -20,10 +20,10 @@ public interface GameFieldChangeListener {
      * Добавить элемент при его создании
      * @param e событие
      */
-    private void addElement(GameFieldChangeEvent e);
+    public void addElement(GameFieldChangeEvent e);
     /**
      * Удалить элемент при его создании
      * @param e событие
      */
-    private void removeElement(GameFieldChangeEvent e);
+    public void removeElement(GameFieldChangeEvent e);
 }

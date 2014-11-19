@@ -6,6 +6,9 @@
 
 package arcanoid.events;
 
+import java.util.EventObject;
+import arcanoid.model.FieldElement;
+
 /**
  * Событие конца обработки столкновения
  * 

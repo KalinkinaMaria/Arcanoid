@@ -7,20 +7,19 @@
 package arcanoid.service;
 
 /**
- * Перечисление осей
- * @author Елена
- */
-enum Axis {
-    X,
-    Y,
-    Z;
-}
-
-/**
  *
  * @author Елена
  */
 public class SpeedVector {
+    /**
+    * Перечисление осей
+    * @author Елена
+    */
+    public enum Axis {
+        X,
+        Y,
+        Z;
+    }
     
     /** Скорость по X*/
     private double speedX;

@@ -6,8 +6,10 @@
 
 package arcanoid.model;
 
-import arcanoid.buffer.Buffer;
+import arcanoid.events.CollisionHandleEndListener;
+import arcanoid.events.GameFieldChangeEvent;
 import arcanoid.events.GameFieldChangeListener;
+import arcanoid.service.Buffer;
 import arcanoid.service.ImpulseOfStrikeForce;
 import arcanoid.service.Size;
 import arcanoid.service.SpeedVector;

@@ -37,7 +37,7 @@ public class SpritesCollidedEvent extends EventObject{
      * @return активный спрайт
      */
     public Sprite activeSprite() {
-        
+        return activeSprite;
     }
     
     /**
@@ -45,6 +45,6 @@ public class SpritesCollidedEvent extends EventObject{
      * @return массив спрайтов, с которыми столкнулись
      */
     public Map<Sprite, Sprite> passiveSprite() {
-        
+        return passiveSprites;
     }
 }
