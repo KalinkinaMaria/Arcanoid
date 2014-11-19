@@ -9,7 +9,6 @@ import arcanoid.service.Buffer;
 import arcanoid.service.SpeedVector;
 import com.golden.gamedev.object.Sprite;
 import java.awt.Point;
-import javafx.scene.chart.Axis;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

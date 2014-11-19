@@ -55,18 +55,4 @@ public class ImpulseOfStrikeForceTest {
         assertEquals(expResult, result, 0.0);
     }
     
-    /**
-     * Test of countImpulsrOfStrikeForce method, of class ImpulseOfStrikeForce.
-     */
-    @Test
-    public void testCountImpulsrOfStrikeForce() {
-        System.out.println("countImpulsrOfStrikeForce");
-        FieldElement element = null;
-        double expResult = 0.0;
-        double result = ImpulseOfStrikeForce.count(element);
-        assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-    
 }
