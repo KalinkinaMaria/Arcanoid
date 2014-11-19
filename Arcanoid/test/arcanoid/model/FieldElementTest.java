@@ -6,12 +6,9 @@
 package arcanoid.model;
 
 import arcanoid.GameField;
-import arcanoid.events.GameFieldChangeListener;
 import arcanoid.service.Buffer;
-import arcanoid.service.Size;
 import arcanoid.service.SpeedVector;
 import com.golden.gamedev.object.Sprite;
-import java.awt.Point;
 
 import org.junit.After;
 import org.junit.AfterClass;
