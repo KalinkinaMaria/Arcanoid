@@ -37,14 +37,22 @@ public abstract class FieldElement {
      * @param listener слушатель
      */
     public void addGameFieldChangeListener (GameFieldChangeListener listener) {
-        
+        gameFieldChangeListeners.add(listener);
     }
     
     /**
      * Испустить сигнал, что элемент поля создан
      */
-    private void fireGameFieldChange() {
-        
+    private void fireGameFieldChange(boolean creation) {
+        GameFieldChangeEvent event;
+        if (creation) {
+            event = new GameFieldChangeEvent(this, ChangingType.creation);
+        } else {
+            event = new GameFieldChangeEvent(this, ChangingType.removing);
+        }
+        for (GameFieldChangeListener gameListener: gameFieldChangeListeners) {
+            gameListener.changeElement(event);
+        }
     }
     
     /** 

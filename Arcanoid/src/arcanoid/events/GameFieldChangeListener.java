@@ -12,13 +12,18 @@ package arcanoid.events;
  */
 public interface GameFieldChangeListener {
     /**
+     * Обработать изменение элементов в игровом поле
+     * @param e событие 
+     */
+    public void changeElement(GameFieldChangeEvent e);
+    /**
      * Добавить элемент при его создании
      * @param e событие
      */
-    public void addElement(GameFieldChangeEvent e);
+    private void addElement(GameFieldChangeEvent e);
     /**
      * Удалить элемент при его создании
      * @param e событие
      */
-    public void removeElement(GameFieldChangeEvent e);
+    private void removeElement(GameFieldChangeEvent e);
 }

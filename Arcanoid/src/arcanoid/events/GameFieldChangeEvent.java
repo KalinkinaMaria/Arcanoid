@@ -28,9 +28,9 @@ public class GameFieldChangeEvent extends EventObject {
      * @param source родительский объект
      * @param element созданный элемент
      */
-    public GameFieldChangeEvent(Object source, FieldElement element, ChangingType type) {
+    public GameFieldChangeEvent(Object source, ChangingType type) {
         super(source);
-        this.element = element;
+        this.element = (FieldElement)source;
         this.type = type;
     }
     
