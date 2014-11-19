@@ -66,7 +66,18 @@ public class FieldElement {
     }
     
     public ArrayList<SpeedVector> countSpeed(FieldElement element) {
-        return new ArrayList();
+        ArrayList<SpeedVector> result = new ArrayList();
+        double speedX1;
+        double speedY1;
+        double speedX2;
+        double speedY2;
+        speedX1 = (2*element.weight()*element.speed().x() + (this.weight() - element.weight()) * this.speed().x())/(this.weight() + element.weight());
+        speedY1 = (2*element.weight()*element.speed().y() + (this.weight() - element.weight()) * this.speed().y())/(this.weight() + element.weight());
+        speedX2 = (2*this.weight()*this.speed().x() + (element.weight() - this.weight())*element.speed().x())/(this.weight() + element.weight());
+        speedY2 = (2*this.weight()*this.speed().y() + (element.weight() - this.weight())*element.speed().y())/(this.weight() + element.weight());
+        result.add(new SpeedVector(speedX1, speedY1));
+        result.add(new SpeedVector(speedX2, speedY2));
+        return result;
     }
     
     /**
