@@ -18,7 +18,7 @@ import java.util.Map;
  *
  * @author Мария
  */
-public class Ambiance extends Game implements GameFieldChangeListener {
+public class Ambiance implements GameFieldChangeListener {
     /** Задний фон */
     private Background background;
     /** Отскакивающие элементы */
@@ -27,32 +27,6 @@ public class Ambiance extends Game implements GameFieldChangeListener {
     private SpriteGroup obstacles;
     /** Таблица сталкивающихся элементов */
     private Map<Class,Class> collidedGroups;
-    
-    /**
-     * Инициализация ресурсов
-     */
-    @Override
-    public void initResources() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    /**
-     * Обновить
-     * @param l 
-     */
-    @Override
-    public void update(long l) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    /**
-     * Перерисовать
-     * @param gd 
-     */
-    @Override
-    public void render(Graphics2D gd) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public void addElement(GameFieldChangeEvent e) {
@@ -61,6 +35,11 @@ public class Ambiance extends Game implements GameFieldChangeListener {
 
     @Override
     public void removeElement(GameFieldChangeEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void changeElement(GameFieldChangeEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

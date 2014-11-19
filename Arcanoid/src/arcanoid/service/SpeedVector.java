@@ -115,4 +115,8 @@ public class SpeedVector {
     public SpeedVector clone() {
         return new SpeedVector(this.x(), this.y());
     }
+    
+    public double value() {
+        return Math.sqrt(Math.pow(speedX, 2) + Math.pow(speedY, 2));
+    }
 }

@@ -6,6 +6,8 @@
 
 package arcanoid.model;
 
+import arcanoid.service.Buffer;
+
 /**
  * Ракетка
  * 

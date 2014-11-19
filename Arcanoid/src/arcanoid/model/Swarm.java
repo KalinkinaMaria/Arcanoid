@@ -6,11 +6,8 @@
 
 package arcanoid.model;
 
-import arcanoid.buffer.Buffer;
-import arcanoid.events.GetCritycalWeightListener;
-
-import arcanoid.service.ImpulseOfStrikeForce;
-import arcanoid.service.SpeedVector;
+import arcanoid.events.GameStateChangeListener;
+import arcanoid.service.Buffer;
 import java.util.ArrayList;
 
 /**
@@ -19,6 +16,7 @@ import java.util.ArrayList;
  * @author Елена
  */
 public class Swarm extends FieldElement {
+    private final int elementWeight = 1;
     /** Критический вес*/
     private int criticalWeight;
     /** Элементы роя*/
@@ -29,7 +27,7 @@ public class Swarm extends FieldElement {
     public Swarm(Buffer table, int elementNumber) {
         super(table);
         for (int i = elementNumber; i >=0; i --) {
-            addElement(new SwarmElement(table));
+            addElement(new SwarmElement(table, elementWeight));
         }
     }
     
@@ -37,7 +35,7 @@ public class Swarm extends FieldElement {
      * Вернуть все элементы роя
      */
     public ArrayList<SwarmElement> elements() {
-        
+        return elements;
     }
     
     /**
@@ -70,7 +68,7 @@ public class Swarm extends FieldElement {
     }
     
     private void addElement(SwarmElement element) {
-        elements.add(new SwarmElement(table));
+        elements.add(new SwarmElement(table, elementWeight));
         this.weight += element.weight();
     }
     
@@ -89,7 +87,7 @@ public class Swarm extends FieldElement {
      * @return критический вес
      */
     public int criticalWeight() {
-        
+        return criticalWeight;
     }
     
     public double weight() {

@@ -7,6 +7,7 @@ package arcanoid.service;
 
 import arcanoid.model.FieldElement;
 import com.golden.gamedev.object.Sprite;
+import java.util.Collection;
 import java.util.HashMap;
 
 /**
@@ -31,7 +32,7 @@ public class Buffer {
      * @return элемент поля
      */
     public FieldElement getElement(Sprite sprite) {
-        Collection keys;
+        Collection<FieldElement> keys;
         Sprite currentSprite;
         
         keys = table.keySet();

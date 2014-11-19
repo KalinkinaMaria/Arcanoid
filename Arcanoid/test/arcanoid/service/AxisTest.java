@@ -5,6 +5,7 @@
  */
 package arcanoid.service;
 
+import arcanoid.service.SpeedVector.Axis;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

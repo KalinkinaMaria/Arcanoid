@@ -8,6 +8,9 @@ package arcanoid.collision;
 
 import arcanoid.events.CollisionHandleEndEvent;
 import arcanoid.events.CollisionHandleEndListener;
+import arcanoid.model.Ball;
+import arcanoid.model.Racket;
+import arcanoid.service.Buffer;
 import arcanoid.service.SpeedVector;
 import com.golden.gamedev.Game;
 import com.golden.gamedev.object.PlayField;
@@ -16,7 +19,6 @@ import com.golden.gamedev.object.SpriteGroup;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
-import java.nio.Buffer;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -67,7 +69,12 @@ public class RacketCollisions extends Game implements CollisionHandleEndListener
         // Создание спрайтов
         BufferedImage ballImage = getImage("img/ball.png");
         BufferedImage racketImage = getImage("img/r.png");
-        
+        firstVector = new SpeedVector();
+        secondVector = new SpeedVector();
+        firstPoint = new Point();
+        secondPoint = new Point();
+        firstWeigt = 0;
+        secondWeigt = 0;
         switch (this.testNumber) {
             case 0:
                 firstVector = new SpeedVector(-0.5, -1);

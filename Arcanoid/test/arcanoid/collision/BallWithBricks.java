@@ -6,8 +6,12 @@
 
 package arcanoid.collision;
 
+import arcanoid.GameField;
 import arcanoid.events.CollisionHandleEndEvent;
 import arcanoid.events.CollisionHandleEndListener;
+import arcanoid.model.Ball;
+import arcanoid.model.DestroyableBrick;
+import arcanoid.service.Buffer;
 import arcanoid.service.SpeedVector;
 import com.golden.gamedev.Game;
 import com.golden.gamedev.object.PlayField;
@@ -16,8 +20,9 @@ import com.golden.gamedev.object.SpriteGroup;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
-import java.nio.Buffer;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.fail;
 
 /**
  *
@@ -65,6 +70,10 @@ public class BallWithBricks extends Game implements CollisionHandleEndListener {
         
         playfield.addGroup(ballGroup);
         playfield.addGroup(brickGroup);
+        firstPoint = new Point();
+        secondPoint = new Point();
+        thirdPoint = new Point();
+        speedVector = new SpeedVector();
         switch (this.testNumber) {
             case 0:
                 speedVector = new SpeedVector(0.5, 1);
@@ -123,13 +132,12 @@ public class BallWithBricks extends Game implements CollisionHandleEndListener {
         table.addPair(ballElement, ball);
         table.addPair(brickElement1, brick1);
         table.addPair(brickElement2, brick2);
+        // Добавление в игровое поле
         field.addElement(ballElement);
         field.addElement(brickElement1);
         field.addElement(brickElement2);
         ballElement.addCollisionHandleEndListener(this);
         ball.setSpeed(speedVector.x(), speedVector.y());
-        // Добавление в игровое поле
-        field.addElement();
         // Добавление в спрайт группу и установка коллизии
         ballGroup.add(ball);
         brickGroup.add(brick1);

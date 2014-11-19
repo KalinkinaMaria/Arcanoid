@@ -6,9 +6,9 @@
 
 package arcanoid.model;
 
-import arcanoid.buffer.Buffer;
 import arcanoid.events.SpritesCollidedEvent;
 import arcanoid.events.SpritesCollidedListener;
+import arcanoid.service.Buffer;
 import com.golden.gamedev.object.Sprite;
 import java.util.Map;
 
@@ -40,7 +40,7 @@ public class CollisionHandler implements SpritesCollidedListener{
      * @param sprite спрайт, который соответствует элементу
      */
     private FieldElement getElement (Sprite sprite) {
-        
+        return table.getElement(sprite);
     }
 
     @Override

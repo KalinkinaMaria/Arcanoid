@@ -6,9 +6,7 @@
 
 package arcanoid.model;
 
-import arcanoid.buffer.Buffer;
-import arcanoid.service.ImpulseOfStrikeForce;
-import arcanoid.service.SpeedVector;
+import arcanoid.service.Buffer;
 
 /**
  * Разрушаемый кирпич
@@ -25,14 +23,6 @@ public class DestroyableBrick extends Brick implements Bounced {
     }
     
     /**
-     * Изменить прочность кирпича
-     * @param deltaStrength прирощение прочности
-     */
-    private void changeStrength(int deltaStrength) {
-        
-    }
-    
-    /**
      * Задать прочность кирпича
      * @param strength прочность
      */
@@ -45,6 +35,6 @@ public class DestroyableBrick extends Brick implements Bounced {
      * @return прочность
      */
     public int strength() {
-        
+        return strength;
     }
 }

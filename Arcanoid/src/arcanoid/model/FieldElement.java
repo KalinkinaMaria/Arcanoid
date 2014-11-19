@@ -8,9 +8,9 @@ package arcanoid.model;
 
 import arcanoid.events.CollisionHandleEndListener;
 import arcanoid.events.GameFieldChangeEvent;
+import arcanoid.events.GameFieldChangeEvent.ChangingType;
 import arcanoid.events.GameFieldChangeListener;
 import arcanoid.service.Buffer;
-import arcanoid.service.ImpulseOfStrikeForce;
 import arcanoid.service.Size;
 import arcanoid.service.SpeedVector;
 import com.golden.gamedev.object.Sprite;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
  * 
  * @author Елена
  */
-public abstract class FieldElement {
+public class FieldElement {
     /** Таблица соответствий элемента поля со спрайтом */
     protected Buffer table;
     /** Вес */
@@ -66,7 +66,7 @@ public abstract class FieldElement {
     }
     
     public ArrayList<SpeedVector> countSpeed(FieldElement element) {
-        
+        return new ArrayList();
     }
     
     /**
@@ -78,6 +78,7 @@ public abstract class FieldElement {
     
     /**
      * Конструктор
+     * @param table 
      */
     public FieldElement ( Buffer table) {
         this.table = table;
@@ -90,7 +91,7 @@ public abstract class FieldElement {
      * @return позиция
      */
     public Point position() {
-
+        return new Point((int)table.getSprite(this).getX(), (int)table.getSprite(this).getY());
     }
     
     /**
@@ -99,7 +100,7 @@ public abstract class FieldElement {
      * @return размер
      */
     public Size size() {
-        
+        return new Size(table.getSprite(this).getHeight(), table.getSprite(this).getWidth());
     }
     
     /**
@@ -108,7 +109,7 @@ public abstract class FieldElement {
      * @return спрайт
      */
     private Sprite getSprite () {
-        
+        return table.getSprite(this);
     }
     
     /**
@@ -164,5 +165,12 @@ public abstract class FieldElement {
      */
     public void setWeight (double weight) {
         this.weight = weight;
+    }
+    
+    public Object clone() {
+        FieldElement result = new FieldElement(table);
+        result.speed = this.speed();
+        result.weight = this.weight();
+        return result;
     }
 }

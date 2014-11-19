@@ -8,6 +8,8 @@ package arcanoid.collision;
 
 import arcanoid.events.CollisionHandleEndEvent;
 import arcanoid.events.CollisionHandleEndListener;
+import arcanoid.model.Ball;
+import arcanoid.service.Buffer;
 import arcanoid.service.SpeedVector;
 import com.golden.gamedev.Game;
 import com.golden.gamedev.object.PlayField;
@@ -16,7 +18,6 @@ import com.golden.gamedev.object.SpriteGroup;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
-import java.nio.Buffer;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -73,7 +74,15 @@ public class BallsCollision extends Game implements CollisionHandleEndListener {
         playfield.addGroup(thirdBallGroup);
         // Создание спрайтов
         BufferedImage ballImage = getImage("img/ball.png");
-
+        firstVector = new SpeedVector();
+        secondVector = new SpeedVector();
+        thirdVector = new SpeedVector();
+        firstPoint = new Point();
+        secondPoint = new Point();
+        thirdPoint = new Point();
+        firstWeigt = 0;
+        secondWeigt = 0;
+        thirdWeigt = 0;
         switch (this.testNumber) {
             case 0:
                 firstVector = new SpeedVector(0.5, 1);
@@ -81,7 +90,7 @@ public class BallsCollision extends Game implements CollisionHandleEndListener {
                 thirdVector = new SpeedVector(0, 0.7);
                 firstPoint = new Point(400, 500);
                 secondPoint = new Point(425, 500);
-                thirdPoint = new Point(412.5, 475);
+                thirdPoint = new Point(413, 475);
                 firstWeigt = 1;
                 secondWeigt = 1;
                 thirdWeigt = 1;
@@ -176,4 +185,6 @@ public class BallsCollision extends Game implements CollisionHandleEndListener {
                 assertEquals(e.secondElement.speed(), new SpeedVector(0.05, 0.8));
                 assertEquals(e.thirdElement.speed(), null);
                 break;
+        }
     }
+}

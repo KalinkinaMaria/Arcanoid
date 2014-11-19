@@ -8,6 +8,10 @@ package arcanoid.collision;
 
 import arcanoid.events.CollisionHandleEndEvent;
 import arcanoid.events.CollisionHandleEndListener;
+import arcanoid.model.Ball;
+import arcanoid.model.Swarm;
+import arcanoid.model.SwarmElement;
+import arcanoid.service.Buffer;
 import arcanoid.service.SpeedVector;
 import com.golden.gamedev.Game;
 import com.golden.gamedev.object.PlayField;
@@ -15,7 +19,6 @@ import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.nio.Buffer;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -63,14 +66,14 @@ public class BallWithSwarm extends Game implements CollisionHandleEndListener {
         Ball ballElement = new Ball(table);
         ballElement.setWeight(1);
         Swarm swarmElement = new Swarm(table, 1);
-        SwarmElement swarmElementElement = swarm.elements().get(0);
+        SwarmElement swarmElementElement = swarmElement.elements().get(0);
         table.addPair(ballElement, ball);
         table.addPair(swarmElementElement, swarm);
         ballElement.addCollisionHandleEndListener(this);
         ball.setSpeed(0.5, 1);
         // Добавление в спрайт группу и установка коллизии
         ballGroup.add(ball);
-        swarmGroup.add(swarmElementElement);
+        swarmGroup.add(swarm);
         collision = new CollisionObjectWithObject();
         playfield.addCollisionGroup(ballGroup, swarmGroup, collision);
     }
@@ -100,6 +103,6 @@ public class BallWithSwarm extends Game implements CollisionHandleEndListener {
     @Override
     public void checkAssertion(CollisionHandleEndEvent e) {
         assertEquals(e.firstElement.speed(), new SpeedVector());
-        assertEquals(e.secondElement.weight(), 2);
+        assertEquals(e.secondElement.weight(), 2.0);
     }
 }

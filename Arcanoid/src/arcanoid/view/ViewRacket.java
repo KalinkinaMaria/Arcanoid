@@ -5,7 +5,7 @@
  */
 package arcanoid.view;
 
-import arcanoid.events.FieldElementCollisionEvent;
+import arcanoid.events.CollisionHandleEndEvent;
 import com.golden.gamedev.object.Sprite;
 
 /**
@@ -33,7 +33,7 @@ public class ViewRacket extends ViewFieldElement{
     }
 
     @Override
-    public void paintCollision(FieldElementCollisionEvent e) {
+    public void checkAssertion(CollisionHandleEndEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

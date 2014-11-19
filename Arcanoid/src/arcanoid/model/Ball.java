@@ -16,8 +16,7 @@ import java.util.ArrayList;
  * @author Елена
  */
 public class Ball extends Bouncing implements Bounced {
-    
-    
+
     /** Слушатели падения мяча*/
     private ArrayList<GameStateChangeListener> failListeners = new ArrayList<> ();
     

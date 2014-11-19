@@ -5,6 +5,8 @@
  */
 package arcanoid.service;
 
+import arcanoid.model.FieldElement;
+import arcanoid.service.SpeedVector.Axis;
 import com.golden.gamedev.object.Sprite;
 import java.util.ArrayList;
 import org.junit.After;
@@ -149,7 +151,7 @@ public class SpeedVectorTest {
      * Тест изменения скоростей при столкновении двух отскакивающих с разной массой
      */
     @Test
-    public void testCountSpeedSameWeight() {
+    public void testCountSpeedAnotherWeight() {
         Buffer table = new Buffer();
         FieldElement element1 = new FieldElement(table);
         FieldElement element2 = new FieldElement(table);

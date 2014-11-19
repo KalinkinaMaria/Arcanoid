@@ -5,6 +5,7 @@
  */
 package arcanoid.model;
 
+import arcanoid.GameField;
 import arcanoid.events.GameFieldChangeListener;
 import arcanoid.service.Buffer;
 import arcanoid.service.Size;
@@ -316,8 +317,8 @@ public class FieldElementTest {
         // Устанавливаем скорости
         ball1.setSpeed(new SpeedVector(2, -2));
         ball2.setSpeed(new SpeedVector(2, 5));
-        Ball clone1 = ball1.clone();
-        Ball clone2 = ball2.clone();
+        Ball clone1 = (Ball) ball1.clone();
+        Ball clone2 = (Ball) ball2.clone();
         ball1.handleCollision(clone2);
         assertEquals(ball1.speed(), new SpeedVector(2, 5));
         ball2.handleCollision(clone1);
@@ -337,8 +338,8 @@ public class FieldElementTest {
         // Устанавливаем скорости
         ball1.setSpeed(new SpeedVector(2, -2));
         ball2.setSpeed(new SpeedVector(2, 5));
-        Ball clone1 = ball1.clone();
-        Ball clone2 = ball2.clone();
+        Ball clone1 = (Ball) ball1.clone();
+        Ball clone2 = (Ball) ball2.clone();
         ball1.handleCollision(clone2);
         assertEquals(ball1.speed(), new SpeedVector(2, 22/3));
         ball2.handleCollision(clone1);

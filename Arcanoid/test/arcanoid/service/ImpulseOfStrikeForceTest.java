@@ -5,6 +5,7 @@
  */
 package arcanoid.service;
 
+import arcanoid.model.Ball;
 import arcanoid.model.FieldElement;
 import org.junit.After;
 import org.junit.AfterClass;
