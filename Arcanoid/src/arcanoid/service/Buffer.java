@@ -27,11 +27,21 @@ public class Buffer {
     
     /**
      * Получить элемент поля
-     * @param sprate спрайт
+     * @param sprite спрайт
      * @return элемент поля
      */
-    public FieldElement getElement(Sprite sprate) {
+    public FieldElement getElement(Sprite sprite) {
+        Collection keys;
+        Sprite currentSprite;
         
+        keys = table.keySet();
+        for (FieldElement key : keys) {
+            currentSprite = table.get(key);
+            if (currentSprite.equals(sprite)) {
+                return key;
+            }
+        }
+        return null;
     }
     
     /**
@@ -40,7 +50,7 @@ public class Buffer {
      * @return спрайт
      */
     public Sprite getSprite(FieldElement element) {
-        
+        return table.get(element);
     }
     
     /**
@@ -49,7 +59,9 @@ public class Buffer {
      * @param sprite спрайт
      */
     public void addPair(FieldElement element, Sprite sprite) {
-        
+        if (element != null && sprite != null) {
+            table.put(element, sprite);
+        }
     }
     
     /**
@@ -57,6 +69,6 @@ public class Buffer {
      * @param element элемент
      */
     public void deletePair(FieldElement element) {
-        
+        table.remove(element);
     }
 }
