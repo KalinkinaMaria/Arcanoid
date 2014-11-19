@@ -46,13 +46,29 @@ public class SpeedVector {
     }
     
     /**
+     * Получить горизонтальную составляющую веткора скорости
+     * @return 
+     */
+    public double x() {
+        return speedX;
+    }
+    
+    /**
+     * Получить вертикальную составляющую веткора скорости
+     * @return 
+     */
+    public double y() {
+        return speedY;
+    }
+    
+    /**
      * Вычислить сумму векторов
      * 
      * @param other другой вектор скорости
      * @return результирующий вектор скорости
      */
     public SpeedVector sum (SpeedVector other) {
-        
+        return new SpeedVector(this.x() + other.x(), this.y() + other.y());
     }
     
     /**
@@ -62,7 +78,20 @@ public class SpeedVector {
      * @return результирующий вектор
      */
     public SpeedVector reflect (Axis axis) {
-        
+        SpeedVector result = this.clone();
+        switch (axis) {
+            case X: 
+                result.speedY = -this.y();
+                break;
+            case Y:
+                result.speedX = -this.x();
+                break;
+            case Z:
+                result.speedX = -this.speedX;
+                result.speedY = -this.speedY;
+                break;
+        }
+        return this;
     }
     
     /**
@@ -71,7 +100,7 @@ public class SpeedVector {
      * @return результирующий вектор
      */
     public SpeedVector multiplication (double constant) {
-        
+        return new SpeedVector(constant*this.x(), constant*this.y());
     }
     
     /**
@@ -82,5 +111,9 @@ public class SpeedVector {
     @Override
     public boolean equals(Object other) {
         return (getClass() == other.getClass() && this.speedX == ((SpeedVector)other).speedX && this.speedY == ((SpeedVector)other).speedY);
+    }
+    
+    public SpeedVector clone() {
+        return new SpeedVector(this.x(), this.y());
     }
 }
