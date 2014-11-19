@@ -160,14 +160,14 @@ public class SpeedVectorTest {
         element2.setWeight(3);
         
         table.addPair(element1, new Sprite(10, 10));
-        table.addPair(element1, new Sprite(15, 10));
+        table.addPair(element2, new Sprite(15, 10));
         //Устанавливаем скорость
         SpeedVector vector1 = new SpeedVector(0.5, 1);
         SpeedVector vector2 = new SpeedVector(-0.3, 1);
         element1.setSpeed(vector1);
         element2.setSpeed(vector2);
         ArrayList<SpeedVector> result = new ArrayList<>();
-        result.add(new SpeedVector(-0.575, 1));
+        result.add(new SpeedVector(-0.7, 1));
         result.add(new SpeedVector(0.1, 1));
         assertEquals(element1.countSpeed(element2), result);
     }
