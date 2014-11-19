@@ -90,7 +90,7 @@ public class SpeedVector {
                 result.speedY = -this.speedY;
                 break;
         }
-        return this;
+        return result;
     }
     
     /**
