@@ -27,8 +27,7 @@ public abstract class FieldElement {
     protected Buffer table;
     /** Вес */
     protected double weight;
-    /** Скорость */
-    protected SpeedVector speed;
+
     /** Слушатели изменения игрового поля*/
     private ArrayList<GameFieldChangeListener> gameFieldChangeListeners = new ArrayList<>();
     /** Слушатели окончания обработки столкновения ДЛЯ ТЕСТОВ*/
@@ -134,7 +133,7 @@ public abstract class FieldElement {
      * @return вектор скорости
      */
     public SpeedVector speed() {
-        return speed;
+        return new SpeedVector(table.getSprite(this).getHorizontalSpeed(), table.getSprite(this).getVerticalSpeed());
     }
     
     /**
@@ -171,7 +170,7 @@ public abstract class FieldElement {
      * @param speed вектор скорости
      */
     public void setSpeed (SpeedVector speed) {
-        this.speed = speed;
+        table.getSprite(this).setSpeed(speed.x(), speed.y());
     }
     
     /**
@@ -185,7 +184,7 @@ public abstract class FieldElement {
     
     protected void copy(FieldElement other) {
         other.weight = this.weight;
-        other.setSpeed(this.speed);
+        other.setSpeed(this.speed());
         other.gameFieldChangeListeners = this.gameFieldChangeListeners;
         other.collisionHandleEndListeners = this.collisionHandleEndListeners;
         other.setPosition(this.position());
