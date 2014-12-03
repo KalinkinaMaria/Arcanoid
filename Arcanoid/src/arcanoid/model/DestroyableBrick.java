@@ -37,4 +37,10 @@ public class DestroyableBrick extends Brick implements Bounced {
     public int strength() {
         return strength;
     }
+    
+    public DestroyableBrick clone() {
+        DestroyableBrick brick = new DestroyableBrick(this.table);
+        brick.copy(this);
+        return brick;
+    }
 }

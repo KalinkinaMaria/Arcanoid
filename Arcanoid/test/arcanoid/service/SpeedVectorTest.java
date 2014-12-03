@@ -5,6 +5,7 @@
  */
 package arcanoid.service;
 
+import arcanoid.model.Bouncing;
 import arcanoid.model.FieldElement;
 import arcanoid.service.SpeedVector.Axis;
 import com.golden.gamedev.object.Sprite;
@@ -128,8 +129,8 @@ public class SpeedVectorTest {
     @Test
     public void testCountSpeedSameWeight() {
         Buffer table = new Buffer();
-        FieldElement element1 = new FieldElement(table);
-        FieldElement element2 = new FieldElement(table);
+        FieldElement element1 = new Bouncing(table);
+        FieldElement element2 = new Bouncing(table);
         // Устанавливаем вес
         element1.setWeight(1);
         element2.setWeight(1);
@@ -153,8 +154,8 @@ public class SpeedVectorTest {
     @Test
     public void testCountSpeedAnotherWeight() {
         Buffer table = new Buffer();
-        FieldElement element1 = new FieldElement(table);
-        FieldElement element2 = new FieldElement(table);
+        FieldElement element1 = new Bouncing(table);
+        FieldElement element2 = new Bouncing(table);
         // Устанавливаем вес
         element1.setWeight(1);
         element2.setWeight(3);

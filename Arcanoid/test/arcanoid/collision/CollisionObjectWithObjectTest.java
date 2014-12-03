@@ -6,8 +6,10 @@
 package arcanoid.collision;
 
 import arcanoid.service.Buffer;
+import arcanoid.service.SpeedVector;
 import com.golden.gamedev.GameLoader;
 import java.awt.Dimension;
+import java.awt.Point;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -50,7 +52,12 @@ public class CollisionObjectWithObjectTest {
     public void testCollidedBallWithRacket() {
         System.out.println("Тест на столкновение мяча и ракетки");
         GameLoader game = new GameLoader();
-        game.setup(new RacketCollisions(table, 1), new Dimension(800,600), false);
+        RacketCollisions test = new RacketCollisions(table);
+        test.setFirstSpeed(new SpeedVector(1, -1));
+        test.setSecondSpeed(new SpeedVector());
+        test.setFirstPoint(new Point(280, 480));
+        test.setSecondPoint(new Point(220, 525));
+        game.setup(test, new Dimension(800,600), false);
         game.start();
     }
     
@@ -61,7 +68,12 @@ public class CollisionObjectWithObjectTest {
     public void testCollidedBallWithCornerRacket() {
         System.out.println(" Тест на столкновение мяча и угла ракетки");
         GameLoader game = new GameLoader();
-        game.setup(new RacketCollisions(table, 0), new Dimension(800,600), false);
+        RacketCollisions test = new RacketCollisions(table);
+        test.setFirstSpeed(new SpeedVector(-0.5, -1));
+        test.setSecondSpeed(new SpeedVector());
+        test.setFirstPoint(new Point(400, 500));
+        test.setSecondPoint(new Point(220, 525));
+        game.setup(test, new Dimension(800,600), false);
         game.start();
     }
     
@@ -72,7 +84,12 @@ public class CollisionObjectWithObjectTest {
     public void testCollidedBallWithBrick() {
         System.out.println("Тест на столкновение мяча и кирпича");
         GameLoader game = new GameLoader();
-        game.setup(new BallWithBricks(table, 1), new Dimension(800,600), false);
+        BallWithBricks test = new BallWithBricks(table);
+        test.setSpeed(new SpeedVector(0.5, 1));
+        test.setFirstPoint(new Point(400, 500));
+        test.setSecondPoint(new Point(360, 470));
+        test.setThirdPoint(null);
+        game.setup(test, new Dimension(800,600), false);
         game.start();
     }
     
@@ -83,7 +100,12 @@ public class CollisionObjectWithObjectTest {
     public void testCollidedBallWithTwoHorizontalBrick() {
         System.out.println("Тест на столкновение мяча и двух кирпичей на одной линии");
         GameLoader game = new GameLoader();
-        game.setup(new BallWithBricks(table, 0), new Dimension(800,600), false);
+        BallWithBricks test = new BallWithBricks(table);
+        test.setSpeed(new SpeedVector(0.5, 1));
+        test.setFirstPoint(new Point(400, 500));
+        test.setSecondPoint(new Point(333, 470));
+        test.setThirdPoint(new Point(413, 470));
+        game.setup(test, new Dimension(800,600), false);
         game.start();
     }
     
@@ -94,7 +116,13 @@ public class CollisionObjectWithObjectTest {
     public void testCollidedBallWithTwoCornerBrick() {
         System.out.println("Тест на столкновение мяча и двух кирпичей в углу");
         GameLoader game = new GameLoader();
-        game.setup(new BallWithBricks(table, 4), new Dimension(800,600), false);
+        BallWithBricks test = new BallWithBricks(table);
+        test.setSpeed(new SpeedVector(-0.5, 1));
+        test.setFirstPoint(new Point(400, 500));
+        test.setSecondPoint(new Point(320, 500));
+        test.setThirdPoint(new Point(400, 470));
+        game.setup(test, new Dimension(800,600), false);
+
         game.start();
     }
     
@@ -105,7 +133,12 @@ public class CollisionObjectWithObjectTest {
     public void testBallBetweenTwoBrick() {
         System.out.println("Тест мяч пролетает между кирпичами");
         GameLoader game = new GameLoader();
-        game.setup(new BallWithBricks(table, 5), new Dimension(800,600), false);
+        BallWithBricks test = new BallWithBricks(table);
+        test.setSpeed(new SpeedVector(0, 0.5));
+        test.setFirstPoint(new Point(400, 531));
+        test.setSecondPoint(new Point(320, 500));
+        test.setThirdPoint(new Point(320, 556));
+        game.setup(test, new Dimension(800,600), false);
         game.start();
     }
     
@@ -116,7 +149,12 @@ public class CollisionObjectWithObjectTest {
     public void testCollidedBallWithTwoBrickWithDistance() {
         System.out.println("Тест на столкновение мяча и двух кирпичей c расстоянием");
         GameLoader game = new GameLoader();
-        game.setup(new BallWithBricks(table, 6), new Dimension(800,600), false);
+        BallWithBricks test = new BallWithBricks(table);
+        test.setSpeed(new SpeedVector(0, 0.5));
+        test.setFirstPoint(new Point(400, 520));
+        test.setSecondPoint(new Point(320, 500));
+        test.setThirdPoint(new Point(320, 540));
+        game.setup(test, new Dimension(800,600), false);
         game.start();
     }
     
@@ -127,7 +165,12 @@ public class CollisionObjectWithObjectTest {
     public void testCollidedBallWithCornerBrick() {
         System.out.println("Тест на столкновение мяча и угла кирпича");
         GameLoader game = new GameLoader();
-        game.setup(new BallWithBricks(table, 2), new Dimension(800,600), false);
+        BallWithBricks test = new BallWithBricks(table);
+        test.setSpeed(new SpeedVector(0.5, 1));
+        test.setFirstPoint(new Point(400, 500));
+        test.setSecondPoint(new Point(425, 470));
+        test.setThirdPoint(null);
+        game.setup(test, new Dimension(800,600), false);
         game.start();
     }
     
@@ -138,7 +181,12 @@ public class CollisionObjectWithObjectTest {
     public void testCollidedBallWithSideBrick() {
         System.out.println("Тест на столкновение мяча и боковой стороны кирпича");
         GameLoader game = new GameLoader();
-        game.setup(new BallWithBricks(table, 3), new Dimension(800,600), false);
+        BallWithBricks test = new BallWithBricks(table);
+        test.setSpeed(new SpeedVector(-0.5, 1));
+        test.setFirstPoint(new Point(400, 500));
+        test.setSecondPoint(new Point(320, 500));
+        test.setThirdPoint(null);
+        game.setup(test, new Dimension(800,600), false);
         game.start();
     }
     
@@ -160,7 +208,17 @@ public class CollisionObjectWithObjectTest {
     public void testCollidedBallWithSameBall() {
         System.out.println("Тест на столкновение мяча и такого же мяча");
         GameLoader game = new GameLoader();
-        game.setup(new BallsCollision(table, 1), new Dimension(800,600), false);
+        BallsCollision test = new BallsCollision(table);
+        test.setFirstSpeed(new SpeedVector(0.5, 1));
+        test.setSecondSpeed(new SpeedVector(-0.4, 0.6));
+        test.setThirdSpeed(null);
+        test.setFirstPoint(new Point(400, 500));
+        test.setSecondPoint(new Point(425, 500));
+        test.setThirdPoint(null);
+        test.setFirstWeight(1);
+        test.setSecondWeight(1);
+        test.setThirdWeight(0);
+        game.setup(test, new Dimension(800,600), false);
         game.start();
     }
     
@@ -171,7 +229,18 @@ public class CollisionObjectWithObjectTest {
     public void testCollidedBallWithAnotherBall() {
         System.out.println("Тест на столкновение мяча и другого мяча");
         GameLoader game = new GameLoader();
-        game.setup(new BallsCollision(table, 2), new Dimension(800,600), false);
+        
+        BallsCollision test = new BallsCollision(table);
+        test.setFirstSpeed(new SpeedVector(0.5, 1));
+        test.setSecondSpeed(new SpeedVector(-0.4, 0.6));
+        test.setThirdSpeed(null);
+        test.setFirstPoint(new Point(400, 500));
+        test.setSecondPoint(new Point(425, 500));
+        test.setThirdPoint(null);
+        test.setFirstWeight(1);
+        test.setSecondWeight(3);
+        test.setThirdWeight(0);
+        game.setup(test, new Dimension(800,600), false);
         game.start();
     }
     
@@ -182,7 +251,19 @@ public class CollisionObjectWithObjectTest {
     public void testCollidedTreeBalls() {
         System.out.println("Тест на столкновение трех мячей");
         GameLoader game = new GameLoader();
-        game.setup(new BallsCollision(table, 3), new Dimension(800,600), false);
+        
+        
+        BallsCollision test = new BallsCollision(table);
+        test.setFirstSpeed(new SpeedVector(0.5, 1));
+        test.setSecondSpeed(new SpeedVector(-0.4, 0.6));
+        test.setThirdSpeed(new SpeedVector(0, 0.7));
+        test.setFirstPoint(new Point(400, 500));
+        test.setSecondPoint(new Point(425, 500));
+        test.setThirdPoint(new Point(413, 475));
+        test.setFirstWeight(1);
+        test.setSecondWeight(1);
+        test.setThirdWeight(1);
+        game.setup(test, new Dimension(800,600), false);
         game.start();
     }
     

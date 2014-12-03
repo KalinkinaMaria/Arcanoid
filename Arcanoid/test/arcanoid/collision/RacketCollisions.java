@@ -36,16 +36,20 @@ public class RacketCollisions extends Game implements CollisionHandleEndListener
     private CollisionObjectWithObject collision;
     /** Буфер */
     private Buffer table;
-    /** Номер теста*/
-    private int testNumber; 
+
+    private SpeedVector firstVector;
+    private SpeedVector secondVector;
+    private Point firstPoint;
+    private Point secondPoint;
+    private Ball cloneBall;
+    private Racket cloneRacket;
     
     /**
      * Конструктор
      * @param table Буфер
      */
-    public RacketCollisions(Buffer table, int testNumber) {
+    public RacketCollisions(Buffer table) {
         this.table = table;
-        this.testNumber = testNumber;
     }
     
     /**
@@ -53,12 +57,6 @@ public class RacketCollisions extends Game implements CollisionHandleEndListener
      */
     @Override
     public void initResources() {
-        double firstWeigt;
-        double secondWeigt;
-        SpeedVector firstVector;
-        SpeedVector secondVector;
-        Point firstPoint;
-        Point secondPoint;
         playfield = new PlayField();
         // Создание спрайт групп
         ballGroup = new SpriteGroup("Balls");
@@ -69,31 +67,6 @@ public class RacketCollisions extends Game implements CollisionHandleEndListener
         // Создание спрайтов
         BufferedImage ballImage = getImage("img/ball.png");
         BufferedImage racketImage = getImage("img/r.png");
-        firstVector = new SpeedVector();
-        secondVector = new SpeedVector();
-        firstPoint = new Point();
-        secondPoint = new Point();
-        firstWeigt = 0;
-        secondWeigt = 0;
-        switch (this.testNumber) {
-            case 0:
-                firstVector = new SpeedVector(-0.5, -1);
-                secondVector = new SpeedVector();
-                firstPoint = new Point(400, 500);
-                secondPoint = new Point(220, 525);
-                firstWeigt = 1;
-                secondWeigt = 0;
-                break;
-            case 1:
-                firstVector = new SpeedVector(1, -1);
-                secondVector = new SpeedVector();
-                firstPoint = new Point(280, 480);
-                secondPoint = new Point(220, 525);
-                firstWeigt = 1;
-                secondWeigt = 0;
-                break;
-
-        }
         Sprite ball = new Sprite(ballImage, firstPoint.x, firstPoint.y);
         Sprite racket = new Sprite(racketImage, secondPoint.x, secondPoint.y);
         //Заполняем буфер
@@ -108,6 +81,8 @@ public class RacketCollisions extends Game implements CollisionHandleEndListener
         racketGroup.add(racket);
         collision = new CollisionObjectWithObject();
         playfield.addCollisionGroup(ballGroup, racketGroup, collision);
+        cloneBall = ballElement.clone();
+        cloneRacket = racketElement.clone();
     }
 
     /**
@@ -134,15 +109,29 @@ public class RacketCollisions extends Game implements CollisionHandleEndListener
      */
     @Override
     public void checkAssertion(CollisionHandleEndEvent e) {
-        switch (this.testNumber) {
-            case 0:
-                assertEquals(e.firstElement.speed(), new SpeedVector(0.5,1));
-                assertEquals(e.secondElement.speed(), new SpeedVector());
-                break;
-            case 1:
-                assertEquals(e.firstElement.speed(), new SpeedVector(1,1));
-                assertEquals(e.secondElement.speed(), new SpeedVector());
-                break;
-        }
+        Racket cloneRacket1 = cloneRacket.clone();
+        Ball cloneBall1 = cloneBall.clone();
+        cloneBall.handleCollision(cloneRacket1);
+        cloneRacket.handleCollision(cloneBall1);
+        assertEquals(e.firstElement.speed(), cloneBall.speed());
+        assertEquals(e.secondElement.speed(), cloneRacket.speed());
     }
+    
+    public void setFirstSpeed(SpeedVector speed) {
+        firstVector = speed;
+    }
+    
+    public void setSecondSpeed(SpeedVector speed) {
+        secondVector = speed;
+    }
+    
+    public void setFirstPoint(Point point) {
+        firstPoint = point;
+    }
+    
+    public void setSecondPoint(Point point) {
+        secondPoint = point;
+    }
+    
+
 }

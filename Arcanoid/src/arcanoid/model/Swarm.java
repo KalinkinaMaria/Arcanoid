@@ -93,4 +93,14 @@ public class Swarm extends FieldElement {
     public double weight() {
         return this.weight;
     }
+    
+    public Swarm clone() {
+        Swarm swarm = new Swarm(this.table, (int)this.weight()/this.elementWeight);
+        swarm.criticalWeight = this.criticalWeight;
+        for (SwarmElement element: this.elements()) {
+            swarm.elements.add(element.clone());
+        }
+        swarm.gameStateChangeListeners = this.gameStateChangeListeners;
+        return swarm;
+    }
 }

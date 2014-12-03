@@ -19,4 +19,9 @@ public class UndestroyableBrick extends Brick implements Bounced {
         super(table);
     }
 
+    public UndestroyableBrick clone() {
+        UndestroyableBrick brick = new UndestroyableBrick(this.table);
+        brick.copy(this);
+        return brick;
+    }
 }

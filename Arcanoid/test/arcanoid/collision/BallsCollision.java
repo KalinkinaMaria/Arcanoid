@@ -9,6 +9,7 @@ package arcanoid.collision;
 import arcanoid.events.CollisionHandleEndEvent;
 import arcanoid.events.CollisionHandleEndListener;
 import arcanoid.model.Ball;
+import arcanoid.model.FieldElement;
 import arcanoid.service.Buffer;
 import arcanoid.service.SpeedVector;
 import com.golden.gamedev.Game;
@@ -37,16 +38,25 @@ public class BallsCollision extends Game implements CollisionHandleEndListener {
     private CollisionObjectWithObject collision;
     /** Буфер */
     private Buffer table;
-    /** Номер теста*/
-    private int testNumber;
+    double firstWeigt;
+    double secondWeigt;
+    double thirdWeigt;
+    SpeedVector firstVector;
+    SpeedVector secondVector;
+    SpeedVector thirdVector;
+    Point firstPoint;
+    Point secondPoint;
+    Point thirdPoint;
+    Ball clone1;
+    Ball clone2;
+    Ball clone3;
     
     /**
      * Конструктор
      * @param table Буфер
      */
-    public BallsCollision(Buffer table, int testNumber) {
+    public BallsCollision(Buffer table) {
         this.table = table;
-        this.testNumber = testNumber;
     }
     
     /**
@@ -54,15 +64,6 @@ public class BallsCollision extends Game implements CollisionHandleEndListener {
      */
     @Override
     public void initResources() {
-        double firstWeigt;
-        double secondWeigt;
-        double thirdWeigt;
-        SpeedVector firstVector;
-        SpeedVector secondVector;
-        SpeedVector thirdVector;
-        Point firstPoint;
-        Point secondPoint;
-        Point thirdPoint;
         playfield = new PlayField();
         // Создание спрайт групп
         firstBallGroup = new SpriteGroup("firstBalls");
@@ -74,53 +75,12 @@ public class BallsCollision extends Game implements CollisionHandleEndListener {
         playfield.addGroup(thirdBallGroup);
         // Создание спрайтов
         BufferedImage ballImage = getImage("img/ball.png");
-        firstVector = new SpeedVector();
-        secondVector = new SpeedVector();
-        thirdVector = new SpeedVector();
-        firstPoint = new Point();
-        secondPoint = new Point();
-        thirdPoint = new Point();
-        firstWeigt = 0;
-        secondWeigt = 0;
-        thirdWeigt = 0;
-        switch (this.testNumber) {
-            case 0:
-                firstVector = new SpeedVector(0.5, 1);
-                secondVector = new SpeedVector(-0.4, 0.6);
-                thirdVector = new SpeedVector(0, 0.7);
-                firstPoint = new Point(400, 500);
-                secondPoint = new Point(425, 500);
-                thirdPoint = new Point(413, 475);
-                firstWeigt = 1;
-                secondWeigt = 1;
-                thirdWeigt = 1;
-                break;
-            case 1:
-                firstVector = new SpeedVector(0.5, 1);
-                secondVector = new SpeedVector(-0.4, 0.6);
-                thirdVector = null;
-                firstPoint = new Point(400, 500);
-                secondPoint = new Point(425, 500);
-                thirdPoint = null;
-                firstWeigt = 1;
-                secondWeigt = 1;
-                thirdWeigt = 0.0;
-                break;
-            case 2:
-                firstVector = new SpeedVector(0.5, 1);
-                secondVector = new SpeedVector(-0.4, 0.6);
-                thirdVector = null;
-                firstPoint = new Point(400, 500);
-                secondPoint = new Point(425, 500);
-                thirdPoint = null;
-                firstWeigt = 1;
-                secondWeigt = 3;
-                thirdWeigt = 0.0;
-                break;
-        }
         Sprite ball1 = new Sprite(ballImage, firstPoint.x, firstPoint.y);
         Sprite ball2 = new Sprite(ballImage, secondPoint.x, secondPoint.y);
-        Sprite ball3 = new Sprite(ballImage, thirdPoint.x, thirdPoint.y);
+        Sprite ball3 = null;
+        if (thirdPoint != null) {
+            ball3 = new Sprite(ballImage, thirdPoint.x, thirdPoint.y);
+        }
         //Заполняем буфер
         Ball ballElement1 = new Ball(table);
         ballElement1.setWeight(firstWeigt);
@@ -130,19 +90,31 @@ public class BallsCollision extends Game implements CollisionHandleEndListener {
         ballElement3.setWeight(thirdWeigt);
         table.addPair(ballElement1, ball1);
         table.addPair(ballElement2, ball2);
-        table.addPair(ballElement3, ball3);
+        if (thirdPoint != null) {
+            table.addPair(ballElement3, ball3);
+        }
         ballElement1.addCollisionHandleEndListener(this);
         ball1.setSpeed(firstVector.x(), firstVector.y());
         ball2.setSpeed(secondVector.x(), secondVector.y());
-        ball3.setSpeed(thirdVector.x(), thirdVector.y());
+        if (thirdPoint != null) {
+            ball3.setSpeed(thirdVector.x(), thirdVector.y());
+        }
         // Добавление в спрайт группу и установка коллизии
         firstBallGroup.add(ball1);
         secondBallGroup.add(ball2);
-        thirdBallGroup.add(ball3);
+        if (thirdPoint != null) {
+            thirdBallGroup.add(ball3);
+        }
         collision = new CollisionObjectWithObject();
         playfield.addCollisionGroup(firstBallGroup, secondBallGroup, collision);
-        playfield.addCollisionGroup(firstBallGroup, thirdBallGroup, collision);
-        playfield.addCollisionGroup(thirdBallGroup, secondBallGroup, collision);
+        clone1 = ballElement1.clone();
+        clone2 = ballElement2.clone();
+        
+        if (thirdPoint != null) {
+            playfield.addCollisionGroup(firstBallGroup, thirdBallGroup, collision);
+            playfield.addCollisionGroup(thirdBallGroup, secondBallGroup, collision);
+            clone3 = ballElement3.clone();
+        }
     }
 
     /**
@@ -169,22 +141,70 @@ public class BallsCollision extends Game implements CollisionHandleEndListener {
      */
     @Override
     public void checkAssertion(CollisionHandleEndEvent e) {
-        switch (this.testNumber) {
-            case 0:
-                assertEquals(e.firstElement.speed(), new SpeedVector(0, 0.7));
-                assertEquals(e.secondElement.speed(), new SpeedVector(0.5, 1));
-                assertEquals(e.thirdElement.speed(), new SpeedVector(-0.4, 0.6));
-                break;
-            case 1:
-                assertEquals(e.firstElement.speed(), new SpeedVector(-0.4, 0.6));
-                assertEquals(e.secondElement.speed(), new SpeedVector(0.5, 1));
-                assertEquals(e.thirdElement.speed(), null);
-                break;
-            case 2:
-                assertEquals(e.firstElement.speed(), new SpeedVector(0.95, 1.2));
-                assertEquals(e.secondElement.speed(), new SpeedVector(0.05, 0.8));
-                assertEquals(e.thirdElement.speed(), null);
-                break;
+        Ball clone12 = clone1.clone();
+        Ball clone22 = clone2.clone();
+        if (thirdPoint == null) {
+            clone1.handleCollision(clone2);
+            clone22.handleCollision(clone12);
+            assertEquals(e.firstElement.speed(), clone1.speed());
+            assertEquals(e.secondElement.speed(), clone22.speed());
+        } else {
+            Ball clone13 =  clone1.clone();
+            Ball clone23 = clone2.clone();
+            Ball clone31 = clone3.clone();
+            Ball clone32 = clone3.clone();
+            Ball clone33 = clone3.clone();
+            Ball ball23 = new Ball(table);
+            ball23.setSpeed(clone22.speed().sum(clone31.speed()));
+            ball23.setWeight(clone22.weight()+clone31.weight());
+            clone1.handleCollision(ball23);
+            Ball ball13 = new Ball(table);
+            ball13.setSpeed(clone12.speed().sum(clone32.speed()));
+            ball13.setWeight(clone12.weight()+clone32.weight());
+            clone2.handleCollision(ball13);
+            Ball ball12 = new Ball(table);
+            ball12.setSpeed(clone23.speed().sum(clone33.speed()));
+            ball12.setWeight(clone23.weight()+clone33.weight());
+            clone3.handleCollision(ball12);
+            assertEquals(e.firstElement.speed(), clone1.speed());
+            assertEquals(e.secondElement.speed(), clone2.speed());
+            assertEquals(e.secondElement.speed(), clone3.speed());
         }
+    }
+    
+    public void setFirstSpeed(SpeedVector speed) {
+        firstVector = speed;
+    }
+    
+    public void setSecondSpeed(SpeedVector speed) {
+        secondVector = speed;
+    }
+    
+    public void setThirdSpeed(SpeedVector speed) {
+        thirdVector = speed;
+    }
+    
+    public void setFirstPoint(Point point) {
+        firstPoint = point;
+    }
+    
+    public void setSecondPoint(Point point) {
+        secondPoint = point;
+    }
+    
+    public void setThirdPoint(Point point) {
+        thirdPoint = point;
+    }
+    
+    public void setFirstWeight(double weight) {
+        firstWeigt = weight;
+    }
+    
+    public void setSecondWeight(double weight) {
+        secondWeigt = weight;
+    }
+    
+    public void setThirdWeight(double weight) {
+       thirdWeigt = weight;
     }
 }

@@ -22,7 +22,7 @@ import java.util.ArrayList;
  * 
  * @author Елена
  */
-public class FieldElement {
+public abstract class FieldElement {
     /** Таблица соответствий элемента поля со спрайтом */
     protected Buffer table;
     /** Вес */
@@ -105,6 +105,11 @@ public class FieldElement {
         return new Point((int)table.getSprite(this).getX(), (int)table.getSprite(this).getY());
     }
     
+    public void setPosition(Point point) {
+        table.getSprite(this).setX(point.getX());
+        table.getSprite(this).setY(point.getY());
+    }
+    
     /**
      * Получить размер
      * 
@@ -119,7 +124,7 @@ public class FieldElement {
      * 
      * @return спрайт
      */
-    private Sprite getSprite () {
+    protected Sprite getSprite () {
         return table.getSprite(this);
     }
     
@@ -178,10 +183,11 @@ public class FieldElement {
         this.weight = weight;
     }
     
-    public Object clone() {
-        FieldElement result = new FieldElement(table);
-        result.speed = this.speed();
-        result.weight = this.weight();
-        return result;
+    protected void copy(FieldElement other) {
+        other.weight = this.weight;
+        other.setSpeed(this.speed);
+        other.gameFieldChangeListeners = this.gameFieldChangeListeners;
+        other.collisionHandleEndListeners = this.collisionHandleEndListeners;
+        other.setPosition(this.position());
     }
 }

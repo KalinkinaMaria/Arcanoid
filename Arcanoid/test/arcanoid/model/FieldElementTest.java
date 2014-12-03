@@ -74,14 +74,17 @@ public class FieldElementTest {
         System.out.println("Тест для тестирования обработки столкновения мяча с ракеткой в движении");
         Racket racket = new Racket(table);
         Ball ball = new Ball(table);
+        Ball cloneBall;
         //Установить позиции
         table.addPair(racket, new Sprite(10, 10));
         table.addPair(ball, new Sprite(15, 10));
         // Устанавливаем скорости
         racket.setSpeed(new SpeedVector(3, 0));
         ball.setSpeed(new SpeedVector(10,-5));
+        cloneBall = ball.clone();
         ball.handleCollision(racket);
-        assertEquals(ball.speed(), new SpeedVector(13,5));
+        cloneBall.handleCollision(SpeedVector.Axis.X, racket.position());
+        assertEquals(ball.speed(), cloneBall.speed());
     }
     
     /**
@@ -107,13 +110,16 @@ public class FieldElementTest {
         System.out.println("Тест для тестирования обработки столкновения мяча с  кирпичом");
         DestroyableBrick brick = new DestroyableBrick(table);
         Ball ball = new Ball(table);
+        Ball cloneBall;
         //Установить позиции
         table.addPair(brick, new Sprite(10, 10));
         table.addPair(ball, new Sprite(15, 20));
         // Устанавливаем скорости
         ball.setSpeed(new SpeedVector(10,5));
+        cloneBall = ball.clone();
         ball.handleCollision(brick);
-        assertEquals(ball.speed(), new SpeedVector(10,-5));
+        cloneBall.handleCollision(SpeedVector.Axis.X, brick.position());
+        assertEquals(ball.speed(), cloneBall.speed());
     }
     
     /**
@@ -236,14 +242,17 @@ public class FieldElementTest {
         System.out.println("Тест для тестирования обработки столкновения мяча с боковой стороной кирпича");
         DestroyableBrick brick = new DestroyableBrick(table);
         Ball ball = new Ball(table);
+        Ball cloneBall;
         ball.setWeight(1);
         //Установить позиции
         table.addPair(brick, new Sprite(10, 10));
         table.addPair(ball, new Sprite(30, 15));
         // Устанавливаем скорости
         ball.setSpeed(new SpeedVector(-5,10));
+        cloneBall = ball.clone();
         ball.handleCollision(brick);
-        assertEquals(ball.speed(), new SpeedVector(5, 10));
+        cloneBall.handleCollision(SpeedVector.Axis.Y, brick.position());
+        assertEquals(ball.speed(), cloneBall.speed());
     }
     
     /**
@@ -254,14 +263,17 @@ public class FieldElementTest {
         System.out.println("Тест для тестирования обработки столкновения мяча с углом кирпича");
         DestroyableBrick brick = new DestroyableBrick(table);
         Ball ball = new Ball(table);
+        Ball cloneBall;
         ball.setWeight(1);
         //Установить позиции
         table.addPair(brick, new Sprite(10, 10));
         table.addPair(ball, new Sprite(30, 20));
         // Устанавливаем скорости
         ball.setSpeed(new SpeedVector(-5,10));
+        cloneBall = ball.clone();
         ball.handleCollision(brick);
-        assertEquals(ball.speed(), new SpeedVector(5, 10));
+        ball.handleCollision(SpeedVector.Axis.Z, brick.position());
+        assertEquals(ball.speed(), cloneBall.speed());
     }
     
     /**
@@ -272,14 +284,17 @@ public class FieldElementTest {
         System.out.println("Тест для тестирования обработки столкновения мяча с углом ракетки");
         Racket racket = new Racket(table);
         Ball ball = new Ball(table);
+        Ball cloneBall;
         ball.setWeight(1);
         //Установить позиции
         table.addPair(racket, new Sprite(10, 10));
         table.addPair(ball, new Sprite(30, 10));
         // Устанавливаем скорости
         ball.setSpeed(new SpeedVector(-5, -10));
+        cloneBall = ball.clone();
         ball.handleCollision(racket);
-        assertEquals(ball.speed(), new SpeedVector(5, 10));
+        cloneBall.handleCollision(SpeedVector.Axis.Z, racket.position());
+        assertEquals(ball.speed(), cloneBall.speed());
     }
     
     /**
@@ -290,6 +305,7 @@ public class FieldElementTest {
         System.out.println("Тест для тестирования обработки столкновения мяча с углом движущейся ракетки");
         Racket racket = new Racket(table);
         Ball ball = new Ball(table);
+        Ball cloneBall;
         ball.setWeight(1);
         //Установить позиции
         table.addPair(racket, new Sprite(10, 10));
@@ -297,8 +313,10 @@ public class FieldElementTest {
         // Устанавливаем скорости
         ball.setSpeed(new SpeedVector(-5, -10));
         racket.setSpeed(new SpeedVector(3,0));
+        cloneBall = ball.clone();
         ball.handleCollision(racket);
-        assertEquals(ball.speed(), new SpeedVector(8, 10));
+        cloneBall.handleCollision(SpeedVector.Axis.Z, racket.position());
+        assertEquals(ball.speed(), cloneBall.speed());
     }
     
     /**
@@ -314,12 +332,17 @@ public class FieldElementTest {
         // Устанавливаем скорости
         ball1.setSpeed(new SpeedVector(2, -2));
         ball2.setSpeed(new SpeedVector(2, 5));
-        Ball clone1 = (Ball) ball1.clone();
-        Ball clone2 = (Ball) ball2.clone();
+        Ball clone1 = ball1.clone();
+        Ball cloneBall1 = ball1.clone();
+        Ball cloneBall11 = ball1.clone();
+        Ball clone2 = ball2.clone();
+        Ball cloneBall2 = ball2.clone();
         ball1.handleCollision(clone2);
-        assertEquals(ball1.speed(), new SpeedVector(2, 5));
+        cloneBall1.handleCollision(cloneBall2.position(), cloneBall2);
+        assertEquals(ball1.speed(), cloneBall1.speed());
         ball2.handleCollision(clone1);
-        assertEquals(ball2.speed(), new SpeedVector(2, -2));
+        cloneBall2.handleCollision(cloneBall11.position(), cloneBall11);
+        assertEquals(ball2.speed(), cloneBall2.speed());
     }
     
     /**
@@ -335,12 +358,17 @@ public class FieldElementTest {
         // Устанавливаем скорости
         ball1.setSpeed(new SpeedVector(2, -2));
         ball2.setSpeed(new SpeedVector(2, 5));
-        Ball clone1 = (Ball) ball1.clone();
-        Ball clone2 = (Ball) ball2.clone();
+        Ball clone1 = ball1.clone();
+        Ball clone2 = ball2.clone();
+        Ball cloneBall1 = ball1.clone();
+        Ball cloneBall11 = ball1.clone();
+        Ball cloneBall2 = ball2.clone();
         ball1.handleCollision(clone2);
-        assertEquals(ball1.speed(), new SpeedVector(2, 22/3));
+        cloneBall1.handleCollision(cloneBall2.position(), cloneBall2);
+        assertEquals(ball1.speed(), cloneBall1.speed());
         ball2.handleCollision(clone1);
-        assertEquals(ball2.speed(), new SpeedVector(2, -1/3));
+        cloneBall2.handleCollision(cloneBall11.position(), cloneBall11);
+        assertEquals(ball2.speed(), cloneBall2.speed());
     }
     
     /**

@@ -22,4 +22,9 @@ public class SwarmElement extends FieldElement {
         this.weight = weight;
     }
 
+    public SwarmElement clone() {
+        SwarmElement element = new SwarmElement(this.table, this.weight);
+        element.copy(this);
+        return element;
+    }
 }

@@ -40,5 +40,9 @@ public class Ball extends Bouncing implements Bounced {
         
     }
     
-    
+    public Ball clone() {
+        Ball ball = new Ball(this.table);
+        ball.copy(this);
+        return ball;
+    }
 }

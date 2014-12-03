@@ -39,18 +39,21 @@ public class BallWithBricks extends Game implements CollisionHandleEndListener {
     private CollisionObjectWithObject collision;
      /** Буфер */
     private Buffer table;
-    /** Номер теста*/
-    private int testNumber; 
     /** Игровое поле*/
     private GameField field;
-    
+    private SpeedVector speedVector;
+    private Point firstPoint;
+    private Point secondPoint;
+    private Point thirdPoint;
+    private Ball cloneBall;
+    private DestroyableBrick cloneBrick1;
+    private DestroyableBrick cloneBrick2;
     /**
      * Конструктор
      * @param table Буфер
      */
-    public BallWithBricks (Buffer table, int testNumber) {
+    public BallWithBricks (Buffer table) {
         this.table = table;
-        this.testNumber = testNumber;
         field = new GameField();
     }
     
@@ -59,10 +62,7 @@ public class BallWithBricks extends Game implements CollisionHandleEndListener {
      */
     @Override
     public void initResources() {
-        SpeedVector speedVector;
-        Point firstPoint;
-        Point secondPoint;
-        Point thirdPoint;
+        
         playfield = new PlayField();
         // Создание спрайт групп
         ballGroup = new SpriteGroup("Balls");
@@ -70,80 +70,46 @@ public class BallWithBricks extends Game implements CollisionHandleEndListener {
         
         playfield.addGroup(ballGroup);
         playfield.addGroup(brickGroup);
-        firstPoint = new Point();
-        secondPoint = new Point();
-        thirdPoint = new Point();
-        speedVector = new SpeedVector();
-        switch (this.testNumber) {
-            case 0:
-                speedVector = new SpeedVector(0.5, 1);
-                firstPoint = new Point(400, 500);
-                secondPoint = new Point(333, 470);
-                thirdPoint = new Point(413, 470);
-                break;
-            case 1:
-                speedVector = new SpeedVector(0.5, 1);
-                firstPoint = new Point(400, 500);
-                secondPoint = new Point(360, 470);
-                thirdPoint = new Point(0, 0);
-                break;
-            case 2:
-                speedVector = new SpeedVector(0.5, 1);
-                firstPoint = new Point(400, 500);
-                secondPoint = new Point(425, 470);
-                thirdPoint = new Point(0, 0);
-                break;
-            case 3:
-                speedVector = new SpeedVector(-0.5, 1);
-                firstPoint = new Point(400, 500);
-                secondPoint = new Point(320, 500);
-                thirdPoint = new Point(0, 0);
-                break;
-            case 4:
-                speedVector = new SpeedVector(-0.5, 1);
-                firstPoint = new Point(400, 500);
-                secondPoint = new Point(320, 500);
-                thirdPoint = new Point(400, 470);
-                break;
-            case 5:
-                speedVector = new SpeedVector(0, 0.5);
-                firstPoint = new Point(400, 531);
-                secondPoint = new Point(320, 500);
-                thirdPoint = new Point(320, 556);
-                break;
-            case 6:
-                speedVector = new SpeedVector(0, 0.5);
-                firstPoint = new Point(400, 520);
-                secondPoint = new Point(320, 500);
-                thirdPoint = new Point(320, 540);
-                break;
-
-        }
+        
         // Создание спрайтов
         BufferedImage ballImage = getImage("img/ball.png");
         BufferedImage brickImage = getImage("img/brick.png");
         Sprite ball = new Sprite(ballImage, firstPoint.x, firstPoint.y);
         Sprite brick1 = new Sprite(brickImage, secondPoint.x, secondPoint.y);
-        Sprite brick2 = new Sprite(brickImage, thirdPoint.x, thirdPoint.y);
+        Sprite brick2 = null;
+        if (thirdPoint != null) {
+            brick2 = new Sprite(brickImage, thirdPoint.x, thirdPoint.y);
+        }
         //Заполняем буфер
         Ball ballElement = new Ball(table);
         DestroyableBrick brickElement1 = new DestroyableBrick(table);
         DestroyableBrick brickElement2 = new DestroyableBrick(table);
         table.addPair(ballElement, ball);
         table.addPair(brickElement1, brick1);
-        table.addPair(brickElement2, brick2);
+        if (thirdPoint != null) {
+            table.addPair(brickElement2, brick2);
+        }
         // Добавление в игровое поле
         field.addElement(ballElement);
         field.addElement(brickElement1);
-        field.addElement(brickElement2);
+        if (thirdPoint != null) {
+            field.addElement(brickElement2);
+        }
         ballElement.addCollisionHandleEndListener(this);
         ball.setSpeed(speedVector.x(), speedVector.y());
         // Добавление в спрайт группу и установка коллизии
         ballGroup.add(ball);
         brickGroup.add(brick1);
-        brickGroup.add(brick2);
+        if (thirdPoint != null) {
+            brickGroup.add(brick2);
+        }
         collision = new CollisionObjectWithObject();
         playfield.addCollisionGroup(ballGroup, brickGroup, collision);
+        cloneBall = ballElement.clone();
+        cloneBrick1 = brickElement1.clone();
+        if (thirdPoint != null) {
+            cloneBrick2 = brickElement2.clone();
+        }
     }
 
     /**
@@ -170,37 +136,27 @@ public class BallWithBricks extends Game implements CollisionHandleEndListener {
      */
     @Override
     public void checkAssertion(CollisionHandleEndEvent e) {
-        switch (this.testNumber) {
-            case 0:
-                assertEquals(e.firstElement.speed(), new SpeedVector(0.5,-1));
-                assertFalse(field.containsElement(e.secondElement));
-                assertFalse(field.containsElement(e.thirdElement));
-                break;
-            case 1:
-                assertEquals(e.firstElement.speed(), new SpeedVector(0.5,-1));
-                assertFalse(field.containsElement(e.secondElement));
-                break;
-            case 2:
-                assertEquals(e.firstElement.speed(), new SpeedVector(-0.5,-1));
-                assertFalse(field.containsElement(e.secondElement));
-                break;
-            case 3:
-                assertEquals(e.firstElement.speed(), new SpeedVector(0.5,1));
-                assertFalse(field.containsElement(e.secondElement));
-                break;
-            case 4:
-                assertEquals(e.firstElement.speed(), new SpeedVector(0.5,-1));
-                assertFalse(field.containsElement(e.secondElement));
-                assertFalse(field.containsElement(e.thirdElement));
-                break;
-            case 5:
-                fail("Clash!!!");
-                break;
-            case 6:
-                assertEquals(e.firstElement.speed(), new SpeedVector(0, -0.5));
-                assertFalse(field.containsElement(e.secondElement));
-                assertFalse(field.containsElement(e.thirdElement));
-                break;
+        cloneBall.handleCollision(cloneBrick1);
+        assertEquals(e.firstElement.speed(), cloneBall.speed());
+        assertFalse(field.containsElement(e.secondElement));
+        if (thirdPoint != null) {
+            assertFalse(field.containsElement(e.thirdElement));
         }
+    }
+    
+    public void setSpeed(SpeedVector speed) {
+        speedVector = speed;
+    }
+    
+    public void setFirstPoint(Point point) {
+        firstPoint = point;
+    }
+    
+    public void setSecondPoint(Point point) {
+        secondPoint = point;
+    }
+    
+    public void setThirdPoint(Point point) {
+        thirdPoint = point;
     }
 }

@@ -26,4 +26,10 @@ public class Racket extends FieldElement implements Bounced {
     public void pushBall(Ball ball) {
         
     }
+    
+    public Racket clone() {
+        Racket racket = new Racket(this.table);
+        racket.copy(this);
+        return racket;
+    }
 }

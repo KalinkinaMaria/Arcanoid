@@ -40,4 +40,10 @@ public class Bouncing extends FieldElement{
     protected void handleCollision (Axis axis, Point position) {
         
     }
+    
+    public Bouncing clone() {
+        Bouncing element = new Bouncing(this.table);
+        element.copy(this);
+        return element;
+    }
 }
