@@ -22,6 +22,8 @@ import java.awt.Graphics2D;
 public class Arcanoid  extends Game {
     PlayField        playfield;
     Background       background;
+    
+    //{ distribute = true; }
     /**
      * @param args the command line arguments
      */
