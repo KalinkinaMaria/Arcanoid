@@ -10,8 +10,16 @@ import arcanoid.events.GameFieldChangeListener;
 import arcanoid.events.GameStateChangeEvent;
 import arcanoid.model.FieldElement;
 import arcanoid.service.Buffer;
+import com.golden.gamedev.object.Sprite;
 import java.util.ArrayList;
-
+import java.awt.image.BufferedImage;
+import com.golden.gamedev.Game;
+import com.golden.gamedev.object.SpriteGroup;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 /**
  * Игровое поле
  * 
@@ -22,12 +30,14 @@ public class GameField implements GameFieldChangeListener {
     private Buffer table;
     /** Элементы поля */
     private ArrayList<FieldElement> elements;
+    private ArrayList<SpriteGroup> spriteGroups;
     
     /**
      * Конструктор
      */
     public GameField () {
-        
+        elements = new ArrayList<>();
+        spriteGroups = new ArrayList<>();
     }
     
     /**
@@ -55,11 +65,28 @@ public class GameField implements GameFieldChangeListener {
         
     }
     
+    public ArrayList<SpriteGroup> getSpriteGroups() {
+        return spriteGroups;
+    }
+    
     /**
      * Создать начальную обстановку
      */
     public void createInitialAmbiance() {
-        
+        try {
+            SpriteGroup rackets = new SpriteGroup("Rackets");
+            SpriteGroup balls = new SpriteGroup("Balls");
+            BufferedImage imgRacket = ImageIO.read(new File("img/r.png"));
+            Sprite racket = new Sprite(imgRacket, 310, 575);
+            BufferedImage imgBall = ImageIO.read(new File("img/ball.png"));
+            Sprite ball = new Sprite(imgBall, 381.5, 550);
+            rackets.add(racket);
+            balls.add(ball);
+            spriteGroups.add(rackets);
+            spriteGroups.add(balls);
+        } catch (IOException ex) {
+            Logger.getLogger(GameField.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
