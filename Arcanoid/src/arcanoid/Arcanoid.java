@@ -8,6 +8,11 @@ package arcanoid;
 import arcanoid.events.GameStateChangeEvent;
 import arcanoid.events.GameStateChangeListener;
 import com.golden.gamedev.Game;
+import com.golden.gamedev.GameLoader;
+import com.golden.gamedev.object.Background;
+import com.golden.gamedev.object.PlayField;
+import com.golden.gamedev.object.background.ImageBackground;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 
 /**
@@ -15,27 +20,32 @@ import java.awt.Graphics2D;
  * @author Мария
  */
 public class Arcanoid  extends Game {
-        
+    PlayField        playfield;
+    Background       background;
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        GameLoader game = new GameLoader();
+        game.setup(new Arcanoid(), new Dimension(800,600), false);
+        game.start();
     }
 
     @Override
     public void initResources() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        playfield = new PlayField();
+        background = new ImageBackground(getImage("img/background.jpg"), 800, 600);
+        playfield.setBackground(background);
     }
 
     @Override
     public void update(long l) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        playfield.update(l);
     }
 
     @Override
     public void render(Graphics2D gd) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        playfield.render(gd);
     }
     
 }
