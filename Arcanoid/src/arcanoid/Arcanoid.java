@@ -75,7 +75,7 @@ public class Arcanoid  extends Game {
     
     public SpeedVector getMouseSpeed(long l) {
         SpeedVector result;
-        result = new SpeedVector((this.getMouseX() - oldMousePosition)/l, 0);
+        result = new SpeedVector(2*(this.getMouseX() - oldMousePosition)/l, 0);
         return result;
     }
 }
