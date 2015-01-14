@@ -7,6 +7,7 @@
 package arcanoid.model;
 
 import arcanoid.service.Buffer;
+import arcanoid.service.SpeedVector;
 
 /**
  * Ракетка
@@ -15,6 +16,7 @@ import arcanoid.service.Buffer;
  */
 public class Racket extends FieldElement implements Bounced {
 
+    public final SpeedVector initialSpeed = new SpeedVector(0,5);
     public Racket(Buffer table) {
         super(table);
     }
@@ -24,7 +26,7 @@ public class Racket extends FieldElement implements Bounced {
      * @param ball мяч
      */
     public void pushBall(Ball ball) {
-        
+        ball.setSpeed(initialSpeed);
     }
     
     public Racket clone() {
