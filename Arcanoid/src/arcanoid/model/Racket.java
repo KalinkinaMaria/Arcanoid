@@ -6,17 +6,20 @@
 
 package arcanoid.model;
 
+import arcanoid.events.AttemptStartedEvent;
+import arcanoid.events.AttemptStartedListener;
 import arcanoid.service.Buffer;
 import arcanoid.service.SpeedVector;
+import java.util.ArrayList;
 
 /**
  * Ракетка
  * 
  * @author Елена
  */
-public class Racket extends FieldElement implements Bounced {
+public class Racket extends FieldElement implements Bounced, AttemptStartedListener {
 
-    public final SpeedVector initialSpeed = new SpeedVector(0,5);
+    public final SpeedVector initialSpeed = new SpeedVector(0,-0.3);
     public Racket(Buffer table) {
         super(table);
     }
@@ -33,5 +36,12 @@ public class Racket extends FieldElement implements Bounced {
         Racket racket = new Racket(this.table);
         racket.copy(this);
         return racket;
+    }
+
+    @Override
+    public void startMoving(AttemptStartedEvent e) {
+        for (FieldElement element:e.pushingObjects) {
+            pushBall((Ball)element);
+        }
     }
 }

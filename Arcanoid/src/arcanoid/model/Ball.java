@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * 
  * @author Елена
  */
-public class Ball extends Bouncing implements Bounced, AttemptStartedListener {
+public class Ball extends Bouncing implements Bounced {
 
     /** Слушатели падения мяча*/
     private ArrayList<GameStateChangeListener> failListeners = new ArrayList<> ();
@@ -47,10 +47,5 @@ public class Ball extends Bouncing implements Bounced, AttemptStartedListener {
         Ball ball = new Ball(this.table);
         ball.copy(this);
         return ball;
-    }
-
-    @Override
-    public void startMoving(AttemptStartedEvent e) {
-        this.setSpeed(new SpeedVector(0, -0.3));
     }
 }

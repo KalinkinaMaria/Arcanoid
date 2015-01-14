@@ -5,6 +5,8 @@
  */
 package arcanoid.events;
 
+import arcanoid.model.FieldElement;
+import java.util.ArrayList;
 import java.util.EventObject;
 
 /**
@@ -13,8 +15,10 @@ import java.util.EventObject;
  */
 public class AttemptStartedEvent extends EventObject {
 
-    public AttemptStartedEvent(Object source) {
+    public final ArrayList<FieldElement> pushingObjects;
+    public AttemptStartedEvent(Object source, ArrayList<FieldElement> pushing) {
         super(source);
+        pushingObjects = pushing;
     }
     
 }

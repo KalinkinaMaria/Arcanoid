@@ -60,6 +60,22 @@ public class GameField implements GameFieldChangeListener {
         return null;
     }
     
+    public ArrayList<FieldElement> getElements(String className) {
+        Class foundClass;
+        ArrayList<FieldElement> elements = new ArrayList<>();
+        try {
+            foundClass = Class.forName(className);
+            for (FieldElement element:this.elements) {
+                if (element.getClass() == foundClass) {
+                    elements.add(element);
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GameField.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return elements;
+    }
+    
     /**
      * Добавить элемент
      * @param element элемент
@@ -110,7 +126,7 @@ public class GameField implements GameFieldChangeListener {
             Ball ball = new Ball(table);
             table.addPair(ball, ballSprite);
             balls.add(ballSprite);
-            model.addAttemptStartedListener(ball);
+            model.addAttemptStartedListener(racket);
             // Запомнить группы спрайтов.
             spriteGroups.put("Rackets", rackets);
             spriteGroups.put("Balls", balls);

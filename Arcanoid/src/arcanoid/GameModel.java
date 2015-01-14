@@ -49,7 +49,7 @@ public class GameModel implements GameStateChangeListener {
      */
     private void fireAttemptStarted() {
         AttemptStartedEvent event;
-        event = new AttemptStartedEvent(this);
+        event = new AttemptStartedEvent(this, field.getElements("arcanoid.model.Ball"));
 
         for (AttemptStartedListener listener: movingElements) {
             listener.startMoving(event);
