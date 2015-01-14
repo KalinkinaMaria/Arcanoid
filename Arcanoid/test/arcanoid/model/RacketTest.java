@@ -7,6 +7,7 @@ package arcanoid.model;
 
 import arcanoid.service.Buffer;
 import arcanoid.service.SpeedVector;
+import com.golden.gamedev.object.Sprite;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -44,8 +45,14 @@ public class RacketTest {
      */
     @Test
     public void testPushBall() {
-        Racket racket = new Racket(new Buffer());
-        Ball ball = new Ball(new Buffer());
+        Buffer table = new Buffer();
+        
+        Racket racket = new Racket(table);
+        Ball ball = new Ball(table);
+        
+        table.addPair(racket, new Sprite(10, 10));
+        table.addPair(ball, new Sprite(70, 30));
+        
         ball.setWeight(2);
         racket.pushBall(ball);
         //Нужно где то завести какую то константу, которая будет хранить начальный вектор скорости
