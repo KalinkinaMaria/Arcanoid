@@ -76,6 +76,7 @@ public class GameModel implements GameStateChangeListener {
     
     public void startAttempt() {
         fireAttemptStarted();
+        gameWasStarted = true;
     }
     public Collection<SpriteGroup> getSpriteGroups() {
         return field.getSpriteGroups();
@@ -95,6 +96,11 @@ public class GameModel implements GameStateChangeListener {
         FieldElement racket = field.getElement("arcanoid.model.Racket");
         if (racket != null) {
             racket.setSpeed(speed);
+        }
+        if (!isGameStarted()) {
+            for (FieldElement element: field.getElements("arcanoid.model.Ball")) {
+                element.setSpeed(speed);
+            }
         }
     }
 }
