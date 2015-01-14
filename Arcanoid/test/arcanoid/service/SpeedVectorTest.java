@@ -136,7 +136,7 @@ public class SpeedVectorTest {
         element2.setWeight(1);
         
         table.addPair(element1, new Sprite(10, 10));
-        table.addPair(element1, new Sprite(15, 10));
+        table.addPair(element2, new Sprite(15, 10));
         //Устанавливаем скорость
         SpeedVector vector1 = new SpeedVector(0.5, 1);
         SpeedVector vector2 = new SpeedVector(-0.3, 1);

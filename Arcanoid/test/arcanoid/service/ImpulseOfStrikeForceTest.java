@@ -7,6 +7,7 @@ package arcanoid.service;
 
 import arcanoid.model.Ball;
 import arcanoid.model.FieldElement;
+import com.golden.gamedev.object.Sprite;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -49,6 +50,7 @@ public class ImpulseOfStrikeForceTest {
         FieldElement element;
         element = new Ball(table);
         element.setWeight(5.5);
+        table.addPair(element, new Sprite(10, 10));
         element.setSpeed(new SpeedVector(3,4));
         double expResult = impulse.count(element);
         double result = 27.5;
