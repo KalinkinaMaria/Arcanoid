@@ -7,6 +7,7 @@ package arcanoid;
 
 import arcanoid.events.GameStateChangeEvent;
 import arcanoid.events.GameStateChangeListener;
+import arcanoid.service.SpeedVector;
 import com.golden.gamedev.Game;
 import com.golden.gamedev.GameLoader;
 import com.golden.gamedev.object.Background;
@@ -21,9 +22,10 @@ import java.awt.Graphics2D;
  * @author Мария
  */
 public class Arcanoid  extends Game {
-    PlayField        playfield;
-    Background       background;
-    GameModel gameModel;
+    private PlayField        playfield;
+    private Background       background;
+    private GameModel gameModel;
+    private int oldMousePosition;
     
     //{ distribute = true; }
     /**
@@ -38,6 +40,7 @@ public class Arcanoid  extends Game {
     @Override
     public void initResources() {
         playfield = new PlayField();
+        oldMousePosition  = this.getMouseX();
         background = new ImageBackground(getImage("img/background.jpg"), 800, 600);
         playfield.setBackground(background);
         gameModel = new GameModel();
@@ -53,6 +56,8 @@ public class Arcanoid  extends Game {
         if (click() && !gameModel.isGameStarted()) {
             gameModel.startAttempt();
         }
+        checkMouseMoving(l);
+        //System.out.println(l);
     }
 
     @Override
@@ -60,5 +65,17 @@ public class Arcanoid  extends Game {
         playfield.render(gd);
     }
     
+    public void checkMouseMoving(long l) {
+        // Игрок сделал движение мышкой.
+        if (this.getMouseX() != oldMousePosition && l != 0) {
+            gameModel.processPlayerAction(getMouseSpeed(l));
+            oldMousePosition = this.getMouseX();
+        }
+    }
     
+    public SpeedVector getMouseSpeed(long l) {
+        SpeedVector result;
+        result = new SpeedVector((this.getMouseX() - oldMousePosition)/l, 0);
+        return result;
+    }
 }

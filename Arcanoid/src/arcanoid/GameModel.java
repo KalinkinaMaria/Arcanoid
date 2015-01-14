@@ -10,6 +10,9 @@ import arcanoid.events.AttemptStartedListener;
 import arcanoid.events.GameFieldChangeEvent;
 import arcanoid.events.GameStateChangeEvent;
 import arcanoid.events.GameStateChangeListener;
+import arcanoid.model.FieldElement;
+import arcanoid.model.Racket;
+import arcanoid.service.SpeedVector;
 import com.golden.gamedev.object.SpriteGroup;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -25,7 +28,7 @@ public class GameModel implements GameStateChangeListener {
     private Player player;
     /** Флаг, о том, что игра началась, т.е. игрок запустил шарик*/
     private boolean gameWasStarted;
-     private ArrayList<AttemptStartedListener> movingElements;
+    private ArrayList<AttemptStartedListener> movingElements;
     
     public GameModel() {
         field = new GameField();
@@ -86,5 +89,12 @@ public class GameModel implements GameStateChangeListener {
     @Override
     public void endGame(GameStateChangeEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public void processPlayerAction(SpeedVector speed) {
+        FieldElement racket = field.getElement("arcanoid.model.Racket");
+        if (racket != null) {
+            racket.setSpeed(speed);
+        }
     }
 }
