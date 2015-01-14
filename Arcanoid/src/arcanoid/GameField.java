@@ -8,7 +8,9 @@ package arcanoid;
 import arcanoid.events.GameFieldChangeEvent;
 import arcanoid.events.GameFieldChangeListener;
 import arcanoid.events.GameStateChangeEvent;
+import arcanoid.model.Ball;
 import arcanoid.model.FieldElement;
+import arcanoid.model.Racket;
 import arcanoid.service.Buffer;
 import com.golden.gamedev.object.Sprite;
 import java.util.ArrayList;
@@ -40,6 +42,7 @@ public class GameField implements GameFieldChangeListener {
     public GameField () {
         elements = new ArrayList<>();
         spriteGroups = new HashMap<>();
+        table = new Buffer();
     }
     
     /**
@@ -74,16 +77,26 @@ public class GameField implements GameFieldChangeListener {
     /**
      * Создать начальную обстановку
      */
-    public void createInitialAmbiance() {
+    public void createInitialAmbiance(GameModel model) {
         try {
+            // Создать ракетку.
+            // Сщздать спрайт.
             SpriteGroup rackets = new SpriteGroup("Rackets");
-            SpriteGroup balls = new SpriteGroup("Balls");
             BufferedImage imgRacket = ImageIO.read(new File("img/r.png"));
-            Sprite racket = new Sprite(imgRacket, 310, 575);
+            Sprite racketSprite = new Sprite(imgRacket, 310, 575);
+            rackets.add(racketSprite);
+            // Создать элемент поля.
+            Racket racket = new Racket(table);
+            table.addPair(racket, racketSprite);
+            // Создать мячи.
+            SpriteGroup balls = new SpriteGroup("Balls");
             BufferedImage imgBall = ImageIO.read(new File("img/ball.png"));
-            Sprite ball = new Sprite(imgBall, 381.5, 550);
-            rackets.add(racket);
-            balls.add(ball);
+            Sprite ballSprite = new Sprite(imgBall, 381.5, 550);
+            Ball ball = new Ball(table);
+            table.addPair(ball, ballSprite);
+            balls.add(ballSprite);
+            model.addAttemptStartedListener(ball);
+            // Запомнить группы спрайтов.
             spriteGroups.put("Rackets", rackets);
             spriteGroups.put("Balls", balls);
         } catch (IOException ex) {
@@ -91,10 +104,6 @@ public class GameField implements GameFieldChangeListener {
         }
     }
     
-    public void startMoving() {
-        Sprite[] balls = spriteGroups.get("Balls").getSprites();
-        
-    }
 
     @Override
     public void changeElement(GameFieldChangeEvent e) {

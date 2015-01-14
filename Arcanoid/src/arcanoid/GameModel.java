@@ -5,6 +5,8 @@
  */
 package arcanoid;
 
+import arcanoid.events.AttemptStartedEvent;
+import arcanoid.events.AttemptStartedListener;
 import arcanoid.events.GameFieldChangeEvent;
 import arcanoid.events.GameStateChangeEvent;
 import arcanoid.events.GameStateChangeListener;
@@ -23,13 +25,33 @@ public class GameModel implements GameStateChangeListener {
     private Player player;
     /** Флаг, о том, что игра началась, т.е. игрок запустил шарик*/
     private boolean gameWasStarted;
+     private ArrayList<AttemptStartedListener> movingElements;
     
     public GameModel() {
         field = new GameField();
+        movingElements = new ArrayList<>();
         gameWasStarted = false;
-        field.createInitialAmbiance();
+        field.createInitialAmbiance(this);
+    }
+    /** 
+     * Добавить слушателя начала попытки
+     * @param listener слушатель
+     */
+    public void addAttemptStartedListener (AttemptStartedListener listener) {
+        movingElements.add(listener);
     }
     
+    /**
+     * Испустить сигнал, что попытка начата
+     */
+    private void fireAttemptStarted() {
+        AttemptStartedEvent event;
+        event = new AttemptStartedEvent(this);
+
+        for (AttemptStartedListener listener: movingElements) {
+            listener.startMoving(event);
+        }
+    }
     /**
      * Закончить игру
      */
@@ -50,7 +72,7 @@ public class GameModel implements GameStateChangeListener {
     }
     
     public void startAttempt() {
-        field.startMoving();
+        fireAttemptStarted();
     }
     public Collection<SpriteGroup> getSpriteGroups() {
         return field.getSpriteGroups();

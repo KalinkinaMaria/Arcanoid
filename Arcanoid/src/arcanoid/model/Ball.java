@@ -6,8 +6,11 @@
 
 package arcanoid.model;
 
+import arcanoid.events.AttemptStartedEvent;
+import arcanoid.events.AttemptStartedListener;
 import arcanoid.events.GameStateChangeListener;
 import arcanoid.service.Buffer;
+import arcanoid.service.SpeedVector;
 import java.util.ArrayList;
 
 /**
@@ -15,7 +18,7 @@ import java.util.ArrayList;
  * 
  * @author Елена
  */
-public class Ball extends Bouncing implements Bounced {
+public class Ball extends Bouncing implements Bounced, AttemptStartedListener {
 
     /** Слушатели падения мяча*/
     private ArrayList<GameStateChangeListener> failListeners = new ArrayList<> ();
@@ -44,5 +47,10 @@ public class Ball extends Bouncing implements Bounced {
         Ball ball = new Ball(this.table);
         ball.copy(this);
         return ball;
+    }
+
+    @Override
+    public void startMoving(AttemptStartedEvent e) {
+        this.setSpeed(new SpeedVector(0, -0.3));
     }
 }
