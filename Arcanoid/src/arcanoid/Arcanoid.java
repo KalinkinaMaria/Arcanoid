@@ -47,6 +47,7 @@ public class Arcanoid  extends Game {
         for (SpriteGroup group:gameModel.getSpriteGroups()) {
             playfield.addGroup(group);
         }
+        hideCursor();
     }
 
     @Override
