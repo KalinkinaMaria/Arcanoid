@@ -49,7 +49,10 @@ public class Arcanoid  extends Game {
     @Override
     public void update(long l) {
         playfield.update(l);
-        
+        // Запуск мячика
+        if (click() && !gameModel.isGameStarted()) {
+            gameModel.startAttempt();
+        }
     }
 
     @Override

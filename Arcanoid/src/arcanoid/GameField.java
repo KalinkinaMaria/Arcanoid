@@ -17,6 +17,8 @@ import com.golden.gamedev.Game;
 import com.golden.gamedev.object.SpriteGroup;
 import java.io.File;
 import java.io.IOException;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -30,14 +32,14 @@ public class GameField implements GameFieldChangeListener {
     private Buffer table;
     /** Элементы поля */
     private ArrayList<FieldElement> elements;
-    private ArrayList<SpriteGroup> spriteGroups;
+    private HashMap<String, SpriteGroup> spriteGroups;
     
     /**
      * Конструктор
      */
     public GameField () {
         elements = new ArrayList<>();
-        spriteGroups = new ArrayList<>();
+        spriteGroups = new HashMap<>();
     }
     
     /**
@@ -65,8 +67,8 @@ public class GameField implements GameFieldChangeListener {
         
     }
     
-    public ArrayList<SpriteGroup> getSpriteGroups() {
-        return spriteGroups;
+    public Collection<SpriteGroup> getSpriteGroups() {
+        return spriteGroups.values();
     }
     
     /**
@@ -82,11 +84,16 @@ public class GameField implements GameFieldChangeListener {
             Sprite ball = new Sprite(imgBall, 381.5, 550);
             rackets.add(racket);
             balls.add(ball);
-            spriteGroups.add(rackets);
-            spriteGroups.add(balls);
+            spriteGroups.put("Rackets", rackets);
+            spriteGroups.put("Balls", balls);
         } catch (IOException ex) {
             Logger.getLogger(GameField.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public void startMoving() {
+        Sprite[] balls = spriteGroups.get("Balls").getSprites();
+        
     }
 
     @Override

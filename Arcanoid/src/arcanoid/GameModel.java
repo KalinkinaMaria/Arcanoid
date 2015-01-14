@@ -10,6 +10,7 @@ import arcanoid.events.GameStateChangeEvent;
 import arcanoid.events.GameStateChangeListener;
 import com.golden.gamedev.object.SpriteGroup;
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  *
@@ -20,9 +21,12 @@ public class GameModel implements GameStateChangeListener {
     private GameField field;
     /** Игрок*/
     private Player player;
+    /** Флаг, о том, что игра началась, т.е. игрок запустил шарик*/
+    private boolean gameWasStarted;
     
     public GameModel() {
         field = new GameField();
+        gameWasStarted = false;
         field.createInitialAmbiance();
     }
     
@@ -33,7 +37,22 @@ public class GameModel implements GameStateChangeListener {
         
     }
 
-    public ArrayList<SpriteGroup> getSpriteGroups() {
+    public void gameWasStarted() {
+        gameWasStarted = true;
+    }
+    
+    public void gameWasEnded() {
+        gameWasStarted = false;
+    }
+    
+    public boolean isGameStarted() {
+        return gameWasStarted;
+    }
+    
+    public void startAttempt() {
+        field.startMoving();
+    }
+    public Collection<SpriteGroup> getSpriteGroups() {
         return field.getSpriteGroups();
     }
     
