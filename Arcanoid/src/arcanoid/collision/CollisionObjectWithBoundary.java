@@ -70,6 +70,7 @@ public class CollisionObjectWithBoundary extends CollisionBounds {
      */
     @Override
     public void collided(Sprite sprite) {
+        System.out.println("lllll");
         fireSpritesCollided(sprite);
         
     }
