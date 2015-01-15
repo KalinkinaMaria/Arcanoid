@@ -197,7 +197,7 @@ public abstract class FieldElement {
         }
         if (this.position().x < 3) {
             x = 1;
-        } else if (this.position().x + this.size().width() > 797) {
+        } else if (this.position().x + this.size().width() > 797-delta +1) {
             x = 798 - (int)this.size().width();
         }
         
