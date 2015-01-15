@@ -28,7 +28,7 @@ public class CollisionObjectWithObject extends AdvanceCollisionGroup {
      * @param element слушатель
      */
     public void addSpritesCollidedListener(SpritesCollidedListener element) {
-        
+        collisionListener.add(element);
     }
     
     /**

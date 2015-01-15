@@ -58,8 +58,9 @@ public class Arcanoid  extends Game {
         ambiance.registerSpriteGroups(playfield);
         hideCursor();
         collisionHandler = new CollisionHandler(buffer);
+        gameModel.registerCollisionRules(ambiance);
         ambiance.setCollisionBounds(playfield, collisionHandler);
-        //ambiance.setCollisionObjects(playfield, collisionHandler);
+        ambiance.setCollisionObjects(playfield, collisionHandler);
     }
 
     @Override

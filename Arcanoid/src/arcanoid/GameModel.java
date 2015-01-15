@@ -15,6 +15,7 @@ import arcanoid.model.FieldElement;
 import arcanoid.model.Racket;
 import arcanoid.service.Buffer;
 import arcanoid.service.SpeedVector;
+import arcanoid.view.Ambiance;
 import com.golden.gamedev.object.SpriteGroup;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -109,5 +110,10 @@ public class GameModel implements GameStateChangeListener {
                 element.setSpeed(speed);
             }
         }
+    }
+    
+    public void registerCollisionRules(Ambiance ambiance) {
+        ambiance.addCollidedGroupPair("Racket", "Ball");
+        ambiance.addCollidedGroupPair("Ball", "Ball");
     }
 }
