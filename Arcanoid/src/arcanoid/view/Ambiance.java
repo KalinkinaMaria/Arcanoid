@@ -134,7 +134,7 @@ public class Ambiance implements GameFieldChangeListener {
         bounderCollision.addSpritesCollidedListener(handler);
         playField.addCollisionGroup(bounced, null, bounderCollision);
         for (SpriteGroup group : bouncing) {
-            CollisionObjectWithBoundary collisionBouncing = new CollisionObjectWithBoundary(0, 0, 800, 640);
+            CollisionObjectWithBoundary collisionBouncing = new CollisionObjectWithBoundary(78, 0, 628, 640);
             bouncingCollisions.add(collisionBouncing);
             collisionBouncing.addSpritesCollidedListener(handler);
             playField.addCollisionGroup(group, null, collisionBouncing);
@@ -158,7 +158,7 @@ public class Ambiance implements GameFieldChangeListener {
         }
         
         for (SpriteGroup group : bouncing) {
-            CollisionObjectWithBoundary collisionBouncing = new CollisionObjectWithBoundary(0, 0, 600, 800);
+            CollisionObjectWithBoundary collisionBouncing = new CollisionObjectWithBoundary(0, 0, 800, 600);
             bouncingCollisions.add(collisionBouncing);
             collisionBouncing.addSpritesCollidedListener(handler);
             playField.addCollisionGroup(group, null, collisionBouncing);

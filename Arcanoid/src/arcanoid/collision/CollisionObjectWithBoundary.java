@@ -48,7 +48,7 @@ public class CollisionObjectWithBoundary extends CollisionBounds {
      */
     private void fireSpritesCollided(Sprite sprite) {
         for (SpritesCollidedListener listener: collisionListener) {
-            listener.spritesCollided(new SpritesCollidedEvent(this, sprite, getSide()));
+            listener.spritesCollided(new SpritesCollidedEvent(this, sprite, getSide(), this.getBoundary().x));
         }
     }
     
@@ -70,7 +70,6 @@ public class CollisionObjectWithBoundary extends CollisionBounds {
      */
     @Override
     public void collided(Sprite sprite) {
-        System.out.println("lllll");
         fireSpritesCollided(sprite);
         
     }
