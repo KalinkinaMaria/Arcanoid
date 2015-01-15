@@ -19,6 +19,10 @@ public class CollisionObjectWithObject extends AdvanceCollisionGroup {
     /** Список слушателей события */
     private ArrayList<SpritesCollidedListener> collisionListener = new ArrayList<>();
     
+    public CollisionObjectWithObject() {
+        super();
+    }
+    
     /**
      * Добавление слушателей события о том, что столкнулись спрайты
      * @param element слушатель
@@ -30,7 +34,7 @@ public class CollisionObjectWithObject extends AdvanceCollisionGroup {
     /**
      * Испустить событие о том, что столкнулись спрайты
      */
-    public void fireSpritesCollided() {
+    public void fireSpritesCollided(Sprite sprite, Sprite sprite1) {
         
     }
     /**
@@ -39,8 +43,9 @@ public class CollisionObjectWithObject extends AdvanceCollisionGroup {
      * @param sprite1 спрайт2
      */
     @Override
-    public void collided(Sprite sprite, Sprite sprite1) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void collided(Sprite sprite, Sprite sprite1) {        
+        System.out.println("lllll");
+        fireSpritesCollided(sprite, sprite1);
     }
     
 }

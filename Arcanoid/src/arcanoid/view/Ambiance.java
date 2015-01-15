@@ -6,6 +6,7 @@
 package arcanoid.view;
 
 import arcanoid.collision.CollisionObjectWithBoundary;
+import arcanoid.collision.CollisionObjectWithObject;
 import arcanoid.events.GameFieldChangeEvent;
 import arcanoid.events.GameFieldChangeListener;
 import arcanoid.model.Bounced;
@@ -50,6 +51,7 @@ public class Ambiance implements GameFieldChangeListener {
     private HashMap<String, String> images;
     private ArrayList<ViewFieldElement> viewElements;
     private CollisionObjectWithBoundary bounderCollision;
+    private CollisionObjectWithObject objectsCollision;
 
     public  Ambiance(Buffer buffer) {
         table = buffer;
@@ -126,11 +128,22 @@ public class Ambiance implements GameFieldChangeListener {
     }
     
     public void setCollisionBounds(PlayField playField, CollisionHandler handler) {
-        bounderCollision = new CollisionObjectWithBoundary(0, 0, 600, 800);
+        bounderCollision = new CollisionObjectWithBoundary(0, 0, 800, 640);
         bounderCollision.addSpritesCollidedListener(handler);
         playField.addCollisionGroup(bounced, null, bounderCollision);
         for (SpriteGroup group : bouncing) {
-            CollisionObjectWithBoundary collisionBouncing = new CollisionObjectWithBoundary(0, 0, 600, 800);
+            CollisionObjectWithBoundary collisionBouncing = new CollisionObjectWithBoundary(0, 0, 800, 640);
+            collisionBouncing.addSpritesCollidedListener(handler);
+            playField.addCollisionGroup(group, null, collisionBouncing);
+        }
+    }
+    
+    public void setCollisionObjects(PlayField playField, CollisionHandler handler) {
+        objectsCollision = new CollisionObjectWithObject();
+        objectsCollision.addSpritesCollidedListener(handler);
+        playField.addCollisionGroup(bounced, null, objectsCollision);
+        for (SpriteGroup group : bouncing) {
+            CollisionObjectWithObject collisionBouncing = new CollisionObjectWithObject();
             collisionBouncing.addSpritesCollidedListener(handler);
             playField.addCollisionGroup(group, null, collisionBouncing);
         }
