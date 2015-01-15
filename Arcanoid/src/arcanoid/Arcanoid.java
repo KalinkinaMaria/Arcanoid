@@ -55,6 +55,7 @@ public class Arcanoid  extends Game {
         
         ambiance.registerSpriteGroups(playfield);
         hideCursor();
+        ambiance.setCollisionBounds(playfield);
     }
 
     @Override

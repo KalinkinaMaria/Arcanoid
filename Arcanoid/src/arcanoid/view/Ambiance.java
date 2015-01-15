@@ -5,6 +5,7 @@
  */
 package arcanoid.view;
 
+import arcanoid.collision.CollisionObjectWithBoundary;
 import arcanoid.events.GameFieldChangeEvent;
 import arcanoid.events.GameFieldChangeListener;
 import arcanoid.model.Bounced;
@@ -16,6 +17,7 @@ import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
+import com.golden.gamedev.object.collision.CollisionBounds;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -46,6 +48,7 @@ public class Ambiance implements GameFieldChangeListener {
     private Buffer table;
     private HashMap<String, String> images;
     private ArrayList<ViewFieldElement> viewElements;
+    private CollisionObjectWithBoundary bounderCollision;
 
     public  Ambiance(Buffer buffer) {
         table = buffer;
@@ -120,4 +123,13 @@ public class Ambiance implements GameFieldChangeListener {
     private String getImage(FieldElement element) {
         return images.get(getClassName(element));
     }
+    
+    public void setCollisionBounds(PlayField playField) {
+        bounderCollision = new CollisionObjectWithBoundary(0, 0, 600, 800);  
+        playField.addCollisionGroup(bounced, bounced, bounderCollision);
+        for (SpriteGroup group : bouncing) {
+            playField.addCollisionGroup(group, group, bounderCollision);
+        }
+    }
+    
 }

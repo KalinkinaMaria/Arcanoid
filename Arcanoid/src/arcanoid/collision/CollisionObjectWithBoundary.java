@@ -52,7 +52,7 @@ public class CollisionObjectWithBoundary extends CollisionBounds {
      */
     @Override
     public void collided(Sprite sprite) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("Collided with boundary");
     }
     
 }

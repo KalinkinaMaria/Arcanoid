@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * 
  * @author Мария
  */
-public class CollisionObjectWithObject extends AdvanceCollisionGroup{
+public class CollisionObjectWithObject extends AdvanceCollisionGroup {
     /** Список слушателей события */
     private ArrayList<SpritesCollidedListener> collisionListener = new ArrayList<>();
     
