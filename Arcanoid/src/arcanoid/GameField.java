@@ -35,7 +35,6 @@ public class GameField implements GameFieldChangeListener {
     private Buffer table;
     /** Элементы поля */
     private ArrayList<FieldElement> elements;
-    private HashMap<String, SpriteGroup> spriteGroups;
     /** Слушатели изменения игрового поля*/
     private ArrayList<GameFieldChangeListener> gameFieldChangeListeners = new ArrayList<>();
     
@@ -67,7 +66,6 @@ public class GameField implements GameFieldChangeListener {
      */
     public GameField (Buffer buffer) {
         elements = new ArrayList<>();
-        spriteGroups = new HashMap<>();
         table = buffer;
     }
     
