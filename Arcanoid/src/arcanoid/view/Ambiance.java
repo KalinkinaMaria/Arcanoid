@@ -74,6 +74,15 @@ public class Ambiance implements GameFieldChangeListener {
             }
             table.addPair(e.element, sprite);
             e.element.setPosition(e.position);
+            switch(getClassName(e.element)) {
+                case "Ball":
+                    viewElements.add(new ViewBall(sprite, null));
+                    break;
+                case "Racket":
+                    viewElements.add(new ViewRacket(sprite, null));
+                    break;
+                default:break;
+            }
         } catch (IOException ex) {
             Logger.getLogger(Ambiance.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -102,9 +111,13 @@ public class Ambiance implements GameFieldChangeListener {
         }
     }
     
-    private String getImage(FieldElement element) {
+    private String getClassName (FieldElement element) {
         String className = element.getClass().toString();
         className = className.substring(className.lastIndexOf('.') + 1);
-        return images.get(className);
+        return className;
+    }
+    
+    private String getImage(FieldElement element) {
+        return images.get(getClassName(element));
     }
 }
