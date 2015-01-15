@@ -71,6 +71,8 @@ public class CollisionHandler implements SpritesCollidedListener {
                 element.setRightPosition(e.xBound());
                 element.setSpeed(new SpeedVector());
             }   
+        } else {
+            // Вот здесь нужен обход и вызов handle colllision для каждого с клоном от другого
         }
     }
 }

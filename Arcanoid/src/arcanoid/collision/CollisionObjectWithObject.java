@@ -5,10 +5,12 @@
  */
 package arcanoid.collision;
 
+import arcanoid.events.SpritesCollidedEvent;
 import arcanoid.events.SpritesCollidedListener;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.AdvanceCollisionGroup;
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Контроллер столкновения объекта с объектом
@@ -34,9 +36,12 @@ public class CollisionObjectWithObject extends AdvanceCollisionGroup {
     /**
      * Испустить событие о том, что столкнулись спрайты
      */
-    public void fireSpritesCollided(Sprite sprite, Sprite sprite1) {
-        
+    public void fireSpritesCollided(Sprite sprite, Map storage) {
+        for (SpritesCollidedListener listener: collisionListener) {
+            listener.spritesCollided(new SpritesCollidedEvent(this, sprite,storage));
+        }
     }
+    
     /**
      * Обработка столкновений
      * @param sprite спрайт1
@@ -45,7 +50,8 @@ public class CollisionObjectWithObject extends AdvanceCollisionGroup {
     @Override
     public void collided(Sprite sprite, Sprite sprite1) {        
         System.out.println("lllll");
-        fireSpritesCollided(sprite, sprite1);
+        Map map = getStorage();
+        fireSpritesCollided(getSourceSprite(), map);
     }
     
 }

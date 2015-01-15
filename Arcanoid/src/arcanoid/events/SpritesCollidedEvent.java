@@ -19,7 +19,7 @@ public class SpritesCollidedEvent extends EventObject{
     /** Спрайт инициирующий столкновение */
     private Sprite activeSprite;
     /** Пассивные спрайты */
-    private Map<Sprite, Sprite> passiveSprites;
+    private Map passiveSprites;
     private int side;
     private int xBound;
     /**
@@ -28,7 +28,7 @@ public class SpritesCollidedEvent extends EventObject{
      * @param activeSprite активный спрайт
      * @param passiveSprites спрайты, с которыми ударились
      */
-    public SpritesCollidedEvent(Object source, Sprite activeSprite, Map<Sprite, Sprite> passiveSprites) {
+    public SpritesCollidedEvent(Object source, Sprite activeSprite, Map passiveSprites) {
         super(source);
         this.activeSprite = activeSprite;
         this.passiveSprites = passiveSprites;
@@ -55,7 +55,7 @@ public class SpritesCollidedEvent extends EventObject{
      * Получить массив спрайтов, с которыми столкнулись
      * @return массив спрайтов, с которыми столкнулись
      */
-    public Map<Sprite, Sprite> passiveSprite() {
+    public Map passiveSprite() {
         return passiveSprites;
     }
     
