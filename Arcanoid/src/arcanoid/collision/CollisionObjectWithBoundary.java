@@ -5,6 +5,7 @@
  */
 package arcanoid.collision;
 
+import arcanoid.events.SpritesCollidedEvent;
 import arcanoid.events.SpritesCollidedListener;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.CollisionBounds;
@@ -25,14 +26,16 @@ public class CollisionObjectWithBoundary extends CollisionBounds {
      * @param element слушатель
      */
     public void addSpritesCollidedListener(SpritesCollidedListener element) {
-        
+        collisionListener.add(element);
     }
     
     /**
      * Испустить событие о том, что столкнулись спрайты
      */
-    private void fireSpritesCollided() {
-        
+    private void fireSpritesCollided(Sprite sprite) {
+        for (SpritesCollidedListener listener: collisionListener) {
+            listener.spritesCollided(new SpritesCollidedEvent(this, sprite, null));
+        }
     }
     
     /**
@@ -52,7 +55,7 @@ public class CollisionObjectWithBoundary extends CollisionBounds {
      */
     @Override
     public void collided(Sprite sprite) {
-        System.out.println("Collided with boundary");
+        fireSpritesCollided(sprite);
     }
     
 }

@@ -7,6 +7,7 @@ package arcanoid;
 
 import arcanoid.events.GameStateChangeEvent;
 import arcanoid.events.GameStateChangeListener;
+import arcanoid.model.CollisionHandler;
 import arcanoid.service.Buffer;
 import arcanoid.service.SpeedVector;
 import arcanoid.view.Ambiance;
@@ -29,6 +30,7 @@ public class Arcanoid  extends Game {
     private GameModel gameModel;
     private int oldMousePosition;
     private Ambiance ambiance;
+    private CollisionHandler collisionHandler;
     
     //{ distribute = true; }
     /**
@@ -55,7 +57,9 @@ public class Arcanoid  extends Game {
         
         ambiance.registerSpriteGroups(playfield);
         hideCursor();
-        ambiance.setCollisionBounds(playfield);
+        collisionHandler = new CollisionHandler(buffer);
+        ambiance.setCollisionBounds(playfield, collisionHandler);
+
     }
 
     @Override

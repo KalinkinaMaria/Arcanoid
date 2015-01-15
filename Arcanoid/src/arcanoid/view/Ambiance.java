@@ -10,6 +10,7 @@ import arcanoid.events.GameFieldChangeEvent;
 import arcanoid.events.GameFieldChangeListener;
 import arcanoid.model.Bounced;
 import arcanoid.model.Bouncing;
+import arcanoid.model.CollisionHandler;
 import arcanoid.model.FieldElement;
 import arcanoid.service.Buffer;
 import com.golden.gamedev.Game;
@@ -124,8 +125,9 @@ public class Ambiance implements GameFieldChangeListener {
         return images.get(getClassName(element));
     }
     
-    public void setCollisionBounds(PlayField playField) {
-        bounderCollision = new CollisionObjectWithBoundary(0, 0, 600, 800);  
+    public void setCollisionBounds(PlayField playField, CollisionHandler handler) {
+        bounderCollision = new CollisionObjectWithBoundary(0, 0, 600, 800);
+        bounderCollision.addSpritesCollidedListener(handler);
         playField.addCollisionGroup(bounced, bounced, bounderCollision);
         for (SpriteGroup group : bouncing) {
             playField.addCollisionGroup(group, group, bounderCollision);
