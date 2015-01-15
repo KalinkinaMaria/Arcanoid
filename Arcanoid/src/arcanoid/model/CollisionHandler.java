@@ -63,6 +63,7 @@ public class CollisionHandler implements SpritesCollidedListener {
                 ((Bouncing)element).handleCollision(getAxis(e.side()), null);
             } else {
                 element.setRightPosition();
+                element.setSpeed(new SpeedVector());
             }   
         }
     }
