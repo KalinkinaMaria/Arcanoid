@@ -189,4 +189,18 @@ public abstract class FieldElement {
         other.collisionHandleEndListeners = this.collisionHandleEndListeners;
         other.setPosition(this.position());
     }
+    
+    public void setRightPosition() {
+        int y = this.position().y, x = this.position().x;
+        if (this.position().y < 3) {
+            y = 1;
+        }
+        if (this.position().x < 3) {
+            x = 1;
+        } else if (this.position().x + this.size().width() > 797) {
+            x = 798 - (int)this.size().width();
+        }
+        
+        this.setPosition(new Point(x, y));
+    }
 }

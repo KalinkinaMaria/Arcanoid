@@ -61,7 +61,9 @@ public class CollisionHandler implements SpritesCollidedListener {
         if (e.passiveSprite() == null) {
             if (element instanceof Bouncing) {
                 ((Bouncing)element).handleCollision(getAxis(e.side()), null);
-            }
+            } else {
+                element.setRightPosition();
+            }   
         }
     }
 }
