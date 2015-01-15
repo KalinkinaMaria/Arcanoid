@@ -20,9 +20,9 @@ public class GameFieldChangeEvent extends EventObject {
     }
     
     /** Созданный элемент*/
-    private FieldElement element;
+    public FieldElement element;
     /** Тип события*/
-    private ChangingType type;
+    public ChangingType type;
     /**
      * Конструктор
      * @param source родительский объект

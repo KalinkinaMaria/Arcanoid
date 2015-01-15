@@ -17,7 +17,7 @@ import java.util.Map;
  * 
  * @author Елена
  */
-public class CollisionHandler implements SpritesCollidedListener{
+public class CollisionHandler implements SpritesCollidedListener {
     /** Таблица соответствий элемента поля со спрайтом */
     private Buffer table;
     

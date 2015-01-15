@@ -12,6 +12,7 @@ import arcanoid.events.GameStateChangeEvent;
 import arcanoid.events.GameStateChangeListener;
 import arcanoid.model.FieldElement;
 import arcanoid.model.Racket;
+import arcanoid.service.Buffer;
 import arcanoid.service.SpeedVector;
 import com.golden.gamedev.object.SpriteGroup;
 import java.util.ArrayList;
@@ -30,8 +31,8 @@ public class GameModel implements GameStateChangeListener {
     private boolean gameWasStarted;
     private ArrayList<AttemptStartedListener> movingElements;
     
-    public GameModel() {
-        field = new GameField();
+    public GameModel(Buffer buffer) {
+        field = new GameField(buffer);
         movingElements = new ArrayList<>();
         gameWasStarted = false;
         field.createInitialAmbiance(this);

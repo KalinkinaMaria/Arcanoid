@@ -7,7 +7,9 @@ package arcanoid;
 
 import arcanoid.events.GameStateChangeEvent;
 import arcanoid.events.GameStateChangeListener;
+import arcanoid.service.Buffer;
 import arcanoid.service.SpeedVector;
+import arcanoid.view.Ambiance;
 import com.golden.gamedev.Game;
 import com.golden.gamedev.GameLoader;
 import com.golden.gamedev.object.Background;
@@ -26,6 +28,7 @@ public class Arcanoid  extends Game {
     private Background       background;
     private GameModel gameModel;
     private int oldMousePosition;
+    private Ambiance ambiance;
     
     //{ distribute = true; }
     /**
@@ -39,11 +42,15 @@ public class Arcanoid  extends Game {
 
     @Override
     public void initResources() {
+        // Создать буффер для связи логики и отображения.
+        Buffer buffer = new Buffer();
         playfield = new PlayField();
+        ambiance = new Ambiance(buffer);
+        gameModel = new GameModel(buffer);
         oldMousePosition  = this.getMouseX();
         background = new ImageBackground(getImage("img/background.jpg"), 800, 600);
         playfield.setBackground(background);
-        gameModel = new GameModel();
+        
         for (SpriteGroup group:gameModel.getSpriteGroups()) {
             playfield.addGroup(group);
         }

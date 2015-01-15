@@ -39,10 +39,10 @@ public class GameField implements GameFieldChangeListener {
     /**
      * Конструктор
      */
-    public GameField () {
+    public GameField (Buffer buffer) {
         elements = new ArrayList<>();
         spriteGroups = new HashMap<>();
-        table = new Buffer();
+        table = buffer;
     }
     
     public FieldElement getElement(String className) {
@@ -81,7 +81,7 @@ public class GameField implements GameFieldChangeListener {
      * @param element элемент
      */
     public void addElement(FieldElement element) {
-        
+        elements.add(element);
     }
     
     /**
@@ -130,8 +130,8 @@ public class GameField implements GameFieldChangeListener {
             // Запомнить группы спрайтов.
             spriteGroups.put("Rackets", rackets);
             spriteGroups.put("Balls", balls);
-            elements.add(racket);
-            elements.add(ball);
+            addElement(racket);
+            addElement(ball);
         } catch (IOException ex) {
             Logger.getLogger(GameField.class.getName()).log(Level.SEVERE, null, ex);
         }

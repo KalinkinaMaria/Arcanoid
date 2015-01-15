@@ -7,6 +7,7 @@ package arcanoid.view;
 
 import arcanoid.events.GameFieldChangeEvent;
 import arcanoid.events.GameFieldChangeListener;
+import arcanoid.service.Buffer;
 import com.golden.gamedev.Game;
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.SpriteGroup;
@@ -27,7 +28,12 @@ public class Ambiance implements GameFieldChangeListener {
     private SpriteGroup obstacles;
     /** Таблица сталкивающихся элементов */
     private Map<Class,Class> collidedGroups;
+    private Buffer table;
 
+    public  Ambiance(Buffer buffer) {
+        table = buffer;
+    }
+    
     @Override
     public void addElement(GameFieldChangeEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

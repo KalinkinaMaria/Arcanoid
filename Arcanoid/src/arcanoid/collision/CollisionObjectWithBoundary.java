@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * 
  * @author Мария
  */
-public class CollisionObjectWithBoundary extends CollisionBounds{
+public class CollisionObjectWithBoundary extends CollisionBounds {
 
     /** Список слушателей события */
     private ArrayList<SpritesCollidedListener> collisionListener = new ArrayList<>();
@@ -37,13 +37,13 @@ public class CollisionObjectWithBoundary extends CollisionBounds{
     
     /**
      * Конструктор
-     * @param i
-     * @param i1
-     * @param i2
-     * @param i3 
+     * @param x
+     * @param y
+     * @param width
+     * @param height 
      */
-    public CollisionObjectWithBoundary(int i, int i1, int i2, int i3) {
-        super(i, i1, i2, i3);
+    public CollisionObjectWithBoundary(int x, int y, int width, int height) {
+        super(x, y, width, height);
     }
 
     /**
