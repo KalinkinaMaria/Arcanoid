@@ -52,12 +52,14 @@ public class Ambiance implements GameFieldChangeListener {
     private ArrayList<ViewFieldElement> viewElements;
     private CollisionObjectWithBoundary bounderCollision;
     private CollisionObjectWithObject objectsCollision;
+    private ArrayList<CollisionObjectWithBoundary> bouncingCollisions;
 
     public  Ambiance(Buffer buffer) {
         table = buffer;
         viewElements = new ArrayList<>();
         images = new HashMap<>();
         bouncing = new ArrayList<>();
+        bouncingCollisions = new ArrayList<>();
         bounced = new SpriteGroup("Bounced");
         manageBounced = new SpriteGroup("manageBounced");
         images.put("Ball", "img/ball.png");
@@ -133,6 +135,7 @@ public class Ambiance implements GameFieldChangeListener {
         playField.addCollisionGroup(bounced, null, bounderCollision);
         for (SpriteGroup group : bouncing) {
             CollisionObjectWithBoundary collisionBouncing = new CollisionObjectWithBoundary(0, 0, 800, 640);
+            bouncingCollisions.add(collisionBouncing);
             collisionBouncing.addSpritesCollidedListener(handler);
             playField.addCollisionGroup(group, null, collisionBouncing);
         }
@@ -149,4 +152,16 @@ public class Ambiance implements GameFieldChangeListener {
         }
     }
     
+    public void setAttemptCollisionBounds(PlayField playField, CollisionHandler handler) {
+        for (CollisionObjectWithBoundary collision: bouncingCollisions) {
+            playField.removeCollisionGroup(collision);
+        }
+        
+        for (SpriteGroup group : bouncing) {
+            CollisionObjectWithBoundary collisionBouncing = new CollisionObjectWithBoundary(0, 0, 600, 800);
+            bouncingCollisions.add(collisionBouncing);
+            collisionBouncing.addSpritesCollidedListener(handler);
+            playField.addCollisionGroup(group, null, collisionBouncing);
+        }
+    }
 }
