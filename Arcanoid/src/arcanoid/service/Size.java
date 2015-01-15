@@ -26,6 +26,22 @@ public class Size {
         width = 0;
     }
     
+    /** 
+     * Высота
+     * @return высота
+     */
+    public double height() {
+        return this.height;
+    }
+    
+    /** 
+     * Ширина
+     * @return ширина
+     */
+    public double width() {
+        return this.width;
+    }
+    
     /**
      * Конструктор
      * @param height высота
