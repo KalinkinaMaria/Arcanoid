@@ -29,12 +29,26 @@ public class CollisionObjectWithBoundary extends CollisionBounds {
         collisionListener.add(element);
     }
     
+    public int getSide() {
+        int side;
+        if(isCollisionSide(TOP_COLLISION)) {
+            side = TOP_COLLISION;
+        } else if(isCollisionSide(BOTTOM_COLLISION)) {
+            side = BOTTOM_COLLISION;
+        } else if(isCollisionSide(RIGHT_COLLISION)) {
+            side = RIGHT_COLLISION;
+        } else {
+            side = LEFT_COLLISION;
+        }
+        return side;
+    }
+    
     /**
      * Испустить событие о том, что столкнулись спрайты
      */
     private void fireSpritesCollided(Sprite sprite) {
         for (SpritesCollidedListener listener: collisionListener) {
-            listener.spritesCollided(new SpritesCollidedEvent(this, sprite, null));
+            listener.spritesCollided(new SpritesCollidedEvent(this, sprite, getSide()));
         }
     }
     
@@ -56,7 +70,7 @@ public class CollisionObjectWithBoundary extends CollisionBounds {
     @Override
     public void collided(Sprite sprite) {
         fireSpritesCollided(sprite);
-        System.out.println("aaaaaaaaaaa");
+        
     }
     
 }

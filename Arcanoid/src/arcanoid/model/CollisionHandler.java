@@ -9,7 +9,9 @@ package arcanoid.model;
 import arcanoid.events.SpritesCollidedEvent;
 import arcanoid.events.SpritesCollidedListener;
 import arcanoid.service.Buffer;
+import arcanoid.service.SpeedVector;
 import com.golden.gamedev.object.Sprite;
+import com.golden.gamedev.object.collision.CollisionBounds;
 import java.util.Map;
 
 /**
@@ -43,8 +45,23 @@ public class CollisionHandler implements SpritesCollidedListener {
         return table.getElement(sprite);
     }
 
+    private SpeedVector.Axis getAxis(int side) {
+        SpeedVector.Axis axis;
+        if (side == CollisionBounds.LEFT_COLLISION || side == CollisionBounds.RIGHT_COLLISION) {
+            axis = SpeedVector.Axis.Y;
+        } else {
+            axis = SpeedVector.Axis.X;
+        }
+        return axis;
+    }
+    
     @Override
     public void spritesCollided(SpritesCollidedEvent e) {
-        
+        FieldElement element = getElement(e.activeSprite());
+        if (e.passiveSprite() == null) {
+            if (element instanceof Bouncing) {
+                ((Bouncing)element).handleCollision(getAxis(e.side()), null);
+            }
+        }
     }
 }

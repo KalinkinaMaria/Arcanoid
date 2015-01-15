@@ -20,6 +20,7 @@ public class SpritesCollidedEvent extends EventObject{
     private Sprite activeSprite;
     /** Пассивные спрайты */
     private Map<Sprite, Sprite> passiveSprites;
+    private int side;
     /**
      * Конструктор
      * @param source ресурсы
@@ -30,6 +31,14 @@ public class SpritesCollidedEvent extends EventObject{
         super(source);
         this.activeSprite = activeSprite;
         this.passiveSprites = passiveSprites;
+        side = 0;
+    }
+    
+    public SpritesCollidedEvent(Object source, Sprite activeSprite, int side) {
+        super(source);
+        this.activeSprite = activeSprite;
+        this.passiveSprites = null;
+        this.side = side;
     }
     
     /**
@@ -46,5 +55,9 @@ public class SpritesCollidedEvent extends EventObject{
      */
     public Map<Sprite, Sprite> passiveSprite() {
         return passiveSprites;
+    }
+    
+    public int side() {
+        return side;
     }
 }
