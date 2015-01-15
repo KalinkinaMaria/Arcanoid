@@ -38,7 +38,8 @@ public class Bouncing extends FieldElement{
      * @param position позиция удара 
      */
     protected void handleCollision (Axis axis, Point position) {
-        
+        this.setSpeed(this.speed().reflect(axis));
+        this.setPosition(new Point(this.position().x, this.position().y+1));
     }
     
     public Bouncing clone() {
