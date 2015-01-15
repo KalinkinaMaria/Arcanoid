@@ -7,13 +7,26 @@ package arcanoid.view;
 
 import arcanoid.events.GameFieldChangeEvent;
 import arcanoid.events.GameFieldChangeListener;
+import arcanoid.model.Bounced;
+import arcanoid.model.Bouncing;
+import arcanoid.model.FieldElement;
 import arcanoid.service.Buffer;
 import com.golden.gamedev.Game;
 import com.golden.gamedev.object.Background;
+import com.golden.gamedev.object.PlayField;
+import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -24,21 +37,57 @@ public class Ambiance implements GameFieldChangeListener {
     private Background background;
     /** Отскакивающие элементы */
     private ArrayList<SpriteGroup> bouncing;
+    private SpriteGroup manageBounced;
+    private SpriteGroup bounced;
     /** Препятствия */
     private SpriteGroup obstacles;
     /** Таблица сталкивающихся элементов */
     private Map<Class,Class> collidedGroups;
     private Buffer table;
+    private HashMap<String, String> images;
+    private ArrayList<ViewFieldElement> viewElements;
 
     public  Ambiance(Buffer buffer) {
         table = buffer;
+        viewElements = new ArrayList<>();
+        images = new HashMap<>();
+        bouncing = new ArrayList<>();
+        bounced = new SpriteGroup("Bounced");
+        manageBounced = new SpriteGroup("manageBounced");
+        images.put("Ball", "img/ball.png");
+        images.put("Racket", "img/r.png");
     }
     
     @Override
     public void addElement(GameFieldChangeEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        SpriteGroup group;
+        try {
+            BufferedImage image  = ImageIO.read(new File(getImage(e.element)));
+            Sprite sprite = new Sprite(image, e.position.x, e.position.y);
+            if (e.element instanceof Bouncing) {
+                String name  = "Bouncing_" + String.valueOf(bouncing.size() - 1);
+                group = new SpriteGroup(name);
+                group.add(sprite);
+                bouncing.add(group);
+            } else if (e.element instanceof Bounced) {
+                bounced.add(sprite);
+            }
+            table.addPair(e.element, sprite);
+            e.element.setPosition(e.position);
+        } catch (IOException ex) {
+            Logger.getLogger(Ambiance.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
     }
 
+    public void registerSpriteGroups (PlayField playField) {
+        playField.addGroup(bounced);
+        playField.addGroup(manageBounced);
+        for (SpriteGroup group:bouncing) {
+            playField.addGroup(group);
+        }
+    }
+    
     @Override
     public void removeElement(GameFieldChangeEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -46,7 +95,16 @@ public class Ambiance implements GameFieldChangeListener {
 
     @Override
     public void changeElement(GameFieldChangeEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (e.type == GameFieldChangeEvent.ChangingType.creation) {
+            addElement(e);
+        } else {
+            removeElement(e);
+        }
     }
     
+    private String getImage(FieldElement element) {
+        String className = element.getClass().toString();
+        className = className.substring(className.lastIndexOf('.') + 1);
+        return images.get(className);
+    }
 }

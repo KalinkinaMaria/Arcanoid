@@ -6,6 +6,7 @@
 package arcanoid.events;
 
 import arcanoid.model.FieldElement;
+import java.awt.Point;
 import java.util.EventObject;
 
 /**
@@ -21,6 +22,7 @@ public class GameFieldChangeEvent extends EventObject {
     
     /** Созданный элемент*/
     public FieldElement element;
+    public Point position;
     /** Тип события*/
     public ChangingType type;
     /**
@@ -28,10 +30,11 @@ public class GameFieldChangeEvent extends EventObject {
      * @param source родительский объект
      * @param element созданный элемент
      */
-    public GameFieldChangeEvent(Object source, ChangingType type) {
+    public GameFieldChangeEvent(Object source, ChangingType type, Point position) {
         super(source);
         this.element = (FieldElement)source;
         this.type = type;
+        this.position = position;
     }
     
 }

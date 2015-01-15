@@ -8,6 +8,7 @@ package arcanoid;
 import arcanoid.events.AttemptStartedEvent;
 import arcanoid.events.AttemptStartedListener;
 import arcanoid.events.GameFieldChangeEvent;
+import arcanoid.events.GameFieldChangeListener;
 import arcanoid.events.GameStateChangeEvent;
 import arcanoid.events.GameStateChangeListener;
 import arcanoid.model.FieldElement;
@@ -31,12 +32,20 @@ public class GameModel implements GameStateChangeListener {
     private boolean gameWasStarted;
     private ArrayList<AttemptStartedListener> movingElements;
     
+    public void startGame() {
+        field.createInitialAmbiance(this);
+    }
     public GameModel(Buffer buffer) {
         field = new GameField(buffer);
         movingElements = new ArrayList<>();
         gameWasStarted = false;
-        field.createInitialAmbiance(this);
+        
     }
+    
+    public void createConnectionWithField(GameFieldChangeListener object) {
+        field.addGameFieldChangeListener(object);
+    }
+    
     /** 
      * Добавить слушателя начала попытки
      * @param listener слушатель
@@ -78,9 +87,6 @@ public class GameModel implements GameStateChangeListener {
     public void startAttempt() {
         fireAttemptStarted();
         gameWasStarted = true;
-    }
-    public Collection<SpriteGroup> getSpriteGroups() {
-        return field.getSpriteGroups();
     }
     
     @Override

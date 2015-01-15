@@ -47,13 +47,13 @@ public class Arcanoid  extends Game {
         playfield = new PlayField();
         ambiance = new Ambiance(buffer);
         gameModel = new GameModel(buffer);
+        gameModel.createConnectionWithField(ambiance);
+        gameModel.startGame();
         oldMousePosition  = this.getMouseX();
         background = new ImageBackground(getImage("img/background.jpg"), 800, 600);
         playfield.setBackground(background);
         
-        for (SpriteGroup group:gameModel.getSpriteGroups()) {
-            playfield.addGroup(group);
-        }
+        ambiance.registerSpriteGroups(playfield);
         hideCursor();
     }
 

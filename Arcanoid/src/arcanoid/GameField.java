@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.awt.image.BufferedImage;
 import com.golden.gamedev.Game;
 import com.golden.gamedev.object.SpriteGroup;
+import java.awt.Point;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
@@ -35,6 +36,31 @@ public class GameField implements GameFieldChangeListener {
     /** Элементы поля */
     private ArrayList<FieldElement> elements;
     private HashMap<String, SpriteGroup> spriteGroups;
+    /** Слушатели изменения игрового поля*/
+    private ArrayList<GameFieldChangeListener> gameFieldChangeListeners = new ArrayList<>();
+    
+     /** 
+     * Добавить слушателя создания элемента
+     * @param listener слушатель
+     */
+    public void addGameFieldChangeListener (GameFieldChangeListener listener) {
+        gameFieldChangeListeners.add(listener);
+    }
+    
+    /**
+     * Испустить сигнал, что элемент поля создан
+     */
+    private void fireGameFieldChange(boolean creation, FieldElement element, Point position) {
+        GameFieldChangeEvent event;
+        if (creation) {
+            event = new GameFieldChangeEvent(element, GameFieldChangeEvent.ChangingType.creation, position);
+        } else {
+            event = new GameFieldChangeEvent(element, GameFieldChangeEvent.ChangingType.removing, position);
+        }
+        for (GameFieldChangeListener gameListener: gameFieldChangeListeners) {
+            gameListener.changeElement(event);
+        }
+    }
     
     /**
      * Конструктор
@@ -80,8 +106,9 @@ public class GameField implements GameFieldChangeListener {
      * Добавить элемент
      * @param element элемент
      */
-    public void addElement(FieldElement element) {
+    public void addElement(FieldElement element, Point position) {
         elements.add(element);
+        fireGameFieldChange(true, element, position);
     }
     
     /**
@@ -101,40 +128,19 @@ public class GameField implements GameFieldChangeListener {
         
     }
     
-    public Collection<SpriteGroup> getSpriteGroups() {
-        return spriteGroups.values();
-    }
-    
     /**
      * Создать начальную обстановку
      */
     public void createInitialAmbiance(GameModel model) {
-        try {
+        
             // Создать ракетку.
-            // Сщздать спрайт.
-            SpriteGroup rackets = new SpriteGroup("Rackets");
-            BufferedImage imgRacket = ImageIO.read(new File("img/r.png"));
-            Sprite racketSprite = new Sprite(imgRacket, 310, 575);
-            rackets.add(racketSprite);
             // Создать элемент поля.
             Racket racket = new Racket(table);
-            table.addPair(racket, racketSprite);
-            // Создать мячи.
-            SpriteGroup balls = new SpriteGroup("Balls");
-            BufferedImage imgBall = ImageIO.read(new File("img/ball.png"));
-            Sprite ballSprite = new Sprite(imgBall, 381.5, 550);
-            Ball ball = new Ball(table);
-            table.addPair(ball, ballSprite);
-            balls.add(ballSprite);
             model.addAttemptStartedListener(racket);
-            // Запомнить группы спрайтов.
-            spriteGroups.put("Rackets", rackets);
-            spriteGroups.put("Balls", balls);
-            addElement(racket);
-            addElement(ball);
-        } catch (IOException ex) {
-            Logger.getLogger(GameField.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            addElement(racket, new Point(310, 575));
+            Ball ball = new Ball(table);
+            addElement(ball, new Point(388, 550));
+
     }
     
 

@@ -47,9 +47,9 @@ public abstract class FieldElement {
     private void fireGameFieldChange(boolean creation) {
         GameFieldChangeEvent event;
         if (creation) {
-            event = new GameFieldChangeEvent(this, ChangingType.creation);
+            event = new GameFieldChangeEvent(this, ChangingType.creation, null);
         } else {
-            event = new GameFieldChangeEvent(this, ChangingType.removing);
+            event = new GameFieldChangeEvent(this, ChangingType.removing, null);
         }
         for (GameFieldChangeListener gameListener: gameFieldChangeListeners) {
             gameListener.changeElement(event);
