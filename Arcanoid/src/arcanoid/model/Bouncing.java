@@ -7,6 +7,7 @@
 package arcanoid.model;
 
 import arcanoid.service.Buffer;
+import arcanoid.service.SpeedVector;
 import java.awt.Point;
 import arcanoid.service.SpeedVector.Axis;
 
@@ -29,6 +30,25 @@ public class Bouncing extends FieldElement{
      */
     protected void handleCollision (Point position, FieldElement element) {
         
+        //с ракеткой
+        Point pointMiddleRacket = new Point((element.position().x+(int)element.size().width())/2, element.position().y);
+        double halfRacket = element.size().width()/2.0;
+        double y;
+        double x;
+        
+        if (pointMiddleRacket.x > position.x) {
+            x = position.x - pointMiddleRacket.x;
+        } else {
+            x = pointMiddleRacket.x - position.x;
+        }
+        
+        y = Math.sqrt(halfRacket*halfRacket - x*x);
+
+        if (this.speed().x() < 0) {
+            x = -x;
+        }
+        
+        this.setSpeed(new SpeedVector(x, -y));
     }
     
     /**
@@ -39,7 +59,13 @@ public class Bouncing extends FieldElement{
      */
     protected void handleCollision (Axis axis, Point position) {
         this.setSpeed(this.speed().reflect(axis));
-        this.setPosition(new Point(this.position().x, this.position().y+1));
+        if (this.position().y < 0) {
+            this.position().y = 1;
+        }
+        if (this.position().x < 0) {
+            this.position().x = 1;
+        }
+        this.setPosition(new Point(this.position().x, this.position().y));
     }
     
     public Bouncing clone() {
