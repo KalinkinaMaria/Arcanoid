@@ -54,7 +54,7 @@ public class BallWithBricks extends Game implements CollisionHandleEndListener {
      */
     public BallWithBricks (Buffer table) {
         this.table = table;
-        field = new GameField();
+        field = new GameField(table);
     }
     
     /**

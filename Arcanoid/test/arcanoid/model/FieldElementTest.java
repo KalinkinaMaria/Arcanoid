@@ -27,7 +27,7 @@ public class FieldElementTest {
     
     public FieldElementTest() {
         table = new Buffer();
-        field = new GameField();
+        field = new GameField(table);
     }
     
     @BeforeClass
@@ -41,7 +41,7 @@ public class FieldElementTest {
     @Before
     public void setUp() {
         table = new Buffer();
-        field = new GameField();
+        field = new GameField(table);
     }
     
     @After

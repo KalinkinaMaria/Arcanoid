@@ -110,6 +110,14 @@ public class GameField implements GameFieldChangeListener {
     }
     
     /**
+     * Добавить элемент
+     * @param element элемент
+     */
+    public void addElement(FieldElement element) {
+        elements.add(element);
+        fireGameFieldChange(true, element, null);
+    }
+    /**
      * Проверить наличие элемента
      * @param element элемент
      * @return флаг - наличие элемента
