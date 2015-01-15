@@ -65,8 +65,8 @@ public class Bouncing extends FieldElement{
         }
         if (this.position().x < 3) {
             x = 1;
-        } else if (this.position().x + this.size().width() > 597) {
-            x = 598 - (int)this.size().width();
+        } else if (this.position().x + this.size().width() > 797) {
+            x = 798 - (int)this.size().width();
         }
         
         this.setPosition(new Point(x, y));

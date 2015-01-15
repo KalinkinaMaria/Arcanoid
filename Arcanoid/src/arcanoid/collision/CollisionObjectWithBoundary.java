@@ -61,6 +61,7 @@ public class CollisionObjectWithBoundary extends CollisionBounds {
      */
     public CollisionObjectWithBoundary(int x, int y, int width, int height) {
         super(x, y, width, height);
+        
     }
 
     /**
