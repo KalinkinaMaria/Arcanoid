@@ -25,21 +25,21 @@ public class Bouncing extends FieldElement{
     /**
      * Обработать столкновение
      * 
-     * @param position позиция удара
      * @param element элемент
      */
-    protected void handleCollision (Point position, FieldElement element) {
+    public void handleCollision (Point position, FieldElement element) {
         
         //с ракеткой
+        Point position1 = new Point(this.position().x + (int)this.size().width()/2, element.position().y);
         Point pointMiddleRacket = new Point((element.position().x+(int)element.size().width())/2, element.position().y);
         double halfRacket = element.size().width()/2.0;
         double y;
         double x;
         
-        if (pointMiddleRacket.x > position.x) {
-            x = position.x - pointMiddleRacket.x;
+        if (pointMiddleRacket.x > position1.x) {
+            x = position1.x - pointMiddleRacket.x;
         } else {
-            x = pointMiddleRacket.x - position.x;
+            x = pointMiddleRacket.x - position1.x;
         }
         
         y = Math.sqrt(halfRacket*halfRacket - x*x);

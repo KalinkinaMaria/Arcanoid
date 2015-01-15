@@ -59,7 +59,7 @@ public class Arcanoid  extends Game {
         hideCursor();
         collisionHandler = new CollisionHandler(buffer);
         ambiance.setCollisionBounds(playfield, collisionHandler);
-
+        ambiance.setCollisionObjects(playfield, collisionHandler);
     }
 
     @Override
