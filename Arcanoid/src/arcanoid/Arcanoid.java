@@ -17,6 +17,7 @@ import com.golden.gamedev.Game;
 import com.golden.gamedev.GameLoader;
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.CollisionManager;
+import com.golden.gamedev.object.GameFont;
 import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.background.ImageBackground;
@@ -34,6 +35,7 @@ public class Arcanoid  extends Game implements AttemptStartedListener {
     private int oldMousePosition;
     private Ambiance ambiance;
     private CollisionHandler collisionHandler;
+    private GameFont           font;
     
     //{ distribute = true; }
     /**
@@ -65,6 +67,9 @@ public class Arcanoid  extends Game implements AttemptStartedListener {
         ambiance.setCollisionBounds(playfield, collisionHandler);
         ambiance.setCollisionObjects(playfield, collisionHandler);
         ambiance.setConnectionWithGhangingGameStateElement(gameModel);
+        String fontString = "ABCDEFGHIJKLMNOPQRSTUVXWYZabcdefghijklmnopqrstuvxwyz1234567890ιηναΰόστγ?!κ.:- ";
+        int a = fontString.length();
+        font = fontManager.getFont(getImages("img/font.png", 26, 3), fontString);
     }
 
     @Override
@@ -82,6 +87,7 @@ public class Arcanoid  extends Game implements AttemptStartedListener {
     @Override
     public void render(Graphics2D gd) {
         playfield.render(gd);
+        font.drawString(gd, "Lives", 830, 30);
     }
     
     public void checkMouseMoving(long l) {
