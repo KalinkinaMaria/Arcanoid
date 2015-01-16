@@ -44,7 +44,8 @@ public class Bouncing extends FieldElement{
         
         y = Math.sqrt(halfRacket*halfRacket - x*x);
 
-        if (this.speed().x() <= 0) {
+        if (this.speed().x() < 0 ||
+                this.speed().x() == 0 && position1.x < pointMiddleRacket.x) {
             x = -x;
         }
         
