@@ -49,7 +49,7 @@ public class Bouncing extends FieldElement{
             x = -x;
         }
         
-        this.setSpeed(new SpeedVector(x/300, -y/300));
+        this.setSpeed(new SpeedVector(x/(2*(element.size().width()-this.size().height())), -y/(2*(element.size().width()-this.size().height()))));
     }
     
     /**
