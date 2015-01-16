@@ -7,6 +7,7 @@
 package arcanoid.model;
 
 import arcanoid.service.Buffer;
+import com.golden.gamedev.object.Sprite;
 
 /**
  * Разрушаемый кирпич
@@ -40,6 +41,8 @@ public class DestroyableBrick extends Brick implements Bounced {
     
     public DestroyableBrick clone() {
         DestroyableBrick brick = new DestroyableBrick(this.table);
+        Sprite sprite = table.getSprite(this);
+        table.addPair(brick, sprite);
         brick.copy(this);
         return brick;
     }

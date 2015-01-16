@@ -12,6 +12,7 @@ import arcanoid.service.Buffer;
 import arcanoid.service.SpeedVector;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.CollisionBounds;
+import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -55,14 +56,28 @@ public class CollisionHandler implements SpritesCollidedListener {
         return axis;
     }
     
+    private ArrayList<Sprite> getSystem(Map storage) {
+        ArrayList<Sprite> result = new ArrayList<>();
+        // Создание системы связанных соударившихся элементов
+        return result;
+    }
+    
+    private void handleSystem() {
+        
+    }
+    
     @Override
     public void spritesCollided(SpritesCollidedEvent e) {
+        ArrayList<Sprite> system;
         FieldElement element = getElement(e.activeSprite());
+        FieldElement keyElement;
+        // Столкновение произошло с границей
         if (e.passiveSprite() == null) {
             // Падение на нижнию границу элемента, отвечающего за успех игры
             if (element instanceof ChangingGameState && e.side() == CollisionBounds.BOTTOM_COLLISION) {
                 ((ChangingGameState)element).handleChangingGameState();
             } else if (element instanceof Bouncing) {
+                // Столкновение с разрешенными границами
                 element.setRightPosition(e.xBound());
                 if (e.xBound() == 0 ) {
                     ((Bouncing)element).handleCollision(getAxis(e.side()), null);
@@ -71,15 +86,39 @@ public class CollisionHandler implements SpritesCollidedListener {
                 }
                 
             } else {
+                //Столкновение не отскакивающих элементов
                 element.setRightPosition(e.xBound());
                 element.setSpeed(new SpeedVector());
             }   
         } else {
             Map passive = e.passiveSprite();
-            for ( Object sprite : passive.keySet()) {
-                element = table.getElement((Sprite) sprite);
-                Sprite[] sprites = (Sprite[]) passive.get(sprite);
-                if (element instanceof Bouncing) {
+            // Выявить систему(если шарики в круге)
+            system = getSystem(passive);
+            // Если есть система
+            if (!system.isEmpty()) {
+                // Обработать столкновения внутри системы
+                handleSystem();
+                // Удалить спрайты, входящие в систему
+                for ( Object keySprite : passive.keySet()) {
+                    if (system.contains((Sprite)keySprite)) {
+                        passive.remove((Sprite)keySprite);
+                    }
+                }
+            }
+            // Обработать спрайты вне системы
+            for ( Object keySprite : passive.keySet()) {
+                keyElement = table.getElement((Sprite) keySprite);
+                Sprite[] valueSprites = (Sprite[]) passive.get(keySprite);
+                for (Sprite value:valueSprites) {
+                    FieldElement originObject = table.getElement(value);
+                    FieldElement cloneKeyElement = keyElement.clone();
+                    FieldElement cloneValueElement = originObject.clone();
+                    originObject.handleCollision(cloneKeyElement);
+                    keyElement.handleCollision(cloneValueElement);
+                    table.deletePair(cloneKeyElement);
+                    table.deletePair(cloneValueElement);
+                }
+                /*if (element instanceof Bouncing) {
                     //((Bouncing)element).handleCollision(null, originObject.clone());
                 } else {
                     for (Sprite s : sprites) {
@@ -88,7 +127,7 @@ public class CollisionHandler implements SpritesCollidedListener {
                         ((Bouncing)originObject).handleCollision(null, element.clone());
                         table.deletePair(element);
                     }
-                }
+                }*/
             }
         }
     }

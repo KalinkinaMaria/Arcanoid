@@ -12,6 +12,7 @@ import arcanoid.events.GameStateChangeEvent;
 import arcanoid.events.GameStateChangeListener;
 import arcanoid.service.Buffer;
 import arcanoid.service.SpeedVector;
+import com.golden.gamedev.object.Sprite;
 import java.util.ArrayList;
 
 /**
@@ -48,6 +49,8 @@ public class Ball extends Bouncing implements Bounced, ChangingGameState {
     
     public Ball clone() {
         Ball ball = new Ball(this.table);
+        Sprite sprite = table.getSprite(this);
+        table.addPair(ball, sprite);
         ball.copy(this);
         return ball;
     }

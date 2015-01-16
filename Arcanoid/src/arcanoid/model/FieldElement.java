@@ -158,6 +158,9 @@ public abstract class FieldElement {
         // Сюда передается копия элмента до столкновения
         if (element instanceof Bounced) {
             //кирпич, мяч, ракетка
+            if (this instanceof Bouncing) {
+                ((Bouncing)this).handleCollision(this.position(), element);
+            }
         } else {
             this.handelCollision(ImpulseOfStrikeForce.count(element));
         }
@@ -168,7 +171,7 @@ public abstract class FieldElement {
      * 
      * @param impulse 
      */
-    private void handelCollision(double impulse) {
+    protected void handelCollision(double impulse) {
         
     }
     

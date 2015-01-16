@@ -7,6 +7,7 @@
 package arcanoid.model;
 
 import arcanoid.service.Buffer;
+import com.golden.gamedev.object.Sprite;
 
 
 /**
@@ -21,6 +22,8 @@ public class UndestroyableBrick extends Brick implements Bounced {
 
     public UndestroyableBrick clone() {
         UndestroyableBrick brick = new UndestroyableBrick(this.table);
+        Sprite sprite = table.getSprite(this);
+        table.addPair(brick, sprite);
         brick.copy(this);
         return brick;
     }
