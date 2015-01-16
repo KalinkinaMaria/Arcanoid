@@ -75,7 +75,9 @@ public class GameModel implements GameStateChangeListener {
         AttemptStartedEvent event;
         ArrayList<FieldElement> list = new ArrayList<>();
         element.setSpeed(new SpeedVector());
+        
         list.add(element);
+        
         event = new AttemptStartedEvent(this, list);
 
         for (AttemptStartedListener listener: movingElements) {
@@ -83,18 +85,26 @@ public class GameModel implements GameStateChangeListener {
         }
     }
     
+    private void fireAttemptEnded(FieldElement element, boolean success) {
+        AttemptStartedEvent event;
+        ArrayList<FieldElement> list = new ArrayList<>();
+        //field.removeElement(element);
+        
+        //list.add(element);
+        
+        event = new AttemptStartedEvent(this, list);
+
+        for (AttemptStartedListener listener: movingElements) {
+            listener.endGame(success);
+        }
+    }
+    
     /**
      * Закончить игру
      */
     public void endGame(boolean success) {
-        String message;
-        if (success) {
-            message = "Вы выиграли";
-        } else {
-            message = "Вы проиграли";
-        }
-        Frame frame = new Frame("Конец");
-        //frame.setVisible(true);
+        
+        fireAttemptEnded(null, success);
     }
 
     public void gameWasStarted() {

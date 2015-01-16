@@ -54,4 +54,9 @@ public class Racket extends FieldElement implements Bounced, AttemptStartedListe
         FieldElement element = e.pushingObjects.get(0);
         element.setPosition(new Point((int)(this.position().x + this.size().width()/2 - element.size().width()/2), (int)(this.position().y - element.size().height())));
     }
+
+    @Override
+    public void endGame(boolean success) {
+        
+    }
 }

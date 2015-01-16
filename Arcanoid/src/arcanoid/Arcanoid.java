@@ -38,6 +38,7 @@ public class Arcanoid  extends Game implements AttemptStartedListener {
     private Ambiance ambiance;
     private CollisionHandler collisionHandler;
     private GameFont           font;
+    private String message;
     
     //{ distribute = true; }
     /**
@@ -54,6 +55,7 @@ public class Arcanoid  extends Game implements AttemptStartedListener {
         // Создать буффер для связи логики и отображения.
         Buffer buffer = new Buffer();
         playfield = new PlayField();
+        message = "";
         ambiance = new Ambiance(buffer);
         gameModel = new GameModel(buffer);
         gameModel.createConnectionWithField(ambiance);
@@ -97,6 +99,9 @@ public class Arcanoid  extends Game implements AttemptStartedListener {
             text += key + ": " + value + " ";
         }
         font.drawText(gd, text, GameFont.LEFT, 840, 30, 150, 10, 0);
+        if (!message.isEmpty()) {
+            font.drawString(gd, message, 370, 300);
+        }
     }
     
     public void checkMouseMoving(long l) {
@@ -126,5 +131,15 @@ public class Arcanoid  extends Game implements AttemptStartedListener {
         }
         ambiance.setCollisionBounds(playfield, collisionHandler);
         ambiance.setCollisionObjects(playfield, collisionHandler);
+    }
+    
+    public void endGame(boolean success) {
+        
+        if (success) {
+            message = "You win!!!";
+        } else {
+            message = "You lose!!!";
+        }
+
     }
 }

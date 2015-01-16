@@ -131,7 +131,8 @@ public class GameField implements GameFieldChangeListener {
      * @param element элемент
      */
     public void removeElement(FieldElement element) {
-        
+        fireGameFieldChange(false, element, null);
+        elements.remove(element);
     }
     
     /**

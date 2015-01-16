@@ -45,8 +45,7 @@ public class Ambiance implements GameFieldChangeListener {
     private ArrayList<SpriteGroup> bouncing;
     private SpriteGroup manageBounced;
     private SpriteGroup bounced;
-    /** Препятствия */
-    private SpriteGroup obstacles;
+
     /** Таблица сталкивающихся элементов */
     private Map<String,String> collidedGroups;
     private Buffer table;
@@ -110,7 +109,13 @@ public class Ambiance implements GameFieldChangeListener {
     
     @Override
     public void removeElement(GameFieldChangeEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Sprite sprite = table.getSprite(e.element);
+        table.deletePair(e.element);
+        bounced.remove(sprite);
+        manageBounced.remove(sprite);
+        for (SpriteGroup group: bouncing) {
+            group.remove(sprite);
+        }
     }
 
     @Override
