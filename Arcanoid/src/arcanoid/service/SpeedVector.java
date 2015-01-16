@@ -109,7 +109,14 @@ public class SpeedVector {
      */
     @Override
     public boolean equals(Object other) {
-        return (getClass() == other.getClass() && this.speedX == ((SpeedVector)other).speedX && this.speedY == ((SpeedVector)other).speedY);
+        boolean result = getClass() == other.getClass();
+        
+        if (Math.abs(this.speedX - ((SpeedVector)other).speedX) <= 0.01 &&
+                Math.abs(this.speedY - ((SpeedVector)other).speedY) <= 0.01) {
+            result = result && true;
+        }
+        
+        return (result);
     }
     
     public SpeedVector clone() {
