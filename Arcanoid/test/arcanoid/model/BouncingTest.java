@@ -206,7 +206,7 @@ public class BouncingTest {
         //Установить позиции
         table.addPair(brick, new Sprite(10, 10));
         table.addPair(ball, new Sprite(30, 20));
-        Point position = new Point(30, 10);
+        Point position = new Point(30, 20);
         // Устанавливаем скорости
         SpeedVector vector1 = new SpeedVector(-5,10);
         ball.setSpeed(vector1);

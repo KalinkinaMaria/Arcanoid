@@ -49,42 +49,57 @@ public class FieldElementTest {
     }
 
     /**
-     * Тест для тестирования обработки столкновения мяча с ракеткой в покое.
+     * Тест для тестирования обработки столкновения мяча с ракеткой в покое (в центр).
      */
     @Test
-    public void testHandleCollisionBallWithStopedRacket() {
-        System.out.println("Тест для тестирования обработки столкновения мяча с ракеткойв покое");
+    public void testHandleCollisionBallWithStopedRacketInCenter() {
+        System.out.println("Тест для тестирования обработки столкновения мяча с ракеткой в покое (мяч попал в середину ракетки)");
         Racket racket = new Racket(table);
         Ball ball = new Ball(table);
         //Установить позиции
-        table.addPair(racket, new Sprite(10, 10));
-        table.addPair(ball, new Sprite(15, 10));
+        table.addPair(racket, new Sprite(310, 575));
+        table.addPair(ball, new Sprite(388, 551.2));
         // Устанавливаем скорости
         racket.setSpeed(new SpeedVector());
-        ball.setSpeed(new SpeedVector(10,-5));
+        ball.setSpeed(new SpeedVector(0,0.3));
         ball.handleCollision(racket);
-        assertEquals(ball.speed(), new SpeedVector(10,5));
+        assertEquals(ball.speed(), new SpeedVector(0,-0.3));
     }
 
     /**
-     * Тест для тестирования обработки столкновения мяча с ракеткой в движении.
+     * Тест для тестирования обработки столкновения мяча с ракеткой в покое (не в центр).
      */
     @Test
-    public void testHandleCollisionBallWithMovingRacket() {
-        System.out.println("Тест для тестирования обработки столкновения мяча с ракеткой в движении");
+    public void testHandleCollisionBallWithStopedRacketInNotCenter() {
+        System.out.println("Тест для тестирования обработки столкновения мяча с ракеткой в покое (мяч попал не в середину ракетки)");
         Racket racket = new Racket(table);
         Ball ball = new Ball(table);
-        Ball cloneBall;
         //Установить позиции
-        table.addPair(racket, new Sprite(10, 10));
-        table.addPair(ball, new Sprite(15, 10));
+        table.addPair(racket, new Sprite(101, 575));
+        table.addPair(ball, new Sprite(218, 551));
         // Устанавливаем скорости
-        racket.setSpeed(new SpeedVector(3, 0));
-        ball.setSpeed(new SpeedVector(10,-5));
-        cloneBall = ball.clone();
+        racket.setSpeed(new SpeedVector(0, 0));
+        ball.setSpeed(new SpeedVector(-0.19,0.22));
         ball.handleCollision(racket);
-        cloneBall.handleCollision(SpeedVector.Axis.X, racket.position());
-        assertEquals(ball.speed(), cloneBall.speed());
+        assertEquals(ball.speed(), new SpeedVector(0.13, -0.26));
+    }
+    
+    /**
+     * Тест для тестирования обработки столкновения мяча с ракеткой в движении (не в центр).
+     */
+    @Test
+    public void testHandleCollisionBallWithMovingRacketInNotCenter() {
+        System.out.println("Тест для тестирования обработки столкновения мяча с ракеткой в движении (мяч попал не в середину ракетки)");
+        Racket racket = new Racket(table);
+        Ball ball = new Ball(table);
+        //Установить позиции
+        table.addPair(racket, new Sprite(101, 575));
+        table.addPair(ball, new Sprite(218, 551));
+        // Устанавливаем скорости
+        racket.setSpeed(new SpeedVector(0.4, 0));
+        ball.setSpeed(new SpeedVector(-0.19,0.22));
+        ball.handleCollision(racket);
+        assertEquals(ball.speed(), new SpeedVector(0.13, -0.26));
     }
     
     /**
@@ -131,12 +146,12 @@ public class FieldElementTest {
         Racket racket = new Racket(table);
         Ball ball = new Ball(table);
         //Установить позиции
-        table.addPair(racket, new Sprite(10, 10));
-        table.addPair(ball, new Sprite(15, 10));
+        table.addPair(racket, new Sprite(310, 575));
+        table.addPair(ball, new Sprite(388, 551.2));
         // Устанавливаем скорости
         racket.setSpeed(new SpeedVector());
-        ball.setSpeed(new SpeedVector(10,-5));
-        racket.handleCollision(ball);
+        ball.setSpeed(new SpeedVector(0,0.3));
+        ball.handleCollision(racket);
         assertEquals(racket.speed(), new SpeedVector());
     }
 
