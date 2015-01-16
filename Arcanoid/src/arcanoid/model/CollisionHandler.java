@@ -86,6 +86,7 @@ public class CollisionHandler implements SpritesCollidedListener {
                         FieldElement originObject = table.getElement(s);
                         element = element.clone();
                         ((Bouncing)originObject).handleCollision(null, element.clone());
+                        table.deletePair(element);
                     }
                 }
             }
