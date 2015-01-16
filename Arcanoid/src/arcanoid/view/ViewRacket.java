@@ -21,7 +21,7 @@ public class ViewRacket extends ViewFieldElement{
      * @param viewInCollision изображение ракетки при столкновении
      */
     public ViewRacket(Sprite view, Sprite viewInCollision) {
-        
+        super(view, viewInCollision);
     }
     
     /**

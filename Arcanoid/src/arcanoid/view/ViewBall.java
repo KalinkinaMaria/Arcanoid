@@ -15,14 +15,11 @@ import com.golden.gamedev.object.Sprite;
  */
 public class ViewBall extends ViewFieldElement {
 
-    /**
-     * Конструктор
-     * @param view изображение мяча
-     * @param viewInCollision изображение мяча при столкновении
-     */
     public ViewBall(Sprite view, Sprite viewInCollision) {
-        
+        super(view, viewInCollision);
     }
+
+    
     
     /**
      * Показать коллизию

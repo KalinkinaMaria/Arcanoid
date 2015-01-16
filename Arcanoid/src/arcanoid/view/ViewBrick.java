@@ -21,7 +21,7 @@ public class ViewBrick  extends ViewFieldElement{
      * @param viewInCollision изображение кирпича при столкновении
      */
     public ViewBrick(Sprite view, Sprite viewInCollision) {
-        
+        super(view, viewInCollision);
     }
     
     /**

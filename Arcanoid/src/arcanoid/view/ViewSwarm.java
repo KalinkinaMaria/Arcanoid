@@ -21,7 +21,7 @@ public class ViewSwarm  extends ViewFieldElement{
      * @param viewInCollision изображение роя при столкновении
      */
     public ViewSwarm(Sprite view, Sprite viewInCollision) {
-        
+        super(view, viewInCollision);
     }
     
     /**
