@@ -197,8 +197,8 @@ public abstract class FieldElement {
         }
         if (this.position().x < 3 + delta) {
             x = 1 + delta;
-        } else if (this.position().x + this.size().width() > 797-delta +1) {
-            x = 798 - delta + 1 - (int)this.size().width();
+        } else if (this.position().x + this.size().width() > 805-delta +1) {
+            x = 806 - delta + 1 - (int)this.size().width();
         }
         
         this.setPosition(new Point(x, y));

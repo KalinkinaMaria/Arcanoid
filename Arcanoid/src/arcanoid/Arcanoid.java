@@ -41,7 +41,7 @@ public class Arcanoid  extends Game implements AttemptStartedListener {
      */
     public static void main(String[] args) {
         GameLoader game = new GameLoader();
-        game.setup(new Arcanoid(), new Dimension(800,600), false);
+        game.setup(new Arcanoid(), new Dimension(1000,600), false);
         game.start();
     }
 
@@ -55,7 +55,7 @@ public class Arcanoid  extends Game implements AttemptStartedListener {
         gameModel.createConnectionWithField(ambiance);
         gameModel.startGame();
         oldMousePosition  = this.getMouseX();
-        background = new ImageBackground(getImage("img/background.jpg"), 800, 600);
+        background = new ImageBackground(getImage("img/1.jpg"), 1000, 600);
         playfield.setBackground(background);
         gameModel.addAttemptStartedListener(this);
         ambiance.registerSpriteGroups(playfield);
@@ -65,7 +65,6 @@ public class Arcanoid  extends Game implements AttemptStartedListener {
         ambiance.setCollisionBounds(playfield, collisionHandler);
         ambiance.setCollisionObjects(playfield, collisionHandler);
         ambiance.setConnectionWithGhangingGameStateElement(gameModel);
-        
     }
 
     @Override
