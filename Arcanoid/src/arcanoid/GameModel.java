@@ -20,6 +20,8 @@ import com.golden.gamedev.object.SpriteGroup;
 import java.awt.Frame;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -123,6 +125,13 @@ public class GameModel implements GameStateChangeListener {
         } else {
             endGame(false);
         }
+    }
+    
+    public HashMap<String, String> getGameData() {
+        HashMap<String, String> result = new HashMap <String, String>();
+        result.put("Lives", String.valueOf(player.lives()));
+        result.put("Score", String.valueOf(player.score()));
+        return result;
     }
 
     @Override
