@@ -41,19 +41,14 @@ public class Bouncing extends FieldElement{
                 position1.x < pointMiddleRacket.x - halfRacket) {
             this.handleCollision (Axis.Z, null);
         } else {                
-            if (pointMiddleRacket.x < position1.x) {
-                x = position1.x - pointMiddleRacket.x;
-            } else {
-                x = pointMiddleRacket.x - position1.x;
-            }
+            x = - (pointMiddleRacket.x - position1.x);
 
             y = Math.sqrt(halfRacket*halfRacket - x*x);
 
-            if (this.speed().x() < 0 ||
-                    this.speed().x() == 0 && position1.x < pointMiddleRacket.x) {
+            if (this.speed().x() == 0 && position1.x < pointMiddleRacket.x) {
                 x = -x;
             }
-
+            
             this.setSpeed(new SpeedVector(x/(2*(element.size().width()-this.size().height())), 
                     -y/(2*(element.size().width()-this.size().height()))));
         }
