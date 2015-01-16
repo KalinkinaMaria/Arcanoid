@@ -31,12 +31,12 @@ public class Bouncing extends FieldElement{
         
         //с ракеткой
         Point position1 = new Point(this.position().x + (int)this.size().width()/2, element.position().y);
-        Point pointMiddleRacket = new Point((element.position().x+(int)element.size().width())/2, element.position().y);
+        Point pointMiddleRacket = new Point((element.position().x+(int)element.size().width()/2), element.position().y);
         double halfRacket = element.size().width()/2.0;
         double y;
         double x;
         
-        if (pointMiddleRacket.x > position1.x) {
+        if (pointMiddleRacket.x < position1.x) {
             x = position1.x - pointMiddleRacket.x;
         } else {
             x = pointMiddleRacket.x - position1.x;
@@ -48,7 +48,7 @@ public class Bouncing extends FieldElement{
             x = -x;
         }
         
-        this.setSpeed(new SpeedVector(x, -y));
+        this.setSpeed(new SpeedVector(x/100, -y/100));
     }
     
     /**

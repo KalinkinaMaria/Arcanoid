@@ -36,7 +36,7 @@ public class Racket extends FieldElement implements Bounced, AttemptStartedListe
     
     public Racket clone() {
         Racket racket = new Racket(this.table);
-        Sprite sprite = new Sprite();
+        Sprite sprite = table.getSprite(this);
         table.addPair(racket, sprite);
         racket.copy(this);
         return racket;
