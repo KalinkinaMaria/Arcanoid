@@ -33,23 +33,30 @@ public class Bouncing extends FieldElement{
         Point position1 = new Point(this.position().x + (int)this.size().width()/2, element.position().y);
         Point pointMiddleRacket = new Point((element.position().x+(int)element.size().width()/2), element.position().y);
         double halfRacket = element.size().width()/2.0;
-        double y;
-        double x;
+        double y = 0.0;
+        double x = 0.0;
         
-        if (pointMiddleRacket.x < position1.x) {
-            x = position1.x - pointMiddleRacket.x;
-        } else {
-            x = pointMiddleRacket.x - position1.x;
-        }
-        
-        y = Math.sqrt(halfRacket*halfRacket - x*x);
+        //Проверка на столкновение с углом ракетки
+        if (position1.x > pointMiddleRacket.x + halfRacket ||
+                position1.x < pointMiddleRacket.x - halfRacket) {
+            this.handleCollision (Axis.Z, null);
+        } else {                
+            if (pointMiddleRacket.x < position1.x) {
+                x = position1.x - pointMiddleRacket.x;
+            } else {
+                x = pointMiddleRacket.x - position1.x;
+            }
 
-        if (this.speed().x() < 0 ||
-                this.speed().x() == 0 && position1.x < pointMiddleRacket.x) {
-            x = -x;
+            y = Math.sqrt(halfRacket*halfRacket - x*x);
+
+            if (this.speed().x() < 0 ||
+                    this.speed().x() == 0 && position1.x < pointMiddleRacket.x) {
+                x = -x;
+            }
+
+            this.setSpeed(new SpeedVector(x/(2*(element.size().width()-this.size().height())), 
+                    -y/(2*(element.size().width()-this.size().height()))));
         }
-        
-        this.setSpeed(new SpeedVector(x/(2*(element.size().width()-this.size().height())), -y/(2*(element.size().width()-this.size().height()))));
     }
     
     /**
