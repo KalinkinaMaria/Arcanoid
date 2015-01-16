@@ -118,16 +118,6 @@ public class CollisionHandler implements SpritesCollidedListener {
                     table.deletePair(cloneKeyElement);
                     table.deletePair(cloneValueElement);
                 }
-                /*if (element instanceof Bouncing) {
-                    //((Bouncing)element).handleCollision(null, originObject.clone());
-                } else {
-                    for (Sprite s : sprites) {
-                        FieldElement originObject = table.getElement(s);
-                        element = element.clone();
-                        ((Bouncing)originObject).handleCollision(null, element.clone());
-                        table.deletePair(element);
-                    }
-                }*/
             }
         }
     }
