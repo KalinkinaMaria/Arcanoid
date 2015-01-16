@@ -23,6 +23,8 @@ import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.background.ImageBackground;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -67,9 +69,9 @@ public class Arcanoid  extends Game implements AttemptStartedListener {
         ambiance.setCollisionBounds(playfield, collisionHandler);
         ambiance.setCollisionObjects(playfield, collisionHandler);
         ambiance.setConnectionWithGhangingGameStateElement(gameModel);
-        String fontString = "ABCDEFGHIJKLMNOPQRSTUVXWYZabcdefghijklmnopqrstuvxwyz1234567890ιηναΰόστγ?!κ.:- ";
+        String fontString = "ABCDEFGHIJKLMNOPQRSTUVXWYZabcdefghijklmnopqrstuvxwyz1234567890aaaaaaaaa?!a.:- ";
         int a = fontString.length();
-        //font = fontManager.getFont(getImages("img/font.png", 26, 3), fontString);
+        font = fontManager.getFont(getImages("img/font.png", 26, 3), fontString);
     }
 
     @Override
@@ -87,7 +89,14 @@ public class Arcanoid  extends Game implements AttemptStartedListener {
     @Override
     public void render(Graphics2D gd) {
         playfield.render(gd);
-        //font.drawString(gd, "Lives", 830, 30);
+        HashMap<String, String> gameData = gameModel.getGameData();
+        String text = "";
+        for (Map.Entry<String, String> entrySet : gameData.entrySet()) {
+            String key = entrySet.getKey();
+            String value = entrySet.getValue();
+            text += key + ": " + value + " ";
+        }
+        font.drawText(gd, text, GameFont.LEFT, 840, 30, 150, 10, 0);
     }
     
     public void checkMouseMoving(long l) {
