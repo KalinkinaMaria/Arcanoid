@@ -5,6 +5,7 @@
  */
 package arcanoid.events;
 
+import arcanoid.model.ChangingGameState;
 import java.util.EventObject;
 
 
@@ -15,10 +16,14 @@ import java.util.EventObject;
  * @author Мария
  */
 public class GameStateChangeEvent extends EventObject {
+    
+    public ChangingGameState element;
+    
     public enum GameStateType {
         success,
         unsuccess;
     }
+    
     private GameStateType type;
     /** 
      * Конструктор
@@ -28,6 +33,7 @@ public class GameStateChangeEvent extends EventObject {
     public GameStateChangeEvent(Object source,GameStateType type) {
         super(source);
         this.type = type;
+        element = (ChangingGameState)source;
     }
     
 }

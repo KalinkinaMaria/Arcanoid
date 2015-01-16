@@ -42,7 +42,7 @@ public class Ball extends Bouncing implements Bounced, ChangingGameState {
      */
     private void fireGameStateChange() {
         for (GameStateChangeListener listener: failListeners) {
-            listener.fail(new GameStateChangeEvent(table,GameStateChangeEvent.GameStateType.unsuccess));
+            listener.fail(new GameStateChangeEvent(this,GameStateChangeEvent.GameStateType.unsuccess));
         }
     }
     

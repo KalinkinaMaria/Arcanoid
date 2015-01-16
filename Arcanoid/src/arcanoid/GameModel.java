@@ -68,6 +68,19 @@ public class GameModel implements GameStateChangeListener {
             listener.startMoving(event);
         }
     }
+    
+    private void fireAttemptEnded(FieldElement element) {
+        AttemptStartedEvent event;
+        ArrayList<FieldElement> list = new ArrayList<>();
+        element.setSpeed(new SpeedVector());
+        list.add(element);
+        event = new AttemptStartedEvent(this, list);
+
+        for (AttemptStartedListener listener: movingElements) {
+            listener.returnToStartPosition(event);
+        }
+    }
+    
     /**
      * Закончить игру
      */
@@ -104,6 +117,9 @@ public class GameModel implements GameStateChangeListener {
         int lives = player.lives() - 1;
         if (lives != 0) {
             player.setLives(lives);
+            // Вернуть шарик на место.
+            fireAttemptEnded((FieldElement)e.element);
+            gameWasStarted = false;
         } else {
             endGame(false);
         }

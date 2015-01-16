@@ -5,6 +5,8 @@
  */
 package arcanoid;
 
+import arcanoid.events.AttemptStartedEvent;
+import arcanoid.events.AttemptStartedListener;
 import arcanoid.events.GameStateChangeEvent;
 import arcanoid.events.GameStateChangeListener;
 import arcanoid.model.CollisionHandler;
@@ -14,6 +16,7 @@ import arcanoid.view.Ambiance;
 import com.golden.gamedev.Game;
 import com.golden.gamedev.GameLoader;
 import com.golden.gamedev.object.Background;
+import com.golden.gamedev.object.CollisionManager;
 import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.background.ImageBackground;
@@ -24,7 +27,7 @@ import java.awt.Graphics2D;
  *
  * @author Мария
  */
-public class Arcanoid  extends Game {
+public class Arcanoid  extends Game implements AttemptStartedListener {
     private PlayField        playfield;
     private Background       background;
     private GameModel gameModel;
@@ -54,7 +57,7 @@ public class Arcanoid  extends Game {
         oldMousePosition  = this.getMouseX();
         background = new ImageBackground(getImage("img/background.jpg"), 800, 600);
         playfield.setBackground(background);
-        
+        gameModel.addAttemptStartedListener(this);
         ambiance.registerSpriteGroups(playfield);
         hideCursor();
         collisionHandler = new CollisionHandler(buffer);
@@ -62,6 +65,7 @@ public class Arcanoid  extends Game {
         ambiance.setCollisionBounds(playfield, collisionHandler);
         ambiance.setCollisionObjects(playfield, collisionHandler);
         ambiance.setConnectionWithGhangingGameStateElement(gameModel);
+        
     }
 
     @Override
@@ -93,5 +97,20 @@ public class Arcanoid  extends Game {
         SpeedVector result;
         result = new SpeedVector(2*(this.getMouseX() - oldMousePosition)/l, 0);
         return result;
+    }
+
+    @Override
+    public void startMoving(AttemptStartedEvent e) {
+        
+    }
+
+    @Override
+    public void returnToStartPosition(AttemptStartedEvent e) {
+        CollisionManager[] collisionGroups = playfield.getCollisionGroups();
+        for (CollisionManager manager: collisionGroups) {
+            playfield.removeCollisionGroup(manager);
+        }
+        ambiance.setCollisionBounds(playfield, collisionHandler);
+        ambiance.setCollisionObjects(playfield, collisionHandler);
     }
 }

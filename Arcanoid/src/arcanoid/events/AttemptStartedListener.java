@@ -13,4 +13,5 @@ import java.util.EventListener;
  */
 public interface AttemptStartedListener extends EventListener {
     public void startMoving(AttemptStartedEvent e);
+    public void returnToStartPosition(AttemptStartedEvent e);
 }
