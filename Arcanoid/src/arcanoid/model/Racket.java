@@ -10,6 +10,7 @@ import arcanoid.events.AttemptStartedEvent;
 import arcanoid.events.AttemptStartedListener;
 import arcanoid.service.Buffer;
 import arcanoid.service.SpeedVector;
+import com.golden.gamedev.object.Sprite;
 import java.awt.Point;
 import java.util.ArrayList;
 
@@ -35,6 +36,8 @@ public class Racket extends FieldElement implements Bounced, AttemptStartedListe
     
     public Racket clone() {
         Racket racket = new Racket(this.table);
+        Sprite sprite = new Sprite();
+        table.addPair(racket, sprite);
         racket.copy(this);
         return racket;
     }

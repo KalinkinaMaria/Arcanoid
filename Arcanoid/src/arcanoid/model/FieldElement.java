@@ -134,8 +134,8 @@ public abstract class FieldElement {
      * @return вектор скорости
      */
     public SpeedVector speed() {
-        table.getSprite(this);
-        table.getSprite(this).getHorizontalSpeed();
+        Sprite sprite = table.getSprite(this);
+        sprite.getHorizontalSpeed();
         return new SpeedVector(table.getSprite(this).getHorizontalSpeed(), table.getSprite(this).getVerticalSpeed());
     }
     
