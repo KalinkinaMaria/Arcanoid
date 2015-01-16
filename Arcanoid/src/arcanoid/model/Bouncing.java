@@ -44,11 +44,11 @@ public class Bouncing extends FieldElement{
         
         y = Math.sqrt(halfRacket*halfRacket - x*x);
 
-        if (this.speed().x() < 0) {
+        if (this.speed().x() <= 0) {
             x = -x;
         }
         
-        this.setSpeed(new SpeedVector(x/100, -y/100));
+        this.setSpeed(new SpeedVector(x/300, -y/300));
     }
     
     /**
