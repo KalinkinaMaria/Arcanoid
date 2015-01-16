@@ -72,7 +72,20 @@ public class CollisionHandler implements SpritesCollidedListener {
                 element.setSpeed(new SpeedVector());
             }   
         } else {
-            // Вот здесь нужен обход и вызов handle colllision для каждого с клоном от другого
+            Map passive = e.passiveSprite();
+            for ( Object sprite : passive.keySet()) {
+                element = table.getElement((Sprite) sprite);
+                Sprite[] sprites = (Sprite[]) passive.get(sprite);
+                if (element instanceof Bouncing) {
+                    //((Bouncing)element).handleCollision(null, originObject.clone());
+                } else {
+                    for (Sprite s : sprites) {
+                        FieldElement originObject = table.getElement(s);
+                        element = element.clone();
+                        ((Bouncing)originObject).handleCollision(null, element.clone());
+                    }
+                }
+            }
         }
     }
 }

@@ -11,6 +11,7 @@ import arcanoid.events.GameFieldChangeEvent;
 import arcanoid.events.GameFieldChangeEvent.ChangingType;
 import arcanoid.events.GameFieldChangeListener;
 import arcanoid.service.Buffer;
+import arcanoid.service.ImpulseOfStrikeForce;
 import arcanoid.service.Size;
 import arcanoid.service.SpeedVector;
 import com.golden.gamedev.object.Sprite;
@@ -133,6 +134,8 @@ public abstract class FieldElement {
      * @return вектор скорости
      */
     public SpeedVector speed() {
+        table.getSprite(this);
+        table.getSprite(this).getHorizontalSpeed();
         return new SpeedVector(table.getSprite(this).getHorizontalSpeed(), table.getSprite(this).getVerticalSpeed());
     }
     
@@ -153,6 +156,11 @@ public abstract class FieldElement {
     public void handleCollision(FieldElement element) {
         // Вызывает в зависимости от типа 1 из 3 методов
         // Сюда передается копия элмента до столкновения
+        if (element instanceof Bounced) {
+            //кирпич, мяч, ракетка
+        } else {
+            this.handelCollision(ImpulseOfStrikeForce.count(element));
+        }
     }
     
     /**
@@ -189,6 +197,8 @@ public abstract class FieldElement {
         other.collisionHandleEndListeners = this.collisionHandleEndListeners;
         other.setPosition(this.position());
     }
+    
+    public abstract FieldElement clone();
     
     public void setRightPosition(int delta) {
         int y = this.position().y, x = this.position().x;
