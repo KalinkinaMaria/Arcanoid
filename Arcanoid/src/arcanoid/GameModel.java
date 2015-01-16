@@ -17,6 +17,7 @@ import arcanoid.service.Buffer;
 import arcanoid.service.SpeedVector;
 import arcanoid.view.Ambiance;
 import com.golden.gamedev.object.SpriteGroup;
+import java.awt.Frame;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -71,7 +72,14 @@ public class GameModel implements GameStateChangeListener {
      * Закончить игру
      */
     public void endGame(boolean success) {
-        
+        String message;
+        if (success) {
+            message = "Вы выиграли";
+        } else {
+            message = "Вы проиграли";
+        }
+        Frame frame = new Frame("Конец");
+        //frame.setVisible(true);
     }
 
     public void gameWasStarted() {
