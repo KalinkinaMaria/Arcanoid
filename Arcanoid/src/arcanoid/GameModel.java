@@ -40,6 +40,7 @@ public class GameModel implements GameStateChangeListener {
         field = new GameField(buffer);
         movingElements = new ArrayList<>();
         gameWasStarted = false;
+        player = new Player(3);
         
     }
     
@@ -69,7 +70,7 @@ public class GameModel implements GameStateChangeListener {
     /**
      * Закончить игру
      */
-    public void endGame() {
+    public void endGame(boolean success) {
         
     }
 
@@ -92,7 +93,12 @@ public class GameModel implements GameStateChangeListener {
     
     @Override
     public void fail(GameStateChangeEvent e) {
-        System.out.println("aaaaaaaaaa");
+        int lives = player.lives() - 1;
+        if (lives != 0) {
+            player.setLives(lives);
+        } else {
+            endGame(false);
+        }
     }
 
     @Override
