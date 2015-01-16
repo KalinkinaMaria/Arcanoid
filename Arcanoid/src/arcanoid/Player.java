@@ -31,7 +31,8 @@ public class Player {
      * @param lives кол-во жизней
      */
     public Player (int lives) {
-        
+        score = 0;
+        this.lives = lives;
     }
     
     /**
@@ -39,7 +40,7 @@ public class Player {
      * @param countLives кол-во жизней
      */
     public void setLives(int countLives) {
-        
+        this.lives = countLives;
     }
     
     /**
@@ -63,7 +64,7 @@ public class Player {
      * @param score счет 
      */
     public void setScore(int score) {
-        
+        this.score = score;
     }
     
     

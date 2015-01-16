@@ -59,9 +59,12 @@ public class CollisionHandler implements SpritesCollidedListener {
     public void spritesCollided(SpritesCollidedEvent e) {
         FieldElement element = getElement(e.activeSprite());
         if (e.passiveSprite() == null) {
-            if (element instanceof Bouncing) {
+            // Падение на нижнию границу элемента, отвечающего за успех игры
+            if (element instanceof ChangingGameState && e.side() == CollisionBounds.BOTTOM_COLLISION) {
+                ((ChangingGameState)element).handleChangingGameState();
+            } else if (element instanceof Bouncing) {
                 element.setRightPosition(e.xBound());
-                if (e.xBound() ==0 ) {
+                if (e.xBound() == 0 ) {
                     ((Bouncing)element).handleCollision(getAxis(e.side()), null);
                 } else {
                     element.setSpeed(new SpeedVector());

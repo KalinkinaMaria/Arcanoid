@@ -5,12 +5,10 @@
  */
 package arcanoid.events;
 
+import arcanoid.model.ChangingGameState;
 import java.util.EventObject;
 
-enum GameStateType {
-    success,
-    unsuccess;
-}
+
 
 /**
  * Событие падения мяча за границу поля
@@ -18,6 +16,13 @@ enum GameStateType {
  * @author Мария
  */
 public class GameStateChangeEvent extends EventObject {
+    
+    public ChangingGameState element;
+    
+    public enum GameStateType {
+        success,
+        unsuccess;
+    }
     
     private GameStateType type;
     /** 
@@ -28,6 +33,7 @@ public class GameStateChangeEvent extends EventObject {
     public GameStateChangeEvent(Object source,GameStateType type) {
         super(source);
         this.type = type;
+        element = (ChangingGameState)source;
     }
     
 }

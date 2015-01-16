@@ -17,6 +17,7 @@ import arcanoid.service.Buffer;
 import arcanoid.service.SpeedVector;
 import arcanoid.view.Ambiance;
 import com.golden.gamedev.object.SpriteGroup;
+import java.awt.Frame;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -40,6 +41,7 @@ public class GameModel implements GameStateChangeListener {
         field = new GameField(buffer);
         movingElements = new ArrayList<>();
         gameWasStarted = false;
+        player = new Player(3);
         
     }
     
@@ -66,11 +68,31 @@ public class GameModel implements GameStateChangeListener {
             listener.startMoving(event);
         }
     }
+    
+    private void fireAttemptEnded(FieldElement element) {
+        AttemptStartedEvent event;
+        ArrayList<FieldElement> list = new ArrayList<>();
+        element.setSpeed(new SpeedVector());
+        list.add(element);
+        event = new AttemptStartedEvent(this, list);
+
+        for (AttemptStartedListener listener: movingElements) {
+            listener.returnToStartPosition(event);
+        }
+    }
+    
     /**
      * Закончить игру
      */
-    public void endGame() {
-        
+    public void endGame(boolean success) {
+        String message;
+        if (success) {
+            message = "Вы выиграли";
+        } else {
+            message = "Вы проиграли";
+        }
+        Frame frame = new Frame("Конец");
+        //frame.setVisible(true);
     }
 
     public void gameWasStarted() {
@@ -92,7 +114,15 @@ public class GameModel implements GameStateChangeListener {
     
     @Override
     public void fail(GameStateChangeEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int lives = player.lives() - 1;
+        if (lives != 0) {
+            player.setLives(lives);
+            // Вернуть шарик на место.
+            fireAttemptEnded((FieldElement)e.element);
+            gameWasStarted = false;
+        } else {
+            endGame(false);
+        }
     }
 
     @Override

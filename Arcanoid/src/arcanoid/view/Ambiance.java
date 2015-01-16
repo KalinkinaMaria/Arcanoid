@@ -9,8 +9,10 @@ import arcanoid.collision.CollisionObjectWithBoundary;
 import arcanoid.collision.CollisionObjectWithObject;
 import arcanoid.events.GameFieldChangeEvent;
 import arcanoid.events.GameFieldChangeListener;
+import arcanoid.events.GameStateChangeListener;
 import arcanoid.model.Bounced;
 import arcanoid.model.Bouncing;
+import arcanoid.model.ChangingGameState;
 import arcanoid.model.CollisionHandler;
 import arcanoid.model.FieldElement;
 import arcanoid.service.Buffer;
@@ -131,7 +133,7 @@ public class Ambiance implements GameFieldChangeListener {
     }
     
     public void setCollisionBounds(PlayField playField, CollisionHandler handler) {
-        bounderCollision = new CollisionObjectWithBoundary(0, 0, 800, 640);
+        bounderCollision = new CollisionObjectWithBoundary(0, 0, 808, 640);
         bounderCollision.addSpritesCollidedListener(handler);
         playField.addCollisionGroup(bounced, null, bounderCollision);
         for (SpriteGroup group : bouncing) {
@@ -197,7 +199,7 @@ public class Ambiance implements GameFieldChangeListener {
         }
         
         for (SpriteGroup group : bouncing) {
-            CollisionObjectWithBoundary collisionBouncing = new CollisionObjectWithBoundary(0, 0, 800, 600);
+            CollisionObjectWithBoundary collisionBouncing = new CollisionObjectWithBoundary(0, 0, 808, 600);
             bouncingCollisions.add(collisionBouncing);
             collisionBouncing.addSpritesCollidedListener(handler);
             playField.addCollisionGroup(group, null, collisionBouncing);
@@ -206,5 +208,15 @@ public class Ambiance implements GameFieldChangeListener {
     
     public void addCollidedGroupPair(String first, String second) {
         collidedGroups.put(first, second);
+    }
+    
+    public void setConnectionWithGhangingGameStateElement(GameStateChangeListener object) {
+        FieldElement element;
+        for (ViewFieldElement viewElement:viewElements) {
+           element = table.getElement(viewElement.getViewSprite());
+           if (element instanceof ChangingGameState) {
+               ((ChangingGameState)element).addGameStateChangeListener(object);
+           }
+        }
     }
 }

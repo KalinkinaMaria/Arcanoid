@@ -10,6 +10,7 @@ import arcanoid.events.AttemptStartedEvent;
 import arcanoid.events.AttemptStartedListener;
 import arcanoid.service.Buffer;
 import arcanoid.service.SpeedVector;
+import java.awt.Point;
 import java.util.ArrayList;
 
 /**
@@ -43,5 +44,11 @@ public class Racket extends FieldElement implements Bounced, AttemptStartedListe
         for (FieldElement element:e.pushingObjects) {
             pushBall((Ball)element);
         }
+    }
+
+    @Override
+    public void returnToStartPosition(AttemptStartedEvent e) {
+        FieldElement element = e.pushingObjects.get(0);
+        element.setPosition(new Point((int)(this.position().x + this.size().width()/2 - element.size().width()/2), (int)(this.position().y - element.size().height())));
     }
 }

@@ -20,7 +20,21 @@ public abstract class ViewFieldElement implements CollisionHandleEndListener {
     private Sprite viewInCollision;
     
     /**
+     * Конструктор
+     * @param view изображение мяча
+     * @param viewInCollision изображение мяча при столкновении
+     */
+    public ViewFieldElement(Sprite view, Sprite viewInCollision) {
+        this.view = view;
+        this.viewInCollision = viewInCollision;
+    }
+    
+    /**
      * Показать коллизию
      */
     public abstract void showCollision() ;
+    
+    public Sprite getViewSprite() {
+        return view;
+    }
 }
