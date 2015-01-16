@@ -92,7 +92,7 @@ public class GameModel implements GameStateChangeListener {
     
     @Override
     public void fail(GameStateChangeEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("aaaaaaaaaa");
     }
 
     @Override

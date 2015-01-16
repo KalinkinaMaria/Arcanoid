@@ -61,6 +61,7 @@ public class Arcanoid  extends Game {
         gameModel.registerCollisionRules(ambiance);
         ambiance.setCollisionBounds(playfield, collisionHandler);
         ambiance.setCollisionObjects(playfield, collisionHandler);
+        ambiance.setConnectionWithGhangingGameStateElement(gameModel);
     }
 
     @Override

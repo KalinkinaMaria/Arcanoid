@@ -9,8 +9,10 @@ import arcanoid.collision.CollisionObjectWithBoundary;
 import arcanoid.collision.CollisionObjectWithObject;
 import arcanoid.events.GameFieldChangeEvent;
 import arcanoid.events.GameFieldChangeListener;
+import arcanoid.events.GameStateChangeListener;
 import arcanoid.model.Bounced;
 import arcanoid.model.Bouncing;
+import arcanoid.model.ChangingGameState;
 import arcanoid.model.CollisionHandler;
 import arcanoid.model.FieldElement;
 import arcanoid.service.Buffer;
@@ -206,5 +208,15 @@ public class Ambiance implements GameFieldChangeListener {
     
     public void addCollidedGroupPair(String first, String second) {
         collidedGroups.put(first, second);
+    }
+    
+    public void setConnectionWithGhangingGameStateElement(GameStateChangeListener object) {
+        FieldElement element;
+        for (ViewFieldElement viewElement:viewElements) {
+           element = table.getElement(viewElement.getViewSprite());
+           if (element instanceof ChangingGameState) {
+               ((ChangingGameState)element).addGameStateChangeListener(object);
+           }
+        }
     }
 }
