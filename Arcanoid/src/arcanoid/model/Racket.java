@@ -38,7 +38,7 @@ public class Racket extends Managable implements Bounced, AttemptStartedListener
     
     public Racket clone() {
         Racket racket = new Racket(this.table);
-        Sprite sprite = new Sprite();
+        Sprite sprite = table.getSprite(this);
         sprite = new Sprite(sprite.getImage(), sprite.getX(), sprite.getY());
         table.addPair(racket, sprite);
         racket.copy(this);

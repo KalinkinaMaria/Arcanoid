@@ -25,33 +25,64 @@ public class Bouncing extends FieldElement{
     
     public void handleManagableCollision(FieldElement element) {
         //с ракеткой
-        Point position1 = new Point(this.position().x + (int)this.size().width()/2, element.position().y);
-        Point pointMiddleRacket = new Point((element.position().x+(int)element.size().width()/2), element.position().y);
-        double halfRacket = element.size().width()/2.0;
-        double y = 0.0;
-        double x = 0.0;
-        boolean collisionRightConer = position1.x > pointMiddleRacket.x + halfRacket;
-        boolean collisionLeftConer = position1.x < pointMiddleRacket.x - halfRacket;
+        Point positionCollision = new Point(this.position().x + (int)this.size().width()/2, this.position().y + (int)this.size().height());
+        Point positionMiddleRacket = new Point((element.position().x+(int)element.size().width()/2), element.position().y);
+        double lengthHalfRacket = element.size().width()/2.0;
+
+        //Проверка на столкновение с углом ракетки        
+        boolean collisionRightConer = positionCollision.x > positionMiddleRacket.x + lengthHalfRacket &&
+                positionMiddleRacket.y < element.position().y + this.size().height()/2;
+        boolean collisionLeftConer = positionCollision.x < positionMiddleRacket.x - lengthHalfRacket &&
+                positionMiddleRacket.y < element.position().y + this.size().height()/2;
+        // Мячик летит к ракетке к углу ракетки
+        if (collisionRightConer && this.speed().x() < 0 || 
+                collisionLeftConer && this.speed().x() > 0) {
+            this.handleCollision (Axis.Z, null);
+        // Мячик летит вдоль ракетки к углу какетки
+        } else if (collisionRightConer && this.speed().x() > 0 || 
+                collisionLeftConer && this.speed().x() < 0) { 
+            this.handleCollision (Axis.Y, null);
+        // Мячик летит на угол ракетки под прямым углом
+        } else if (collisionRightConer && this.speed().x() == 0) {
+            this.setSpeed(new SpeedVector(0.3, -0.3));
+        } else if (collisionLeftConer && this.speed().x() == 0) {
+            this.setSpeed(new SpeedVector(-0.3, -0.3));
+        // Мячик попадает на поверхность ракетки
+        } else if (positionCollision.x > element.position().x &&
+                positionCollision.x < element.position().x + element.size().width()) {
+            double lengthSpeedVector = Math.sqrt(this.speed().x()*this.speed().x() + 
+                    this.speed().y()*this.speed().y());
+            double distanceToMiddleRacket = positionCollision.x > positionMiddleRacket.x ?
+                    positionCollision.x - positionMiddleRacket.x :
+                    positionMiddleRacket.x - positionCollision.x;
+            double angleNewSpeedVector = Math.acos(distanceToMiddleRacket/lengthHalfRacket);
+            double newSpeedVectorX = positionCollision.x > positionMiddleRacket.x ?
+                    Math.cos(angleNewSpeedVector)*lengthSpeedVector :
+                    - (Math.cos(angleNewSpeedVector)*lengthSpeedVector);
+            double newSpeedVectorY = - (Math.sin(angleNewSpeedVector)*lengthSpeedVector);
+            SpeedVector newSpeedVector = new SpeedVector(newSpeedVectorX, newSpeedVectorY);
+            this.setSpeed(newSpeedVector);
+        }
         
         //Проверка на столкновение с углом ракетки
-        if (collisionRightConer && this.speed().x() < 0 || 
+        /*if (collisionRightConer && this.speed().x() < 0 || 
                 collisionLeftConer && this.speed().x() > 0) {
             this.handleCollision (Axis.Z, null);
         } else if (collisionRightConer && this.speed().x() > 0 || 
                 collisionLeftConer && this.speed().x() < 0) {
             this.handleCollision (Axis.Y, null);
         } else {
-            x = - (pointMiddleRacket.x - position1.x);
+            x = - (pointMiddleRacket.x - positionCollision.x);
 
             y = Math.sqrt(halfRacket*halfRacket - x*x);
 
-            if (this.speed().x() == 0 && position1.x < pointMiddleRacket.x) {
+            if (this.speed().x() == 0 && positionCollision.x < pointMiddleRacket.x) {
                 x = -x;
             }
             
             this.setSpeed(new SpeedVector(x/(2*(element.size().width()-this.size().height())), 
                     -y/(2*(element.size().width()-this.size().height()))));
-        }
+        }*/
     }
     
     /**
