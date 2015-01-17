@@ -9,6 +9,10 @@ import arcanoid.service.Buffer;
 import arcanoid.service.SpeedVector;
 import com.golden.gamedev.object.Sprite;
 import java.awt.Point;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -50,21 +54,25 @@ public class BouncingTest {
      * Тестирование столкновения отскакивающего с тем от которого можно отскочить в движении
      */
     @Test
-    public void testHandleCollisionBoucingWithMovingBounced() {
+    public void testHandleCollisionBoucingWithMovingBounced() throws IOException {
         System.out.println("Тестирование столкновения отскакивающего с тем от которого можно отскочить в движении");
         Racket racket = new Racket(table);
         Bouncing ball = new Bouncing(table);
+        BufferedImage imageBall = ImageIO.read(new File("img/ball.png"));
+        Sprite spriteBall = new Sprite(imageBall, 15, 10);
+        BufferedImage imageRacket = ImageIO.read(new File("img/r.png"));
+        Sprite spriteRacket = new Sprite(imageRacket, 10, 10);
         SpeedVector vector1 = new SpeedVector(3, 0);
         SpeedVector vector2 = new SpeedVector(10,-5);
         //Установить позиции
         Point position = new Point(15, 10);
-        table.addPair(racket, new Sprite(10, 10));
-        table.addPair(ball, new Sprite(15, 10));
+        table.addPair(racket, spriteRacket);
+        table.addPair(ball, spriteBall);
         // Устанавливаем скорости
         racket.setSpeed(vector1);
         ball.setSpeed(vector2);
         ball.handleManagableCollision(racket);
-        assertEquals(ball.speed(), vector2.sum(vector1));
+        assertTrue(ball.speed().equals( new SpeedVector(-9.07, -6.54)));
         assertEquals(ball.position(), position);
     }
     
@@ -72,22 +80,26 @@ public class BouncingTest {
      * Тестирование столкновения отскакивающего с углом того от которого можно отскочить в движении
      */
     @Test
-    public void testHandleCollisionBoucingWithConerMovingBounced() {
+    public void testHandleCollisionBoucingWithConerMovingBounced() throws IOException {
         System.out.println("Тестирование столкновения отскакивающего с углом того от которого можно отскочить в движении");
         Racket racket = new Racket(table);
         Bouncing ball = new Ball(table);
         ball.setWeight(1);
-        SpeedVector vector1 = new SpeedVector(-5, -10);
+        BufferedImage imageBall = ImageIO.read(new File("img/ball.png"));
+        Sprite spriteBall = new Sprite(imageBall, 297, 550);
+        BufferedImage imageRacket = ImageIO.read(new File("img/r.png"));
+        Sprite spriteRacket = new Sprite(imageRacket, 119, 575);
+        SpeedVector vector1 = new SpeedVector(-0.28, 0.1);
         SpeedVector vector2 = new SpeedVector(3,0);
         //Установить позиции
-        Point position = new Point(30, 10);
-        table.addPair(racket, new Sprite(10, 10));
-        table.addPair(ball, new Sprite(30, 10));
+        Point position = new Point(297, 550);
+        table.addPair(racket, spriteRacket);
+        table.addPair(ball, spriteBall);
         // Устанавливаем скорости
         ball.setSpeed(vector1);
         racket.setSpeed(vector2);
         ball.handleManagableCollision(racket);
-        assertEquals(ball.speed(), vector1.reflect(SpeedVector.Axis.X));
+        assertEquals(ball.speed(), vector1.reflect(SpeedVector.Axis.Z));
         assertEquals(ball.position(), position);
     }
     
@@ -95,7 +107,7 @@ public class BouncingTest {
      *Тестирование отскока отскакивающиго от того же отскакивающего
      */
     @Test
-    public void testHandleCollisionBouncingWithSameBouncing() {
+    public void testHandleCollisionBouncingWithSameBouncing() throws IOException {
         System.out.println("Тестирование отскока отскакивающиго от того же отскакивающего");
         Bouncing ball1 = new Bouncing(table);
         Bouncing ball2 = new Bouncing(table);
@@ -103,50 +115,57 @@ public class BouncingTest {
         ball2.setWeight(1);
         SpeedVector vector1 = new SpeedVector(2, -2);
         SpeedVector vector2 = new SpeedVector(2, 5);
-        Point position1 = new Point(10, 10);
-        Point position2 = new Point(15, 10);
-        
-        table.addPair(ball1, new Sprite(10, 10));
-        table.addPair(ball2, new Sprite(15, 10));
+        Point position1 = new Point(297, 550);
+        Point position2 = new Point(119, 575);
+        BufferedImage imageBall = ImageIO.read(new File("img/ball.png"));
+        Sprite spriteBall1 = new Sprite(imageBall, 297, 550);
+        Sprite spriteBall2 = new Sprite(imageBall, 119, 575);
+        table.addPair(ball1, spriteBall1);
+        table.addPair(ball2, spriteBall2);
         // Устанавливаем скорости
         ball1.setSpeed(vector1);
         ball2.setSpeed(vector2);
-        Bouncing clone1 = (Bouncing) ball1.clone();
-        Bouncing clone2 = (Bouncing) ball2.clone();
+        Bouncing clone1 = ball1.clone();
+        Bouncing clone2 = ball2.clone();
         ball1.handleCollision(0, clone2);
         assertEquals(ball1.speed(), vector2);
         assertEquals(ball1.position(), position1);
         ball2.handleCollision(0, clone1);
         assertEquals(ball2.speed(), vector1);
-        assertEquals(ball1.position(), position2);
+        assertEquals(ball2.position(), position2);
     }
     
     /**
      * Тестирование отскока отскакивающиго от другого отскакивающего
      */
     @Test
-    public void testHandleCollisionBouncingWithAnotherBouncing() {
+    public void testHandleCollisionBouncingWithAnotherBouncing() throws IOException {
         System.out.println("Тестирование отскока отскакивающиго от другого отскакивающего");
         Bouncing ball1 = new Bouncing(table);
         Bouncing ball2 = new Bouncing(table);
         ball1.setWeight(1);
         ball2.setWeight(2);
-        Point position1 = new Point(10, 10);
-        Point position2 = new Point(15, 10);
-        table.addPair(ball1, new Sprite(10, 10));
-        table.addPair(ball2, new Sprite(15, 10));
+        Point position1 = new Point(297, 550);
+        Point position2 = new Point(119, 575);
+        BufferedImage imageBall = ImageIO.read(new File("img/ball.png"));
+        Sprite spriteBall1 = new Sprite(imageBall, 297, 550);
+        Sprite spriteBall2 = new Sprite(imageBall, 119, 575);
+        table.addPair(ball1, spriteBall1);
+        table.addPair(ball2, spriteBall2);
         SpeedVector vector1 = new SpeedVector(2, -2);
         SpeedVector vector2 = new SpeedVector(2, 5);
         // Устанавливаем скорости
         ball1.setSpeed(vector1);
         ball2.setSpeed(vector2);
-        Bouncing clone1 = (Bouncing) ball1.clone();
-        Bouncing clone2 = (Bouncing) ball2.clone();
+        Bouncing clone1 = ball1.clone();
+        Bouncing clone2 = ball2.clone();
+        SpeedVector newSpeedball1 = ball1.countSpeed(ball2).get(0);
+        SpeedVector newSpeedball2 = ball1.countSpeed(ball2).get(1);
         ball1.handleCollision(0, clone2);
-        assertEquals(ball1.speed(), ball1.countSpeed(ball2).get(0));
+        assertEquals(ball1.speed(), newSpeedball1);
         assertEquals(ball1.position(), position1);
         ball2.handleCollision(0, clone1);
-        assertEquals(ball2.speed(), ball1.countSpeed(ball2).get(1));
+        assertEquals(ball2.speed(), newSpeedball2);
         assertEquals(ball2.position(), position2);
     }
     
@@ -161,6 +180,7 @@ public class BouncingTest {
         Bouncing ball = new Bouncing(table);
         //Установить позиции
         Point position = new Point(15, 10);
+
         table.addPair(racket, new Sprite(10, 10));
         table.addPair(ball, new Sprite(15, 10));
         // Устанавливаем скорости
@@ -169,7 +189,7 @@ public class BouncingTest {
         racket.setSpeed(vector1);
         ball.setSpeed(vector2);
         ball.handleCollision(SpeedVector.Axis.X, position);
-        assertEquals(ball.speed(), vector1.reflect(SpeedVector.Axis.X));
+        assertEquals(ball.speed(), vector2.reflect(SpeedVector.Axis.X));
         assertEquals(ball.position(), position);
     }
     
