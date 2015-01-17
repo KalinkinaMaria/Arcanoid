@@ -19,7 +19,7 @@ import java.awt.Point;
  */
 public class Racket extends Managable implements Bounced, AttemptListener {
     /** Длина вектора скорости запускаемого мяча*/
-    private double speedVectorLength = 0.3;
+    private double speedVectorLength = 0.35;
     
     /**
      * Конструктор
