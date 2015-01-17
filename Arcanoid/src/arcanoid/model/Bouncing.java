@@ -10,6 +10,7 @@ import arcanoid.service.Buffer;
 import arcanoid.service.SpeedVector;
 import java.awt.Point;
 import arcanoid.service.SpeedVector.Axis;
+import com.golden.gamedev.object.Sprite;
 import java.util.ArrayList;
 
 /**
@@ -95,6 +96,9 @@ public class Bouncing extends FieldElement{
     
     public Bouncing clone() {
         Bouncing element = new Bouncing(this.table);
+        Sprite sprite = table.getSprite(this);
+        sprite = new Sprite(sprite.getImage(), sprite.getX(), sprite.getY());
+        table.addPair(element, sprite);
         element.copy(this);
         return element;
     }
