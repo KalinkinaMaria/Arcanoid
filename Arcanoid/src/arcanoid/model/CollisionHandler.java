@@ -10,8 +10,10 @@ import arcanoid.events.SpritesCollidedEvent;
 import arcanoid.events.SpritesCollidedListener;
 import arcanoid.service.Buffer;
 import arcanoid.service.SpeedVector;
+import com.golden.gamedev.object.CollisionManager;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.CollisionBounds;
+import com.golden.gamedev.object.collision.CollisionRect;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -23,7 +25,7 @@ import java.util.Map;
 public class CollisionHandler implements SpritesCollidedListener {
     /** Таблица соответствий элемента поля со спрайтом */
     private Buffer table;
-    
+    private boolean block = false;
     public CollisionHandler (Buffer table) {
         this.table = table;
     }
@@ -110,11 +112,22 @@ public class CollisionHandler implements SpritesCollidedListener {
                 keyElement = table.getElement((Sprite) keySprite);
                 Sprite[] valueSprites = (Sprite[]) passive.get(keySprite);
                 for (Sprite value:valueSprites) {
+                    CollisionRect intersectionRect = CollisionManager.getIntersectionRect(((Sprite)keySprite).getX(), ((Sprite)keySprite).getY(), ((Sprite)keySprite).getWidth(), ((Sprite)keySprite).getHeight(), value.getX(), value.getY(), value.getWidth(), value.getHeight());
+                    if (block && intersectionRect.width <= 3) {
+                        block = false;
+                    }
+                    System.out.println(intersectionRect.width);
+                    System.out.println(intersectionRect.height);
                     FieldElement originObject = table.getElement(value);
                     FieldElement cloneKeyElement = keyElement.clone();
                     FieldElement cloneValueElement = originObject.clone();
+                    if (!block) {
                     originObject.handleCollision(cloneKeyElement);
                     keyElement.handleCollision(cloneValueElement);
+                    }
+                    if (intersectionRect.width > 3) {
+                        block = true;
+                    }
                     table.deletePair(cloneKeyElement);
                     table.deletePair(cloneValueElement);
                 }

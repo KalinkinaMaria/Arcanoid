@@ -36,7 +36,6 @@ public class Arcanoid  extends Game implements AttemptStartedListener {
     private GameModel gameModel;
     private int oldMousePosition;
     private Ambiance ambiance;
-    private CollisionHandler collisionHandler;
     private GameFont           font;
     private String message;
     
@@ -66,9 +65,8 @@ public class Arcanoid  extends Game implements AttemptStartedListener {
         gameModel.addAttemptStartedListener(this);
         ambiance.registerSpriteGroups(playfield);
         hideCursor();
-        collisionHandler = new CollisionHandler(buffer);
         gameModel.registerCollisionRules(ambiance);
-        ambiance.setCollisionBounds(playfield, collisionHandler);
+        ambiance.setCollisionBounds(playfield);
         
         ambiance.setConnectionWithGhangingGameStateElement(gameModel);
         String fontString = "ABCDEFGHIJKLMNOPQRSTUVXWYZabcdefghijklmnopqrstuvxwyz1234567890aaaaaaaaa?!a.:- ";
@@ -83,8 +81,8 @@ public class Arcanoid  extends Game implements AttemptStartedListener {
         if (click() && !gameModel.isGameStarted()) {
             gameModel.startAttempt();
             
-            ambiance.setAttemptCollisionBounds(playfield, collisionHandler);
-            ambiance.setCollisionObjects(playfield, collisionHandler);
+            ambiance.setAttemptCollisionBounds(playfield);
+            ambiance.setCollisionObjects(playfield);
         }
         checkMouseMoving(l);
         //System.out.println(l);
@@ -131,8 +129,8 @@ public class Arcanoid  extends Game implements AttemptStartedListener {
         for (CollisionManager manager: collisionGroups) {
             playfield.removeCollisionGroup(manager);
         }
-        ambiance.setCollisionBounds(playfield, collisionHandler);
-        ambiance.setCollisionObjects(playfield, collisionHandler);
+        ambiance.setCollisionBounds(playfield);
+        ambiance.setCollisionObjects(playfield);
     }
     
     public void endGame(boolean success) {
