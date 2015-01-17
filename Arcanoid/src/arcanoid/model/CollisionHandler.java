@@ -16,6 +16,7 @@ import com.golden.gamedev.object.collision.CollisionBounds;
 import com.golden.gamedev.object.collision.CollisionRect;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Обработчик столкновений
@@ -58,14 +59,39 @@ public class CollisionHandler implements SpritesCollidedListener {
         return axis;
     }
     
+    private void formListForElement(Sprite sprite, Map storage, ArrayList<Sprite> list) {
+        Set keySet = storage.keySet();
+        if (keySet.contains(sprite)) {
+            Sprite[] valueSprites = (Sprite[]) storage.get(sprite);
+            for (Sprite value:valueSprites) {
+                if (!list.contains(value)) {
+                    list.add(value);
+                    formListForElement(value, storage, list);
+                }
+            }
+        }
+    }
+    
     private ArrayList<Sprite> getSystem(Map storage) {
         ArrayList<Sprite> result = new ArrayList<>();
+        FieldElement keyElement;
+        Set keySet = storage.keySet();
         // Создание системы связанных соударившихся элементов
+        for ( Object keySprite : storage.keySet()) {
+            result.add((Sprite)keySprite);
+            formListForElement((Sprite)keySprite, storage, result);
+            if (result.size() >= 3) {
+                return result;
+            } else {
+                result = new ArrayList<>();
+            }
+        }
+        
         return result;
     }
     
     private void handleSystem() {
-        
+        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaa");
     }
     
     @Override

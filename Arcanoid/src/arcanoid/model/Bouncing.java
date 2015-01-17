@@ -95,14 +95,9 @@ public class Bouncing extends FieldElement{
         System.out.println(element.speed().equals(new SpeedVector()));
         // Элемент не движется
         if (element.speed().equals(new SpeedVector())) {
-            System.out.println("wwwwwwwwwwww");
         } else {
-            System.out.println("rrrrrrrrrrrrrr");
-            System.out.println(this.speed().x());
-            System.out.println(element.speed().x());
+
             ArrayList<SpeedVector> countSpeed = this.countSpeed(element);
-            //System.out.println(countSpeed.get(0).x());
-            //System.out.println(countSpeed.get(0).y());
             this.setSpeed(countSpeed.get(0));
         }
         
