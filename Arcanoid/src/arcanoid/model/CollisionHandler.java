@@ -8,8 +8,6 @@ package arcanoid.model;
 
 import arcanoid.events.CollisionHandleEndEvent;
 import arcanoid.events.CollisionHandleEndListener;
-import arcanoid.events.GameStateChangeEvent;
-import arcanoid.events.GameStateChangeListener;
 import arcanoid.events.SpritesCollidedEvent;
 import arcanoid.events.SpritesCollidedListener;
 import arcanoid.service.Buffer;
@@ -35,19 +33,34 @@ import java.util.logging.Logger;
 public class CollisionHandler implements SpritesCollidedListener {
     /** Таблица соответствий элемента поля со спрайтом */
     private Buffer table;
+    /** Блокировка стокновений, пока элемент не выйдет из гарницы другого*/
     private boolean block = false;
+    /** Слушатели конца обработки ДЛЯ ТЕСТОВ*/
     private ArrayList<CollisionHandleEndListener> listeners;
+    
+    /**
+     * Констурктор
+     * @param table буффер
+     */
     public CollisionHandler (Buffer table) {
         this.table = table;
         listeners = new ArrayList<>();
     }
     
+    /**
+     * Добавить слушателя (ДЛЯ ТЕСТОВ)
+     * @param listener слкшатель
+     */
     public void addHandleEndListener(CollisionHandleEndListener listener) {
         listeners.add(listener);
     }
     
     /**
-     * Испустить событие о том, что мяч упал за нижнюю грпницу
+     * Испустить событие о том, что мяч упал за нижнюю границу (ДЛЯ ТЕСТОВ)
+     * 
+     * @param first первый элемент
+     * @param second второй элемент
+     * @param third третий элемент
      */
     private void fireHandleEnd(FieldElement first, FieldElement second, FieldElement third) {
         for (CollisionHandleEndListener listener: listeners) {
@@ -72,6 +85,12 @@ public class CollisionHandler implements SpritesCollidedListener {
         return table.getElement(sprite);
     }
 
+    /**
+     * Получить ось для отскока от стороны
+     * 
+     * @param side сторона
+     * @return ось
+     */
     private SpeedVector.Axis getAxis(int side) {
         SpeedVector.Axis axis;
         if (side == CollisionBounds.LEFT_COLLISION || side == CollisionBounds.RIGHT_COLLISION) {
@@ -82,6 +101,12 @@ public class CollisionHandler implements SpritesCollidedListener {
         return axis;
     }
     
+    /**
+     * Сформировать список элементов, с которыми стокнулся по цепочке
+     * @param sprite спрайт, для которого определяем
+     * @param storage хранилище со столкновениями
+     * @param list список, куда заносится цепочка столкновений
+     */
     private void formListForElement(Sprite sprite, Map storage, ArrayList<Sprite> list) {
         Set keySet = storage.keySet();
         if (keySet.contains(sprite)) {
@@ -95,12 +120,19 @@ public class CollisionHandler implements SpritesCollidedListener {
         }
     }
     
+    /**
+     * Получить систему, образованную несколькими соударившимися элементами
+     * 
+     * @param storage хранилище соударений
+     * @return список, содержащий элементы, входящие в систему
+     */
     private ArrayList<Sprite> getSystem(Map storage) {
         ArrayList<Sprite> result = new ArrayList<>();
         // Создание системы связанных соударившихся элементов
         for ( Object keySprite : storage.keySet()) {
             result.add((Sprite)keySprite);
             formListForElement((Sprite)keySprite, storage, result);
+            // Есть система, а не простое соударение
             if (result.size() >= 3) {
                 return result;
             } else {
@@ -111,10 +143,17 @@ public class CollisionHandler implements SpritesCollidedListener {
         return result;
     }
     
+    /**
+     * Обработать столкновение с системой
+     * 
+     * @param system система
+     */
     private void handleSystem(ArrayList<Sprite> system) {
         ArrayList<FieldElement> cloneElements = new ArrayList<>();
         ArrayList<FieldElement> elements = new ArrayList<>();
+        // Карта элемент-> клоны, столкнувшихся элементов, которые должнв рассматриваться как один элемент
         HashMap<FieldElement, ArrayList<FieldElement>> elementsAsOne = new HashMap<>();
+        // Получение элементов и клонов
         for (Sprite sprite:system) {
             FieldElement element = table.getElement(sprite);
             if (element instanceof Bouncing) {
@@ -122,6 +161,7 @@ public class CollisionHandler implements SpritesCollidedListener {
                 cloneElements.add(element.clone());
             }
         }
+        // Создание карты
         for (FieldElement element:elements) {
             ArrayList<FieldElement> elementArray = new ArrayList<>();
             for (FieldElement other:cloneElements) {
@@ -131,10 +171,12 @@ public class CollisionHandler implements SpritesCollidedListener {
             }
             elementsAsOne.put(element, elementArray);
         }
+        // Обработка каждого элемента системы
         for (Map.Entry<FieldElement, ArrayList<FieldElement>> entrySet : elementsAsOne.entrySet()) {
             try {
                 FieldElement key = entrySet.getKey();
                 ArrayList<FieldElement> values = entrySet.getValue();
+                // Создание элемента на основе нескольких
                 Class classElement = values.get(0).getClass();
                 Constructor[] construct =  classElement.getDeclaredConstructors();
                 Object otherElement = construct[0].newInstance();
@@ -156,6 +198,11 @@ public class CollisionHandler implements SpritesCollidedListener {
         }
     }
     
+    /**
+     * Обработать столкновение спрайтов
+     * 
+     * @param e событие столкновения спрайтов
+     */
     @Override
     public void spritesCollided(SpritesCollidedEvent e) {
         ArrayList<Sprite> system;
@@ -202,9 +249,8 @@ public class CollisionHandler implements SpritesCollidedListener {
                 for (Sprite value:valueSprites) {
                     if (!system.contains(value)) {
                         CollisionRect intersectionRect = CollisionManager.getIntersectionRect(((Sprite)keySprite).getX(), ((Sprite)keySprite).getY(), ((Sprite)keySprite).getWidth(), ((Sprite)keySprite).getHeight(), value.getX(), value.getY(), value.getWidth(), value.getHeight());
-                        System.out.println(intersectionRect.width);
-                        System.out.println(intersectionRect.height);
                         FieldElement originObject = table.getElement(value);
+                        // Склонировать элементы
                         FieldElement cloneKeyElement = keyElement.clone();
                         FieldElement cloneValueElement = originObject.clone();
                         double width = originObject.size().width();
@@ -219,8 +265,9 @@ public class CollisionHandler implements SpritesCollidedListener {
                             block = false;
                         }
                         if (!block) {
-                        originObject.handleCollision(cloneKeyElement);
-                        keyElement.handleCollision(cloneValueElement);
+                            // Обработать столкновение каждым элементом
+                            originObject.handleCollision(cloneKeyElement);
+                            keyElement.handleCollision(cloneValueElement);
                             fireHandleEnd(keyElement, originObject, null);
                         }
                         if (intersectionRect.width > width/2.5 && intersectionRect.height > height/2.5) {
