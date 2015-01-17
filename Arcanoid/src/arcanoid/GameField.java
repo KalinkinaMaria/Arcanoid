@@ -7,24 +7,15 @@ package arcanoid;
 
 import arcanoid.events.GameFieldChangeEvent;
 import arcanoid.events.GameFieldChangeListener;
-import arcanoid.events.GameStateChangeEvent;
 import arcanoid.model.Ball;
 import arcanoid.model.FieldElement;
 import arcanoid.model.Racket;
 import arcanoid.service.Buffer;
-import com.golden.gamedev.object.Sprite;
 import java.util.ArrayList;
-import java.awt.image.BufferedImage;
-import com.golden.gamedev.Game;
-import com.golden.gamedev.object.SpriteGroup;
 import java.awt.Point;
-import java.io.File;
-import java.io.IOException;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
+
 /**
  * Игровое поле
  * 
@@ -39,7 +30,8 @@ public class GameField implements GameFieldChangeListener {
     private ArrayList<GameFieldChangeListener> gameFieldChangeListeners = new ArrayList<>();
     
      /** 
-     * Добавить слушателя создания элемента
+     * Добавить слушателя изменения поля
+     * 
      * @param listener слушатель
      */
     public void addGameFieldChangeListener (GameFieldChangeListener listener) {
@@ -47,7 +39,7 @@ public class GameField implements GameFieldChangeListener {
     }
     
     /**
-     * Испустить сигнал, что элемент поля создан
+     * Испустить сигнал, что элемент поля создан/удален
      */
     private void fireGameFieldChange(boolean creation, FieldElement element, Point position) {
         GameFieldChangeEvent event;
@@ -69,6 +61,12 @@ public class GameField implements GameFieldChangeListener {
         table = buffer;
     }
     
+    /**
+     * Получить элемент по имени его класса (первый в списке, если несколько)
+     * 
+     * @param className имя класса
+     * @return элемент
+     */
     public FieldElement getElement(String className) {
         Class foundClass;
         try {
@@ -84,6 +82,12 @@ public class GameField implements GameFieldChangeListener {
         return null;
     }
     
+    /**
+     * Получить все элементы поля заданного класса
+     * 
+     * @param className имя класса
+     * @return список элементов данного класса
+     */
     public ArrayList<FieldElement> getElements(String className) {
         Class foundClass;
         ArrayList<FieldElement> elements = new ArrayList<>();
@@ -102,7 +106,9 @@ public class GameField implements GameFieldChangeListener {
     
     /**
      * Добавить элемент
+     * 
      * @param element элемент
+     * @param position позиция
      */
     public void addElement(FieldElement element, Point position) {
         elements.add(element);
@@ -111,14 +117,17 @@ public class GameField implements GameFieldChangeListener {
     
     /**
      * Добавить элемент
+     * 
      * @param element элемент
      */
     public void addElement(FieldElement element) {
         elements.add(element);
         fireGameFieldChange(true, element, null);
     }
+    
     /**
      * Проверить наличие элемента
+     * 
      * @param element элемент
      * @return флаг - наличие элемента
      */
@@ -128,6 +137,7 @@ public class GameField implements GameFieldChangeListener {
     
     /**
      * Удалить элемент
+     * 
      * @param element элемент
      */
     public void removeElement(FieldElement element) {
@@ -139,43 +149,46 @@ public class GameField implements GameFieldChangeListener {
      * Создать начальную обстановку
      */
     public void createInitialAmbiance(GameModel model) {
-        
-            // Создать ракетку.
-            // Создать элемент поля.
-            Racket racket = new Racket(table);
-            model.addAttemptStartedListener(racket);
-            addElement(racket, new Point(310, 575));
-            for (int i = 0; i < 5; i++) {
-                Ball ball = new Ball(table);
-                ball.setWeight(1);
-                addElement(ball, new Point(388, 550));
-            }
-
+        // Создать ракетку.
+        Racket racket = new Racket(table);
+        model.addAttemptStartedListener(racket);
+        addElement(racket, new Point(310, 575));
+        // Создать шарики
+        for (int i = 0; i < 5; i++) {
+            Ball ball = new Ball(table);
+            ball.setWeight(1);
+            addElement(ball, new Point(388, 550));
+        }
     }
     
 
     @Override
     public void changeElement(GameFieldChangeEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // Т.к. нет пока роя, не поддерживается
     }
 
     @Override
     public void addElement(GameFieldChangeEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // Т.к. нет пока роя, не поддерживается
     }
 
     @Override
     public void removeElement(GameFieldChangeEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // Т.к. нет пока роя, не поддерживается
     }
     
+    /**
+     * Изменить позиции запускаемых элементов для начала попытки
+     */
     public void changePositionForAttempt() {
-        
+        // Получить стартующие элементы
         ArrayList<FieldElement> startingElements = getElements("arcanoid.model.Ball");
+        // Получить позиции и высоту
         int width = (int)startingElements.get(0).size().width();
         int startPos = startingElements.get(0).position().x + width/2;
         int yPos = startingElements.get(0).position().y;
         
+        // Распределить стартующие элементы равномерно
         for (int i = 1; i < startingElements.size(); i++) {
             if (i < 3) {
                 startingElements.get(i).setPosition(new Point(startPos - i*20 - width*i, yPos ));
