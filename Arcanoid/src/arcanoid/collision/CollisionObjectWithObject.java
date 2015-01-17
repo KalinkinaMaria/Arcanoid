@@ -21,6 +21,9 @@ public class CollisionObjectWithObject extends AdvanceCollisionGroup {
     /** Список слушателей события */
     private ArrayList<SpritesCollidedListener> collisionListener = new ArrayList<>();
     
+    /**
+     * Конструктор
+     */
     public CollisionObjectWithObject() {
         super();
     }
@@ -49,10 +52,8 @@ public class CollisionObjectWithObject extends AdvanceCollisionGroup {
      */
     @Override
     public void collided(Sprite sprite, Sprite sprite1) {        
-        System.out.println("lllll");
-        Map map = getStorage();
-        
+        Map map = getStorage();      
         fireSpritesCollided(getSourceSprite(), map);
     }
-    
+
 }

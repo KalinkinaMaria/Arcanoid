@@ -29,6 +29,11 @@ public class CollisionObjectWithBoundary extends CollisionBounds {
         collisionListener.add(element);
     }
     
+    /**
+     * Получить сторону столкновения
+     * 
+     * @return сторону столкновения
+     */
     public int getSide() {
         int side;
         if(isCollisionSide(TOP_COLLISION)) {
@@ -45,6 +50,8 @@ public class CollisionObjectWithBoundary extends CollisionBounds {
     
     /**
      * Испустить событие о том, что столкнулись спрайты
+     * 
+     * @param sprite спрайт, который столкнулся с границей
      */
     private void fireSpritesCollided(Sprite sprite) {
         for (SpritesCollidedListener listener: collisionListener) {
@@ -54,10 +61,10 @@ public class CollisionObjectWithBoundary extends CollisionBounds {
     
     /**
      * Конструктор
-     * @param x
-     * @param y
-     * @param width
-     * @param height 
+     * @param x координата x
+     * @param y координата y
+     * @param width ширина
+     * @param height высота
      */
     public CollisionObjectWithBoundary(int x, int y, int width, int height) {
         super(x, y, width, height);
@@ -70,8 +77,7 @@ public class CollisionObjectWithBoundary extends CollisionBounds {
      */
     @Override
     public void collided(Sprite sprite) {
-        fireSpritesCollided(sprite);
-        
+        fireSpritesCollided(sprite); 
     }
-    
+
 }
