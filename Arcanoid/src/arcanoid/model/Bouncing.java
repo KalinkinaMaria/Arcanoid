@@ -63,26 +63,6 @@ public class Bouncing extends FieldElement{
             SpeedVector newSpeedVector = new SpeedVector(newSpeedVectorX, newSpeedVectorY);
             this.setSpeed(newSpeedVector);
         }
-        
-        //Проверка на столкновение с углом ракетки
-        /*if (collisionRightConer && this.speed().x() < 0 || 
-                collisionLeftConer && this.speed().x() > 0) {
-            this.handleCollision (Axis.Z, null);
-        } else if (collisionRightConer && this.speed().x() > 0 || 
-                collisionLeftConer && this.speed().x() < 0) {
-            this.handleCollision (Axis.Y, null);
-        } else {
-            x = - (pointMiddleRacket.x - positionCollision.x);
-
-            y = Math.sqrt(halfRacket*halfRacket - x*x);
-
-            if (this.speed().x() == 0 && positionCollision.x < pointMiddleRacket.x) {
-                x = -x;
-            }
-            
-            this.setSpeed(new SpeedVector(x/(2*(element.size().width()-this.size().height())), 
-                    -y/(2*(element.size().width()-this.size().height()))));
-        }*/
     }
     
     /**
