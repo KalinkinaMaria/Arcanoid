@@ -7,7 +7,8 @@
 package arcanoid.service;
 
 /**
- *
+ * Класс вектора скорости
+ * 
  * @author Елена
  */
 public class SpeedVector {
@@ -46,7 +47,7 @@ public class SpeedVector {
     
     /**
      * Получить горизонтальную составляющую веткора скорости
-     * @return 
+     * @return скорость по х
      */
     public double x() {
         return speedX;
@@ -54,7 +55,7 @@ public class SpeedVector {
     
     /**
      * Получить вертикальную составляющую веткора скорости
-     * @return 
+     * @return скорость по у
      */
     public double y() {
         return speedY;
@@ -104,12 +105,13 @@ public class SpeedVector {
     
     /**
      * Сравнение
-     * @param other
-     * @return
+     * @param other сравниваемый объект
+     * @return результат сравнения
      */
     @Override
     public boolean equals(Object other) {
         boolean result = false;
+        // Сравниваем скорость с точностью до 0.01
         if (Math.abs(this.speedX - ((SpeedVector)other).speedX) <= 0.01 &&
                 Math.abs(this.speedY - ((SpeedVector)other).speedY) <= 0.01) {
             result = true;
@@ -117,10 +119,18 @@ public class SpeedVector {
         return (result);
     }
     
+    /**
+     * Клонирование объекта вектора скорости
+     * @return клонированный объект
+     */
     public SpeedVector clone() {
         return new SpeedVector(this.x(), this.y());
     }
     
+    /**
+     * Высчитать длину вектора скорости
+     * @return длина вектора скорости
+     */
     public double value() {
         return Math.sqrt(Math.pow(speedX, 2) + Math.pow(speedY, 2));
     }
