@@ -20,8 +20,11 @@ public class SpritesCollidedEvent extends EventObject{
     private Sprite activeSprite;
     /** Пассивные спрайты */
     private Map passiveSprites;
+    /** Сторона столкновения*/
     private int side;
+    /** Граница по оси*/
     private int xBound;
+    
     /**
      * Конструктор
      * @param source ресурсы
@@ -35,6 +38,13 @@ public class SpritesCollidedEvent extends EventObject{
         side = 0;
     }
     
+    /**
+     * Констурктор 
+     * @param source источник
+     * @param activeSprite активный спрайт
+     * @param side сторона
+     * @param xBound граница по оси
+     */
     public SpritesCollidedEvent(Object source, Sprite activeSprite, int side, int xBound) {
         super(source);
         this.activeSprite = activeSprite;
@@ -59,10 +69,18 @@ public class SpritesCollidedEvent extends EventObject{
         return passiveSprites;
     }
     
+    /**
+     * Получить сторону столкновения
+     * @return сторона столкновения
+     */
     public int side() {
         return side;
     }
     
+    /**
+     * Получит границу по оси
+     * @return граница по оси
+     */
     public int xBound() {
         return xBound;
     }

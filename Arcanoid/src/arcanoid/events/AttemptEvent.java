@@ -10,7 +10,8 @@ import java.util.ArrayList;
 import java.util.EventObject;
 
 /**
- *
+ * Класс события начала/конца попытки
+ * 
  * @author Елена
  */
 public class AttemptEvent extends EventObject {
