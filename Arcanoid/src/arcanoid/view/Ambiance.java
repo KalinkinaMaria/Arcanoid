@@ -141,22 +141,26 @@ public class Ambiance implements GameFieldChangeListener {
         return images.get(getClassName(element));
     }
     
-    public void setCollisionBounds(PlayField playField, CollisionHandler handler) {
+    public void setCollisionBounds(PlayField playField) {
+        CollisionHandler handler = new CollisionHandler(table);
         bounderCollision = new CollisionObjectWithBoundary(0, 0, 808, 640);
         bounderCollision.addSpritesCollidedListener(handler);
         playField.addCollisionGroup(bounced, null, bounderCollision);
         bounderCollision = new CollisionObjectWithBoundary(0, 0, 808, 640);
+        handler = new CollisionHandler(table);
         bounderCollision.addSpritesCollidedListener(handler);
         playField.addCollisionGroup(manageBounced, null, bounderCollision);
         for (SpriteGroup group : bouncing) {
             CollisionObjectWithBoundary collisionBouncing = new CollisionObjectWithBoundary(78, 0, 628, 640);
             bouncingCollisions.add(collisionBouncing);
+            handler = new CollisionHandler(table);
             collisionBouncing.addSpritesCollidedListener(handler);
             playField.addCollisionGroup(group, null, collisionBouncing);
         }
     }
     
-    public void setCollisionObjects(PlayField playField, CollisionHandler handler) {
+    public void setCollisionObjects(PlayField playField) {
+        CollisionHandler handler;
         for (Map.Entry<String, String> entrySet : collidedGroups.entrySet()) {
             String key = entrySet.getKey();
             String value = entrySet.getValue();
@@ -165,6 +169,7 @@ public class Ambiance implements GameFieldChangeListener {
                     if (manageBounced.getSprites().length != 0 && table.getElement(manageBounced.getSprites()[0])!=null) {
                         if (getClassName(table.getElement(manageBounced.getSprites()[0])).compareTo(value) == 0) {
                             objectsCollision = new CollisionObjectWithObject();
+                            handler = new CollisionHandler(table);
                             objectsCollision.addSpritesCollidedListener(handler);
                             playField.addCollisionGroup(bounced, manageBounced, objectsCollision);
                         }
@@ -173,6 +178,7 @@ public class Ambiance implements GameFieldChangeListener {
                         if (bounce.getSprites().length != 0) {
                             if (getClassName(table.getElement(bounce.getSprites()[0])).compareTo(value) == 0) {
                                 objectsCollision = new CollisionObjectWithObject();
+                                handler = new CollisionHandler(table);
                                 objectsCollision.addSpritesCollidedListener(handler);
                                 playField.addCollisionGroup(bounced, bounce, objectsCollision);
                             }
@@ -185,6 +191,7 @@ public class Ambiance implements GameFieldChangeListener {
                     if (bounced.getSprites().length != 0 && table.getElement(bounced.getSprites()[0])!=null) {
                         if (getClassName(table.getElement(bounced.getSprites()[0])).compareTo(value) == 0) {
                             objectsCollision = new CollisionObjectWithObject();
+                            handler = new CollisionHandler(table);
                             objectsCollision.addSpritesCollidedListener(handler);
                             playField.addCollisionGroup(bounced, manageBounced, objectsCollision);
                         }
@@ -193,6 +200,7 @@ public class Ambiance implements GameFieldChangeListener {
                         if (bounce.getSprites().length != 0 && table.getElement(bounce.getSprites()[0]) != null) {
                             if (getClassName(table.getElement(bounce.getSprites()[0])).compareTo(value) == 0) {
                                 objectsCollision = new CollisionObjectWithObject();
+                                handler = new CollisionHandler(table);
                                 objectsCollision.addSpritesCollidedListener(handler);
                                 playField.addCollisionGroup(manageBounced, bounce, objectsCollision);
                             }
@@ -206,6 +214,7 @@ public class Ambiance implements GameFieldChangeListener {
                         if (bounced.getSprites().length != 0 && table.getElement(bounced.getSprites()[0])!=null) {
                             if (getClassName(table.getElement(bounced.getSprites()[0])).compareTo(value) == 0) {
                                 objectsCollision = new CollisionObjectWithObject();
+                                handler = new CollisionHandler(table);
                                 objectsCollision.addSpritesCollidedListener(handler);
                                 playField.addCollisionGroup(bounced, bounce, objectsCollision);
                             }
@@ -213,6 +222,7 @@ public class Ambiance implements GameFieldChangeListener {
                         if (manageBounced.getSprites().length != 0 && table.getElement(manageBounced.getSprites()[0])!=null) {
                             if (getClassName(table.getElement(manageBounced.getSprites()[0])).compareTo(value) == 0) {
                                 objectsCollision = new CollisionObjectWithObject();
+                                handler = new CollisionHandler(table);
                                 objectsCollision.addSpritesCollidedListener(handler);
                                 playField.addCollisionGroup(manageBounced, bounce, objectsCollision);
                             }
@@ -221,6 +231,7 @@ public class Ambiance implements GameFieldChangeListener {
                             if (bounce1.getSprites().length != 0 && table.getElement(bounce1.getSprites()[0]) != null) {
                                 if (getClassName(table.getElement(bounce1.getSprites()[0])).compareTo(value) == 0 && bouncing.indexOf(bounce) < bouncing.indexOf(bounce1)) {
                                     objectsCollision = new CollisionObjectWithObject();
+                                    handler = new CollisionHandler(table);
                                     objectsCollision.addSpritesCollidedListener(handler);
                                     playField.addCollisionGroup(bounce1, bounce, objectsCollision);
                                 }
@@ -233,7 +244,7 @@ public class Ambiance implements GameFieldChangeListener {
         
     }
     
-    public void setAttemptCollisionBounds(PlayField playField, CollisionHandler handler) {
+    public void setAttemptCollisionBounds(PlayField playField) {
         for (CollisionObjectWithBoundary collision: bouncingCollisions) {
             playField.removeCollisionGroup(collision);
         }
@@ -241,6 +252,7 @@ public class Ambiance implements GameFieldChangeListener {
         for (SpriteGroup group : bouncing) {
             CollisionObjectWithBoundary collisionBouncing = new CollisionObjectWithBoundary(0, 0, 808, 600);
             bouncingCollisions.add(collisionBouncing);
+            CollisionHandler handler = new CollisionHandler(table);
             collisionBouncing.addSpritesCollidedListener(handler);
             playField.addCollisionGroup(group, null, collisionBouncing);
         }
