@@ -200,26 +200,6 @@ public class Ambiance implements GameFieldChangeListener {
                     }
                 }
             }
-            
-        }
-        
-    }
-    
-    public void setAttemptCollisionBounds(PlayField playField, CollisionHandler handler) {
-        for (CollisionObjectWithBoundary collision: bouncingCollisions) {
-            playField.removeCollisionGroup(collision);
-        }
-        
-        for (SpriteGroup group : bouncing) {
-            CollisionObjectWithBoundary collisionBouncing = new CollisionObjectWithBoundary(0, 0, 808, 600);
-            bouncingCollisions.add(collisionBouncing);
-            collisionBouncing.addSpritesCollidedListener(handler);
-            playField.addCollisionGroup(group, null, collisionBouncing);
-        }
-        
-        for (Map.Entry<String, String> entrySet : collidedGroups.entrySet()) {
-            String key = entrySet.getKey();
-            String value = entrySet.getValue();
             for (SpriteGroup bounce:bouncing) {
                 if (bounce.getSprites().length != 0 && table.getElement(bounce.getSprites()[0]) != null) {
                     if (getClassName(table.getElement(bounce.getSprites()[0])).compareTo(key) == 0 ) {
@@ -250,6 +230,21 @@ public class Ambiance implements GameFieldChangeListener {
                 }
             }
         }
+        
+    }
+    
+    public void setAttemptCollisionBounds(PlayField playField, CollisionHandler handler) {
+        for (CollisionObjectWithBoundary collision: bouncingCollisions) {
+            playField.removeCollisionGroup(collision);
+        }
+        
+        for (SpriteGroup group : bouncing) {
+            CollisionObjectWithBoundary collisionBouncing = new CollisionObjectWithBoundary(0, 0, 808, 600);
+            bouncingCollisions.add(collisionBouncing);
+            collisionBouncing.addSpritesCollidedListener(handler);
+            playField.addCollisionGroup(group, null, collisionBouncing);
+        }
+       
         CollisionManager[] collisionGroups = playField.getCollisionGroups();
     }
     

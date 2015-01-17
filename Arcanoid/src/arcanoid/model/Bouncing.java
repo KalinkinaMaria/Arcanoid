@@ -59,10 +59,14 @@ public class Bouncing extends FieldElement{
      * @param element элемент
      */
     public void handleCollision (int side, FieldElement element) {
+        System.out.println(element.speed().x());
+        System.out.println(element.speed().y());
+        System.out.println(element.speed().equals(new SpeedVector()));
         // Элемент не движется
         if (element.speed().equals(new SpeedVector())) {
-            
+            System.out.println("wwwwwwwwwwww");
         } else {
+            System.out.println("rrrrrrrrrrrrrr");
             this.setSpeed(this.countSpeed(element).get(0));
         }
         

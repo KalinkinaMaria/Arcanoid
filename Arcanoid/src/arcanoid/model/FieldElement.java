@@ -75,6 +75,8 @@ public abstract class FieldElement {
         speedY1 = (2*element.weight()*element.speed().y() + (this.weight() - element.weight()) * this.speed().y())/(this.weight() + element.weight());
         speedX2 = (2*this.weight()*this.speed().x() + (element.weight() - this.weight())*element.speed().x())/(this.weight() + element.weight());
         speedY2 = (2*this.weight()*this.speed().y() + (element.weight() - this.weight())*element.speed().y())/(this.weight() + element.weight());
+        System.out.println(speedX1);
+        System.out.println(speedY1);
         result.add(new SpeedVector(speedX1, speedY1));
         result.add(new SpeedVector(speedX2, speedY2));
         return result;
@@ -202,11 +204,11 @@ public abstract class FieldElement {
     }
     
     protected void copy(FieldElement other) {
-        other.weight = this.weight;
-        other.setSpeed(this.speed());
-        other.gameFieldChangeListeners = this.gameFieldChangeListeners;
-        other.collisionHandleEndListeners = this.collisionHandleEndListeners;
-        other.setPosition(this.position());
+        this.weight = other.weight;
+        this.setSpeed(other.speed());
+        this.gameFieldChangeListeners = other.gameFieldChangeListeners;
+        this.collisionHandleEndListeners = other.collisionHandleEndListeners;
+        this.setPosition(other.position());
     }
     
     public abstract FieldElement clone();
