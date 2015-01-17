@@ -17,7 +17,7 @@ public class SwarmElement extends FieldElement {
     /**
      * Конструктор
      * @param table таблица соответствия спрайтов и элементов 
-     * @param weight вес роя
+     * @param weight вес элемента
      */
     public SwarmElement(Buffer table, double weight) {
         super(table);

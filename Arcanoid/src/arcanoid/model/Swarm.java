@@ -5,7 +5,6 @@
  */
 
 package arcanoid.model;
-
 import arcanoid.events.GameStateChangeListener;
 import arcanoid.service.Buffer;
 import java.util.ArrayList;
@@ -16,6 +15,7 @@ import java.util.ArrayList;
  * @author Елена
  */
 public class Swarm extends FieldElement {
+    // Вес одного элемента
     private final int elementWeight = 1;
     /** Критический вес*/
     private int criticalWeight;
@@ -24,6 +24,11 @@ public class Swarm extends FieldElement {
     /** Слушатели события конца игры*/
     private ArrayList<GameStateChangeListener> gameStateChangeListeners = new ArrayList<>();
 
+    /**
+     * Конструктор
+     * @param table таблица соответствия спрайтов и элементов
+     * @param elementNumber количество элементов
+     */
     public Swarm(Buffer table, int elementNumber) {
         super(table);
         for (int i = elementNumber; i >=0; i --) {
@@ -63,10 +68,18 @@ public class Swarm extends FieldElement {
         
     }
     
+    /**
+     * Прикрепить мяч к рою
+     * @param element мяч
+     */
     public void attach(Ball element) {
         
     }
     
+    /**
+     * Добавить элемент роя
+     * @param element элемент роя
+     */
     private void addElement(SwarmElement element) {
         elements.add(new SwarmElement(table, elementWeight));
         this.weight += element.weight();
@@ -90,10 +103,18 @@ public class Swarm extends FieldElement {
         return criticalWeight;
     }
     
+    /**
+     * Вернуть текущий вес роя
+     * @return вес роя
+     */
     public double weight() {
         return this.weight;
     }
     
+    /**
+     * Клонирование элемента
+     * @return клонированный элемент
+     */
     public Swarm clone() {
         Swarm swarm = new Swarm(this.table, (int)this.weight()/this.elementWeight);
         swarm.criticalWeight = this.criticalWeight;
