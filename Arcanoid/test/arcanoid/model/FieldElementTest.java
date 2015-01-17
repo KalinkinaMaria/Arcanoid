@@ -80,7 +80,7 @@ public class FieldElementTest {
         // Устанавливаем скорости
         racket.setSpeed(new SpeedVector(0, 0));
         ball.setSpeed(new SpeedVector(-0.19,0.22));
-        ball.handleCollision(racket);
+        ball.handleManagableCollision(racket);
         assertEquals(ball.speed(), new SpeedVector(0.13, -0.26));
     }
     
