@@ -9,6 +9,10 @@ import arcanoid.GameField;
 import arcanoid.service.Buffer;
 import arcanoid.service.SpeedVector;
 import com.golden.gamedev.object.Sprite;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -52,13 +56,17 @@ public class FieldElementTest {
      * Тест для тестирования обработки столкновения мяча с ракеткой в покое (в центр).
      */
     @Test
-    public void testHandleCollisionBallWithStopedRacketInCenter() {
+    public void testHandleCollisionBallWithStopedRacketInCenter() throws IOException {
         System.out.println("Тест для тестирования обработки столкновения мяча с ракеткой в покое (мяч попал в середину ракетки)");
-        Racket racket = new Racket(table);
-        Ball ball = new Ball(table);
+        FieldElement racket = new Racket(table);
+        FieldElement ball = new Ball(table);
         //Установить позиции
-        table.addPair(racket, new Sprite(310, 575));
-        table.addPair(ball, new Sprite(388, 551.2));
+        BufferedImage imageBall = ImageIO.read(new File("img/ball.png"));
+        Sprite spriteBall = new Sprite(imageBall, 388, 551);
+        BufferedImage imageRacket = ImageIO.read(new File("img/r.png"));
+        Sprite spriteRacket = new Sprite(imageRacket, 310, 575);
+        table.addPair(racket, spriteRacket);
+        table.addPair(ball, spriteBall);
         // Устанавливаем скорости
         racket.setSpeed(new SpeedVector());
         ball.setSpeed(new SpeedVector(0,0.3));
@@ -70,13 +78,17 @@ public class FieldElementTest {
      * Тест для тестирования обработки столкновения мяча с ракеткой в покое (не в центр).
      */
     @Test
-    public void testHandleCollisionBallWithStopedRacketInNotCenter() {
+    public void testHandleCollisionBallWithStopedRacketInNotCenter() throws IOException {
         System.out.println("Тест для тестирования обработки столкновения мяча с ракеткой в покое (мяч попал не в середину ракетки)");
-        Racket racket = new Racket(table);
-        Ball ball = new Ball(table);
+        FieldElement racket = new Racket(table);
+        FieldElement ball = new Ball(table);
         //Установить позиции
-        table.addPair(racket, new Sprite(101, 575));
-        table.addPair(ball, new Sprite(218, 551));
+        BufferedImage imageBall = ImageIO.read(new File("img/ball.png"));
+        Sprite spriteBall = new Sprite(imageBall, 218, 551);
+        BufferedImage imageRacket = ImageIO.read(new File("img/r.png"));
+        Sprite spriteRacket = new Sprite(imageRacket, 101, 575);
+        table.addPair(racket, spriteRacket);
+        table.addPair(ball, spriteBall);
         // Устанавливаем скорости
         racket.setSpeed(new SpeedVector(0, 0));
         ball.setSpeed(new SpeedVector(-0.19,0.22));
@@ -88,13 +100,17 @@ public class FieldElementTest {
      * Тест для тестирования обработки столкновения мяча с ракеткой в движении (не в центр).
      */
     @Test
-    public void testHandleCollisionBallWithMovingRacketInNotCenter() {
+    public void testHandleCollisionBallWithMovingRacketInNotCenter() throws IOException {
         System.out.println("Тест для тестирования обработки столкновения мяча с ракеткой в движении (мяч попал не в середину ракетки)");
         Racket racket = new Racket(table);
         Ball ball = new Ball(table);
         //Установить позиции
-        table.addPair(racket, new Sprite(101, 575));
-        table.addPair(ball, new Sprite(218, 551));
+        BufferedImage imageBall = ImageIO.read(new File("img/ball.png"));
+        Sprite spriteBall = new Sprite(imageBall, 218, 551);
+        BufferedImage imageRacket = ImageIO.read(new File("img/r.png"));
+        Sprite spriteRacket = new Sprite(imageRacket, 101, 575);
+        table.addPair(racket, spriteRacket);
+        table.addPair(ball, spriteBall);
         // Устанавливаем скорости
         racket.setSpeed(new SpeedVector(0.4, 0));
         ball.setSpeed(new SpeedVector(-0.19,0.22));
@@ -141,13 +157,17 @@ public class FieldElementTest {
      * Тест для тестирования обработки столкновения ракетки в покое с мячом.
      */
     @Test
-    public void testHandleCollisionStopedRacketWithBall() {
+    public void testHandleCollisionStopedRacketWithBall() throws IOException {
         System.out.println("Тест для тестирования обработки столкновения ракетки в покое с мячом");
         Racket racket = new Racket(table);
         Ball ball = new Ball(table);
         //Установить позиции
-        table.addPair(racket, new Sprite(310, 575));
-        table.addPair(ball, new Sprite(388, 551.2));
+        BufferedImage imageBall = ImageIO.read(new File("img/ball.png"));
+        Sprite spriteBall = new Sprite(imageBall, 388, 551);
+        BufferedImage imageRacket = ImageIO.read(new File("img/r.png"));
+        Sprite spriteRacket = new Sprite(imageRacket, 310, 575);
+        table.addPair(racket, spriteRacket);
+        table.addPair(ball, spriteBall);
         // Устанавливаем скорости
         racket.setSpeed(new SpeedVector());
         ball.setSpeed(new SpeedVector(0,0.3));
@@ -295,18 +315,22 @@ public class FieldElementTest {
      * Тест для тестирования обработки столкновения мяча с углом ракетки.
      */
     @Test
-    public void testHandleCollisionBallWithConerRacket() {
+    public void testHandleCollisionBallWithConerRacket() throws IOException {
         System.out.println("Тест для тестирования обработки столкновения мяча с углом ракетки");
-        Racket racket = new Racket(table);
-        Ball ball = new Ball(table);
+        FieldElement racket = new Racket(table);
+        FieldElement ball = new Ball(table);
         Ball cloneBall;
         ball.setWeight(1);
         //Установить позиции
-        table.addPair(racket, new Sprite(10, 10));
-        table.addPair(ball, new Sprite(30, 10));
+        BufferedImage imageBall = ImageIO.read(new File("img/ball.png"));
+        Sprite spriteBall = new Sprite(imageBall, 297, 550);
+        BufferedImage imageRacket = ImageIO.read(new File("img/r.png"));
+        Sprite spriteRacket = new Sprite(imageRacket, 119, 575);
+        table.addPair(racket, spriteRacket);
+        table.addPair(ball, spriteBall);
         // Устанавливаем скорости
-        ball.setSpeed(new SpeedVector(-5, -10));
-        cloneBall = ball.clone();
+        ball.setSpeed(new SpeedVector(-0.28, 0.1));
+        cloneBall = ((Ball)ball).clone();
         ball.handleCollision(racket);
         cloneBall.handleCollision(SpeedVector.Axis.Z, racket.position());
         assertEquals(ball.speed(), cloneBall.speed());
@@ -316,17 +340,20 @@ public class FieldElementTest {
      * Тест для тестирования обработки столкновения мяча с углом движущейся ракетки.
      */
     @Test
-    public void testHandleCollisionBallWithConerMovingRacket() {
+    public void testHandleCollisionBallWithConerMovingRacket() throws IOException {
         System.out.println("Тест для тестирования обработки столкновения мяча с углом движущейся ракетки");
         Racket racket = new Racket(table);
         Ball ball = new Ball(table);
         Ball cloneBall;
         ball.setWeight(1);
-        //Установить позиции
-        table.addPair(racket, new Sprite(10, 10));
-        table.addPair(ball, new Sprite(30, 10));
+        BufferedImage imageBall = ImageIO.read(new File("img/ball.png"));
+        Sprite spriteBall = new Sprite(imageBall, 297, 550);
+        BufferedImage imageRacket = ImageIO.read(new File("img/r.png"));
+        Sprite spriteRacket = new Sprite(imageRacket, 119, 575);
+        table.addPair(racket, spriteRacket);
+        table.addPair(ball, spriteBall);
         // Устанавливаем скорости
-        ball.setSpeed(new SpeedVector(-5, -10));
+        ball.setSpeed(new SpeedVector(-0.28, 0.1));
         racket.setSpeed(new SpeedVector(3,0));
         cloneBall = ball.clone();
         ball.handleCollision(racket);
@@ -338,13 +365,18 @@ public class FieldElementTest {
      * Тест для тестирования обработки столкновения мяча с другим мячом той же массы.
      */
     @Test
-    public void testHandleCollisionBallWithSameBall() {
+    public void testHandleCollisionBallWithSameBall() throws IOException {
         System.out.println("Тест для тестирования обработки столкновения мяча с другим мячом той же массы");
         Ball ball1 = new Ball(table);
         Ball ball2 = new Ball(table);
         ball1.setWeight(1);
         ball2.setWeight(1);
         // Устанавливаем скорости
+        BufferedImage imageBall = ImageIO.read(new File("img/ball.png"));
+        Sprite spriteBall1 = new Sprite(imageBall, 297, 550);
+        Sprite spriteBall2 = new Sprite(imageBall, 119, 575);
+        table.addPair(ball2, spriteBall2);
+        table.addPair(ball1, spriteBall1);
         ball1.setSpeed(new SpeedVector(2, -2));
         ball2.setSpeed(new SpeedVector(2, 5));
         Ball clone1 = ball1.clone();
@@ -364,13 +396,18 @@ public class FieldElementTest {
      * Тест для тестирования обработки столкновения мяча с другим мячом другой массы массы.
      */
     @Test
-    public void testHandleCollisionBallWithAnotherBall() {
+    public void testHandleCollisionBallWithAnotherBall() throws IOException {
         System.out.println("Тест для тестирования обработки столкновения мяча с другим мячом другой массы");
         Ball ball1 = new Ball(table);
         Ball ball2 = new Ball(table);
         ball1.setWeight(1);
         ball2.setWeight(2);
         // Устанавливаем скорости
+        BufferedImage imageBall = ImageIO.read(new File("img/ball.png"));
+        Sprite spriteBall1 = new Sprite(imageBall, 297, 550);
+        Sprite spriteBall2 = new Sprite(imageBall, 119, 575);
+        table.addPair(ball2, spriteBall2);
+        table.addPair(ball1, spriteBall1);
         ball1.setSpeed(new SpeedVector(2, -2));
         ball2.setSpeed(new SpeedVector(2, 5));
         Ball clone1 = ball1.clone();
