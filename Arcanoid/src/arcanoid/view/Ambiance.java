@@ -212,11 +212,14 @@ public class Ambiance implements GameFieldChangeListener {
      */
     public void setCollisionObjects(PlayField playField) {
         CollisionHandler handler;
+        // Задать коллизии между существующими группами, заданными в правилах игры
         for (Map.Entry<String, String> entrySet : collidedGroups.entrySet()) {
             String key = entrySet.getKey();
             String value = entrySet.getValue();
-            if (bounced.getSprites().length != 0 && table.getElement(bounced.getSprites()[0])!=null) {
+            // в правилах есть столкновение классов, находящихся в элементах, от которых можно отскочить
+            if (bounced.getSprites().length != 0 && table.getElement(bounced.getSprites()[0])!= null) {
                 if (key.compareTo(getClassName(table.getElement(bounced.getSprites()[0]))) == 0) {
+                    // Сталкиваются с управляемыми пользователем
                     if (manageBounced.getSprites().length != 0 && table.getElement(manageBounced.getSprites()[0])!=null) {
                         if (getClassName(table.getElement(manageBounced.getSprites()[0])).compareTo(value) == 0) {
                             objectsCollision = new CollisionObjectWithObject();
@@ -225,6 +228,7 @@ public class Ambiance implements GameFieldChangeListener {
                             playField.addCollisionGroup(bounced, manageBounced, objectsCollision);
                         }
                     }
+                    // Сталкиваются с отскакивающими
                     for (SpriteGroup bounce:bouncing) {
                         if (bounce.getSprites().length != 0) {
                             if (getClassName(table.getElement(bounce.getSprites()[0])).compareTo(value) == 0) {
@@ -237,8 +241,10 @@ public class Ambiance implements GameFieldChangeListener {
                     }
                 }
             }
+            // в правилах есть столкновение классов, находящихся в элементах, управляемых пользователем
             if (manageBounced.getSprites().length != 0) {
                 if (key.compareTo(getClassName(table.getElement(manageBounced.getSprites()[0]))) == 0) {
+                    // Сталкиваются с теми, от которых можно отскочить
                     if (bounced.getSprites().length != 0 && table.getElement(bounced.getSprites()[0])!=null) {
                         if (getClassName(table.getElement(bounced.getSprites()[0])).compareTo(value) == 0) {
                             objectsCollision = new CollisionObjectWithObject();
@@ -247,6 +253,7 @@ public class Ambiance implements GameFieldChangeListener {
                             playField.addCollisionGroup(bounced, manageBounced, objectsCollision);
                         }
                     }
+                    // Сталкиваются с откакивающими
                     for (SpriteGroup bounce:bouncing) {
                         if (bounce.getSprites().length != 0 && table.getElement(bounce.getSprites()[0]) != null) {
                             if (getClassName(table.getElement(bounce.getSprites()[0])).compareTo(value) == 0) {
@@ -259,9 +266,11 @@ public class Ambiance implements GameFieldChangeListener {
                     }
                 }
             }
+            // в правилах есть столкновение классов, находящихся в отскакивающих элементах
             for (SpriteGroup bounce:bouncing) {
                 if (bounce.getSprites().length != 0 && table.getElement(bounce.getSprites()[0]) != null) {
                     if (getClassName(table.getElement(bounce.getSprites()[0])).compareTo(key) == 0 ) {
+                        // Сталкиваются с теми, от которых можно отскочить
                         if (bounced.getSprites().length != 0 && table.getElement(bounced.getSprites()[0])!=null) {
                             if (getClassName(table.getElement(bounced.getSprites()[0])).compareTo(value) == 0) {
                                 objectsCollision = new CollisionObjectWithObject();
@@ -270,6 +279,7 @@ public class Ambiance implements GameFieldChangeListener {
                                 playField.addCollisionGroup(bounced, bounce, objectsCollision);
                             }
                         }
+                        // Стакиваются с управляемыми пользователем элементами
                         if (manageBounced.getSprites().length != 0 && table.getElement(manageBounced.getSprites()[0])!=null) {
                             if (getClassName(table.getElement(manageBounced.getSprites()[0])).compareTo(value) == 0) {
                                 objectsCollision = new CollisionObjectWithObject();
@@ -278,6 +288,7 @@ public class Ambiance implements GameFieldChangeListener {
                                 playField.addCollisionGroup(manageBounced, bounce, objectsCollision);
                             }
                         }
+                        // Сталкиваются с другими отскакивающими
                         for (SpriteGroup bounce1:bouncing) {
                             if (bounce1.getSprites().length != 0 && table.getElement(bounce1.getSprites()[0]) != null) {
                                 if (getClassName(table.getElement(bounce1.getSprites()[0])).compareTo(value) == 0 && bouncing.indexOf(bounce) < bouncing.indexOf(bounce1)) {
@@ -292,7 +303,6 @@ public class Ambiance implements GameFieldChangeListener {
                 }
             }
         }
-        
     }
     
     /**
