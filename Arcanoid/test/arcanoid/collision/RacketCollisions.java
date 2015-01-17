@@ -9,6 +9,7 @@ package arcanoid.collision;
 import arcanoid.events.CollisionHandleEndEvent;
 import arcanoid.events.CollisionHandleEndListener;
 import arcanoid.model.Ball;
+import arcanoid.model.CollisionHandler;
 import arcanoid.model.Racket;
 import arcanoid.service.Buffer;
 import arcanoid.service.SpeedVector;
@@ -79,7 +80,9 @@ public class RacketCollisions extends Game implements CollisionHandleEndListener
         // Добавление в спрайт группу и установка коллизии
         ballGroup.add(ball);
         racketGroup.add(racket);
+        CollisionHandler handler = new CollisionHandler(table);
         collision = new CollisionObjectWithObject();
+        collision.addSpritesCollidedListener(handler);
         playfield.addCollisionGroup(ballGroup, racketGroup, collision);
         cloneBall = ballElement.clone();
         cloneRacket = racketElement.clone();
