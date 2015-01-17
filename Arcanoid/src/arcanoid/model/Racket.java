@@ -20,18 +20,20 @@ import java.util.ArrayList;
  * @author Елена
  */
 public class Racket extends Managable implements Bounced, AttemptStartedListener {
-
-    public final SpeedVector initialSpeed = new SpeedVector(0,-0.3);
+    private double speedVectorLength = 0.3;
+    public ArrayList<SpeedVector> initialSpeed;
     public Racket(Buffer table) {
         super(table);
+        initialSpeed = new ArrayList<>();
     }
     /**
      * Толкнуть мяч
      * 
      * @param ball мяч
      */
-    public void pushBall(Ball ball) {
-        ball.setSpeed(initialSpeed);
+    public void pushBall(Ball ball, SpeedVector speed) {
+        
+        ball.setSpeed(speed);
     }
     
     public Racket clone() {
@@ -44,8 +46,14 @@ public class Racket extends Managable implements Bounced, AttemptStartedListener
 
     @Override
     public void startMoving(AttemptStartedEvent e) {
+        int count = e.pushingObjects.size();
+        double angleStep = 160/count;
+        double speedX;
+        double speedY;
         for (FieldElement element:e.pushingObjects) {
-            pushBall((Ball)element);
+            speedX = speedVectorLength*Math.cos(10+angleStep*e.pushingObjects.indexOf(element));
+            speedY = speedVectorLength*Math.sin(10+angleStep*e.pushingObjects.indexOf(element));
+            pushBall((Ball)element, new SpeedVector(speedX, speedY));
         }
     }
 
