@@ -19,6 +19,10 @@ public class DestroyableBrick extends Brick implements Bounced {
     /** Прочность*/
     protected int strength;
     
+    /**
+     * Конструктор
+     * @param table таблица соответствия спрайтов и элементов
+     */
     public DestroyableBrick(Buffer table) {
         super(table);
     }
