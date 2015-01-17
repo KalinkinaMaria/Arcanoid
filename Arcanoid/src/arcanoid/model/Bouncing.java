@@ -10,6 +10,7 @@ import arcanoid.service.Buffer;
 import arcanoid.service.SpeedVector;
 import java.awt.Point;
 import arcanoid.service.SpeedVector.Axis;
+import java.util.ArrayList;
 
 /**
  * Элемент, который может отскочить
@@ -68,7 +69,10 @@ public class Bouncing extends FieldElement{
             System.out.println("rrrrrrrrrrrrrr");
             System.out.println(this.speed().x());
             System.out.println(element.speed().x());
-            this.setSpeed(this.countSpeed(element).get(0));
+            ArrayList<SpeedVector> countSpeed = this.countSpeed(element);
+            //System.out.println(countSpeed.get(0).x());
+            //System.out.println(countSpeed.get(0).y());
+            this.setSpeed(countSpeed.get(0));
         }
         
     }

@@ -114,6 +114,8 @@ public class CollisionHandler implements SpritesCollidedListener {
                     FieldElement cloneKeyElement = keyElement.clone();
                     FieldElement cloneValueElement = originObject.clone();
                     originObject.handleCollision(cloneKeyElement);
+                    System.out.println(originObject.speed().x());
+                    System.out.println(cloneValueElement.speed().x());
                     keyElement.handleCollision(cloneValueElement);
                     table.deletePair(cloneKeyElement);
                     table.deletePair(cloneValueElement);

@@ -41,7 +41,7 @@ public class DestroyableBrick extends Brick implements Bounced {
     
     public DestroyableBrick clone() {
         DestroyableBrick brick = new DestroyableBrick(this.table);
-        Sprite sprite = table.getSprite(this);
+        Sprite sprite = new Sprite();
         table.addPair(brick, sprite);
         brick.copy(this);
         return brick;

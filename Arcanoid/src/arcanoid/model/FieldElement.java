@@ -203,9 +203,9 @@ public abstract class FieldElement {
     
     protected void copy(FieldElement other) {
         this.weight = other.weight;
-        this.setSpeed(other.speed());
-        this.gameFieldChangeListeners = other.gameFieldChangeListeners;
-        this.collisionHandleEndListeners = other.collisionHandleEndListeners;
+        this.setSpeed(other.speed().clone());
+        //this.gameFieldChangeListeners = other.gameFieldChangeListeners;
+        //this.collisionHandleEndListeners = other.collisionHandleEndListeners;
         this.setPosition(other.position());
     }
     
