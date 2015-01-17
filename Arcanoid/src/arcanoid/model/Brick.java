@@ -14,11 +14,11 @@ import arcanoid.service.Buffer;
  * @author Елена
  */
 public abstract class Brick extends FieldElement implements Bounced {
-
-
+    /**
+     * Конструктор 
+     * @param table буффер
+     */
     public Brick(Buffer table) {
         super(table);
     }
-    
-    
 }

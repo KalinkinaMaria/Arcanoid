@@ -8,11 +8,19 @@ package arcanoid.model;
 import arcanoid.events.GameStateChangeListener;
 
 /**
- *
+ * Элемент, который может изменить состояние игры (проигрыш, например, зависит от него)
+ * 
  * @author Елена
  */
 public interface ChangingGameState {
+    /**
+     * Обработать изменение состояния игры
+     */
     public void handleChangingGameState();
+    /**
+     * Добавить слушателя события
+     * @param listener слкшатель события
+     */
     public void addGameStateChangeListener(GameStateChangeListener listener);
     
 }
