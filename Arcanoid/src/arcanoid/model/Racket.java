@@ -55,6 +55,9 @@ public class Racket extends Managable implements Bounced, AttemptStartedListener
             speedX = speedVectorLength*Math.cos(10+angleStep*e.pushingObjects.indexOf(element));
             speedY = speedVectorLength*Math.sin(10+angleStep*e.pushingObjects.indexOf(element));
             pushBall((Ball)element, new SpeedVector(speedX, speedY));
+            SpeedVector speed = element.speed();
+            System.out.println(speed.x());
+            System.out.println(speed.y());
         }
         } else {
             pushBall((Ball)e.pushingObjects.get(0), new SpeedVector(0, -speedVectorLength));

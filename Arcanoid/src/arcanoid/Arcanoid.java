@@ -69,7 +69,7 @@ public class Arcanoid  extends Game implements AttemptStartedListener {
         collisionHandler = new CollisionHandler(buffer);
         gameModel.registerCollisionRules(ambiance);
         ambiance.setCollisionBounds(playfield, collisionHandler);
-        ambiance.setCollisionObjects(playfield, collisionHandler);
+        
         ambiance.setConnectionWithGhangingGameStateElement(gameModel);
         String fontString = "ABCDEFGHIJKLMNOPQRSTUVXWYZabcdefghijklmnopqrstuvxwyz1234567890aaaaaaaaa?!a.:- ";
         int a = fontString.length();
@@ -84,7 +84,7 @@ public class Arcanoid  extends Game implements AttemptStartedListener {
             gameModel.startAttempt();
             
             ambiance.setAttemptCollisionBounds(playfield, collisionHandler);
-            
+            ambiance.setCollisionObjects(playfield, collisionHandler);
         }
         checkMouseMoving(l);
         //System.out.println(l);
