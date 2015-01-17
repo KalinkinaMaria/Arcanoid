@@ -14,11 +14,9 @@ import arcanoid.model.FieldElement;
  * @author Елена
  */
 public class ImpulseOfStrikeForce {
-    
-    
     /**
      * Рассчитать импульс силы удара элемента
-     * @param element 
+     * @param element элемент для которого высчитывается импульс
      * @return  значение импульса
      */
     public static double count(FieldElement element) {
