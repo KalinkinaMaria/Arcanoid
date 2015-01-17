@@ -22,9 +22,7 @@ public class ViewBall extends ViewFieldElement {
      */
     public ViewBall(Sprite view, Sprite viewInCollision) {
         super(view, viewInCollision);
-    }
-
-    
+    }    
     
     /**
      * Показать коллизию
