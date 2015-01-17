@@ -6,12 +6,9 @@
 
 package arcanoid.model;
 
-import arcanoid.events.AttemptEvent;
-import arcanoid.events.AttemptListener;
 import arcanoid.events.GameStateChangeEvent;
 import arcanoid.events.GameStateChangeListener;
 import arcanoid.service.Buffer;
-import arcanoid.service.SpeedVector;
 import com.golden.gamedev.object.Sprite;
 import java.util.ArrayList;
 
@@ -25,6 +22,10 @@ public class Ball extends Bouncing implements Bounced, ChangingGameState {
     /** Слушатели падения мяча*/
     private ArrayList<GameStateChangeListener> failListeners = new ArrayList<> ();
     
+    /**
+     * Конструктор
+     * @param table буффер
+     */
     public Ball(Buffer table) {
         super(table);
     }
@@ -34,6 +35,7 @@ public class Ball extends Bouncing implements Bounced, ChangingGameState {
      * 
      * @param listener слушатель
      */
+    @Override
     public void addGameStateChangeListener(GameStateChangeListener listener) {
         failListeners.add(listener);
     }
@@ -47,6 +49,10 @@ public class Ball extends Bouncing implements Bounced, ChangingGameState {
         }
     }
     
+    /**
+     * Клонировать
+     * @return клон мяча
+     */
     public Ball clone() {
         Ball ball = new Ball(this.table);
         Sprite sprite = table.getSprite(this);
@@ -56,6 +62,9 @@ public class Ball extends Bouncing implements Bounced, ChangingGameState {
         return ball;
     }
 
+    /**
+     * Обработать изменение состояния игры
+     */
     @Override
     public void handleChangingGameState() {
         fireGameStateChange();

@@ -20,10 +20,20 @@ import java.util.ArrayList;
  */
 public class Bouncing extends FieldElement{
     
+    /**
+     * Конструктор
+     * @param table буффер
+     */
     public Bouncing (Buffer table) {
         super(table);
     }
     
+    /**
+     * Обработать столкновение с управляемым пользователем элементом
+     * 
+     * @param element элемент, управляемый пользователем
+     */
+    @Override
     public void handleManagableCollision(FieldElement element) {
         //с ракеткой
         Point positionCollision = new Point(this.position().x + (int)this.size().width()/2, this.position().y + (int)this.size().height());
@@ -66,21 +76,18 @@ public class Bouncing extends FieldElement{
     }
     
     /**
-     * Обработать столкновение
+     * Обработать столкновение с тем, от которого можно осткочить
      * 
      * @param element элемент
      */
     public void handleCollision (int side, FieldElement element) {
-        
-        System.out.println(element.speed().equals(new SpeedVector()));
         // Элемент не движется
         if (element.speed().equals(new SpeedVector())) {
         } else {
-
+            // Элемент движется
             ArrayList<SpeedVector> countSpeed = this.countSpeed(element);
             this.setSpeed(countSpeed.get(0));
-        }
-        
+        }   
     }
     
     /**
@@ -93,6 +100,10 @@ public class Bouncing extends FieldElement{
         this.setSpeed(this.speed().reflect(axis));
     }
     
+    /**
+     * Клонировать
+     * @return клон объекта
+     */
     public Bouncing clone() {
         Bouncing element = new Bouncing(this.table);
         Sprite sprite = table.getSprite(this);
