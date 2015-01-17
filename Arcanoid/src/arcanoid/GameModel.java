@@ -120,6 +120,7 @@ public class GameModel implements GameStateChangeListener {
     }
     
     public void startAttempt() {
+        field.changePositionForAttempt();
         fireAttemptStarted();
         gameWasStarted = true;
     }

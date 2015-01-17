@@ -79,8 +79,7 @@ public class Arcanoid  extends Game implements AttemptStartedListener {
         playfield.update(l);
         // Запуск мячика
         if (click() && !gameModel.isGameStarted()) {
-            gameModel.startAttempt();
-            
+            gameModel.startAttempt();           
             ambiance.setAttemptCollisionBounds(playfield);
             ambiance.setCollisionObjects(playfield);
         }

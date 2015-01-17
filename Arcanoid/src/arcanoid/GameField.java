@@ -145,7 +145,7 @@ public class GameField implements GameFieldChangeListener {
             Racket racket = new Racket(table);
             model.addAttemptStartedListener(racket);
             addElement(racket, new Point(310, 575));
-            for (int i = 0; i < 2; i++) {
+            for (int i = 0; i < 5; i++) {
                 Ball ball = new Ball(table);
                 ball.setWeight(1);
                 addElement(ball, new Point(388, 550));
@@ -167,5 +167,21 @@ public class GameField implements GameFieldChangeListener {
     @Override
     public void removeElement(GameFieldChangeEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public void changePositionForAttempt() {
+        
+        ArrayList<FieldElement> startingElements = getElements("arcanoid.model.Ball");
+        int width = (int)startingElements.get(0).size().width();
+        int startPos = startingElements.get(0).position().x + width/2;
+        int yPos = startingElements.get(0).position().y;
+        
+        for (int i = 1; i < startingElements.size(); i++) {
+            if (i < 3) {
+                startingElements.get(i).setPosition(new Point(startPos - i*10 - width*i, yPos ));
+            } else {
+                startingElements.get(i).setPosition(new Point(startPos + (i-2)*10 + width*(i-2), yPos ));
+            }
+        }
     }
 }
