@@ -151,6 +151,7 @@ public abstract class FieldElement {
     public void handleManagableCollision(FieldElement element) {
         
     }
+    
     /**
      * Обработать столкновение
      * 
@@ -164,7 +165,7 @@ public abstract class FieldElement {
         } else if (element instanceof Bounced) {
             //кирпич, мяч, ракетка
             if (this instanceof Bouncing) {
-                ((Bouncing)this).handleCollision(this.position(), element);
+                ((Bouncing)this).handleCollision(0, element);
             } else {
                 this.handelCollision(ImpulseOfStrikeForce.count(element));
             }

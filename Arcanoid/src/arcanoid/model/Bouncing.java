@@ -53,8 +53,13 @@ public class Bouncing extends FieldElement{
      * 
      * @param element элемент
      */
-    public void handleCollision (Point position, FieldElement element) {
-        
+    public void handleCollision (int side, FieldElement element) {
+        // Элемент не движется
+        if (element.speed().equals(new SpeedVector())) {
+            
+        } else {
+            this.setSpeed(this.countSpeed(element).get(0));
+        }
         
     }
     
