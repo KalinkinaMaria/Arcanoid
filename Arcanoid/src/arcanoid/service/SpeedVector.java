@@ -109,13 +109,14 @@ public class SpeedVector {
      */
     @Override
     public boolean equals(Object other) {
-        boolean result = getClass() == other.getClass();
-        
-        if (Math.abs(this.speedX - ((SpeedVector)other).speedX) <= 0.01 &&
-                Math.abs(this.speedY - ((SpeedVector)other).speedY) <= 0.01) {
+        boolean result = true;
+        System.out.println(Math.abs(this.speedX - ((SpeedVector)other).speedX));
+        System.out.println(Math.abs(this.speedY - ((SpeedVector)other).speedY));
+        if (Math.abs(this.speedX - ((SpeedVector)other).speedX) <= 0.000001 &&
+                Math.abs(this.speedY - ((SpeedVector)other).speedY) <= 0.00000001) {
             result = result && true;
         }
-        
+        System.out.println(result);
         return (result);
     }
     

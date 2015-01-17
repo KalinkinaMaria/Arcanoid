@@ -51,6 +51,7 @@ public class CollisionObjectWithObject extends AdvanceCollisionGroup {
     public void collided(Sprite sprite, Sprite sprite1) {        
         //System.out.println("lllll");
         Map map = getStorage();
+        
         fireSpritesCollided(getSourceSprite(), map);
     }
     
