@@ -189,7 +189,7 @@ public class Ambiance implements GameFieldChangeListener {
                         }
                     }
                     for (SpriteGroup bounce:bouncing) {
-                        if (bounce.getSprites().length != 0) {
+                        if (bounce.getSprites().length != 0 && table.getElement(bounce.getSprites()[0]) != null) {
                             if (getClassName(table.getElement(bounce.getSprites()[0])).compareTo(value) == 0) {
                                 objectsCollision = new CollisionObjectWithObject();
                                 objectsCollision.addSpritesCollidedListener(handler);
@@ -200,8 +200,8 @@ public class Ambiance implements GameFieldChangeListener {
                 }
             }
             for (SpriteGroup bounce:bouncing) {
-                if (bounce.getSprites().length != 0) {
-                    if (getClassName(table.getElement(bounce.getSprites()[0])).compareTo(key) == 0) {
+                if (bounce.getSprites().length != 0 && table.getElement(bounce.getSprites()[0]) != null) {
+                    if (getClassName(table.getElement(bounce.getSprites()[0])).compareTo(key) == 0 ) {
                         if (bounced.getSprites().length != 0 && table.getElement(bounced.getSprites()[0])!=null) {
                             if (getClassName(table.getElement(bounced.getSprites()[0])).compareTo(value) == 0) {
                                 objectsCollision = new CollisionObjectWithObject();
@@ -217,7 +217,7 @@ public class Ambiance implements GameFieldChangeListener {
                             }
                         }
                         for (SpriteGroup bounce1:bouncing) {
-                            if (bounce1.getSprites().length != 0) {
+                            if (bounce1.getSprites().length != 0 && table.getElement(bounce1.getSprites()[0]) != null) {
                                 if (getClassName(table.getElement(bounce1.getSprites()[0])).compareTo(value) == 0 && bounce != bounce1) {
                                     objectsCollision = new CollisionObjectWithObject();
                                     objectsCollision.addSpritesCollidedListener(handler);

@@ -127,6 +127,8 @@ public class GameModel implements GameStateChangeListener {
     @Override
     public void fail(GameStateChangeEvent e) {
         int lives = player.lives() - 1;
+        ArrayList<FieldElement> elements = field.getElements("arcanoid.model.Ball");
+        if (elements.size() == 1) {
         if (lives != 0) {
             player.setLives(lives);
             // Вернуть шарик на место.
@@ -134,6 +136,9 @@ public class GameModel implements GameStateChangeListener {
             gameWasStarted = false;
         } else {
             endGame(false);
+        }
+        } else {
+            field.removeElement((FieldElement)e.element);
         }
     }
     

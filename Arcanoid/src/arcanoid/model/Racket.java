@@ -47,13 +47,17 @@ public class Racket extends Managable implements Bounced, AttemptStartedListener
     @Override
     public void startMoving(AttemptStartedEvent e) {
         int count = e.pushingObjects.size();
-        double angleStep = 160/count;
+        if (count != 1) {
+        double angleStep = 160/(count-1);
         double speedX;
         double speedY;
         for (FieldElement element:e.pushingObjects) {
             speedX = speedVectorLength*Math.cos(10+angleStep*e.pushingObjects.indexOf(element));
             speedY = speedVectorLength*Math.sin(10+angleStep*e.pushingObjects.indexOf(element));
             pushBall((Ball)element, new SpeedVector(speedX, speedY));
+        }
+        } else {
+            pushBall((Ball)e.pushingObjects.get(0), new SpeedVector(0, -speedVectorLength));
         }
     }
 
