@@ -215,7 +215,7 @@ public class CollisionHandler implements SpritesCollidedListener {
                         if (height > keyElement.size().height()) {
                             height = keyElement.size().height();
                         }
-                        if (block && intersectionRect.width < width/3 && intersectionRect.height < height/3) {
+                        if (block && intersectionRect.width < width/2.5 && intersectionRect.height < height/2.5) {
                             block = false;
                         }
                         if (!block) {
@@ -223,7 +223,7 @@ public class CollisionHandler implements SpritesCollidedListener {
                         keyElement.handleCollision(cloneValueElement);
                             fireHandleEnd(keyElement, originObject, null);
                         }
-                        if (intersectionRect.width > width/3 && intersectionRect.height > height/3) {
+                        if (intersectionRect.width > width/2.5 && intersectionRect.height > height/2.5) {
                             block = true;
                         }
                         table.deletePair(cloneKeyElement);
