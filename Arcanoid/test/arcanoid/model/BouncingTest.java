@@ -63,7 +63,7 @@ public class BouncingTest {
         // Устанавливаем скорости
         racket.setSpeed(vector1);
         ball.setSpeed(vector2);
-        ball.handleCollision(position, racket);
+        ball.handleManagableCollision(racket);
         assertEquals(ball.speed(), vector2.sum(vector1));
         assertEquals(ball.position(), position);
     }
@@ -86,7 +86,7 @@ public class BouncingTest {
         // Устанавливаем скорости
         ball.setSpeed(vector1);
         racket.setSpeed(vector2);
-        ball.handleCollision(position, racket);
+        ball.handleManagableCollision(racket);
         assertEquals(ball.speed(), vector1.reflect(SpeedVector.Axis.X));
         assertEquals(ball.position(), position);
     }
@@ -113,10 +113,10 @@ public class BouncingTest {
         ball2.setSpeed(vector2);
         Bouncing clone1 = (Bouncing) ball1.clone();
         Bouncing clone2 = (Bouncing) ball2.clone();
-        ball1.handleCollision(new Point(), clone2);
+        ball1.handleCollision(0, clone2);
         assertEquals(ball1.speed(), vector2);
         assertEquals(ball1.position(), position1);
-        ball2.handleCollision(new Point(), clone1);
+        ball2.handleCollision(0, clone1);
         assertEquals(ball2.speed(), vector1);
         assertEquals(ball1.position(), position2);
     }
@@ -142,10 +142,10 @@ public class BouncingTest {
         ball2.setSpeed(vector2);
         Bouncing clone1 = (Bouncing) ball1.clone();
         Bouncing clone2 = (Bouncing) ball2.clone();
-        ball1.handleCollision(new Point(), clone2);
+        ball1.handleCollision(0, clone2);
         assertEquals(ball1.speed(), ball1.countSpeed(ball2).get(0));
         assertEquals(ball1.position(), position1);
-        ball2.handleCollision(new Point(), clone1);
+        ball2.handleCollision(0, clone1);
         assertEquals(ball2.speed(), ball1.countSpeed(ball2).get(1));
         assertEquals(ball2.position(), position2);
     }

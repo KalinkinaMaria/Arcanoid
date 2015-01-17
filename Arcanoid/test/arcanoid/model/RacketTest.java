@@ -54,7 +54,7 @@ public class RacketTest {
         table.addPair(ball, new Sprite(70, 30));
         
         ball.setWeight(2);
-        racket.pushBall(ball);
+        racket.pushBall(ball, new SpeedVector(0,-0.3));
         //Нужно где то завести какую то константу, которая будет хранить начальный вектор скорости
         assertEquals(ball.speed(), new SpeedVector(0,-0.3));
         

@@ -353,10 +353,10 @@ public class FieldElementTest {
         Ball clone2 = ball2.clone();
         Ball cloneBall2 = ball2.clone();
         ball1.handleCollision(clone2);
-        cloneBall1.handleCollision(cloneBall2.position(), cloneBall2);
+        cloneBall1.handleCollision(0, cloneBall2);
         assertEquals(ball1.speed(), cloneBall1.speed());
         ball2.handleCollision(clone1);
-        cloneBall2.handleCollision(cloneBall11.position(), cloneBall11);
+        cloneBall2.handleCollision(0, cloneBall11);
         assertEquals(ball2.speed(), cloneBall2.speed());
     }
     
@@ -379,10 +379,10 @@ public class FieldElementTest {
         Ball cloneBall11 = ball1.clone();
         Ball cloneBall2 = ball2.clone();
         ball1.handleCollision(clone2);
-        cloneBall1.handleCollision(cloneBall2.position(), cloneBall2);
+        cloneBall1.handleCollision(0, cloneBall2);
         assertEquals(ball1.speed(), cloneBall1.speed());
         ball2.handleCollision(clone1);
-        cloneBall2.handleCollision(cloneBall11.position(), cloneBall11);
+        cloneBall2.handleCollision(0, cloneBall11);
         assertEquals(ball2.speed(), cloneBall2.speed());
     }
     
