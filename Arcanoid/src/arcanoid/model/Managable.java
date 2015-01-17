@@ -8,15 +8,23 @@ package arcanoid.model;
 import arcanoid.service.Buffer;
 
 /**
- *
+ * Управляемый элемент
  * @author Елена
  */
 public class Managable extends FieldElement{
 
+    /**
+     * Конструктор
+     * @param table таблица соответствия спрайтов и элементов
+     */
     public Managable(Buffer table) {
         super(table);
     }
 
+    /**
+     * Клонирование элемента
+     * @return клонированный элемент
+     */
     @Override
     public FieldElement clone() {
         Managable element = new Managable(this.table);
