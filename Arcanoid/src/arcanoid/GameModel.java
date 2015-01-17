@@ -7,24 +7,19 @@ package arcanoid;
 
 import arcanoid.events.AttemptStartedEvent;
 import arcanoid.events.AttemptStartedListener;
-import arcanoid.events.GameFieldChangeEvent;
 import arcanoid.events.GameFieldChangeListener;
 import arcanoid.events.GameStateChangeEvent;
 import arcanoid.events.GameStateChangeListener;
 import arcanoid.model.FieldElement;
-import arcanoid.model.Racket;
 import arcanoid.service.Buffer;
 import arcanoid.service.SpeedVector;
 import arcanoid.view.Ambiance;
-import com.golden.gamedev.object.SpriteGroup;
-import java.awt.Frame;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
- *
+ * Класс логической модели игры
+ * 
  * @author Елена
  */
 public class GameModel implements GameStateChangeListener {
@@ -32,27 +27,42 @@ public class GameModel implements GameStateChangeListener {
     private GameField field;
     /** Игрок*/
     private Player player;
-    /** Флаг, о том, что игра началась, т.е. игрок запустил шарик*/
-    private boolean gameWasStarted;
+    /** Флаг, о том, что попытка началась, т.е. игрок запустил шарик*/
+    private boolean attemptWasStarted;
+    /** Слушатели начала/конца попытки. Элементы, которые запускаются при начале попытки*/
     private ArrayList<AttemptStartedListener> movingElements;
     
+    /**
+     * Начать игру
+     */
     public void startGame() {
         field.createInitialAmbiance(this);
     }
+    
+    /**
+     * Конструктор
+     * 
+     * @param buffer буффер с элементами
+     */
     public GameModel(Buffer buffer) {
         field = new GameField(buffer);
         movingElements = new ArrayList<>();
-        gameWasStarted = false;
+        attemptWasStarted = false;
         player = new Player(3);
-        
     }
     
+    /**
+     * Создать связь с помощтю сигналов с полем, чтобы в дальнейшем знать об удалении/добавлении элементов
+     * 
+     * @param object объект, желающий получать сигналы
+     */
     public void createConnectionWithField(GameFieldChangeListener object) {
         field.addGameFieldChangeListener(object);
     }
     
     /** 
      * Добавить слушателя начала попытки
+     * 
      * @param listener слушатель
      */
     public void addAttemptStartedListener (AttemptStartedListener listener) {
@@ -65,35 +75,33 @@ public class GameModel implements GameStateChangeListener {
     private void fireAttemptStarted() {
         AttemptStartedEvent event;
         event = new AttemptStartedEvent(this, field.getElements("arcanoid.model.Ball"));
-
         for (AttemptStartedListener listener: movingElements) {
             listener.startMoving(event);
         }
     }
     
+    /**
+     * Испустить сигнал, что попытка закончена
+     * 
+     * @param element элемент, из-за которого попытка была завершена
+     */
     private void fireAttemptEnded(FieldElement element) {
         AttemptStartedEvent event;
         ArrayList<FieldElement> list = new ArrayList<>();
         element.setSpeed(new SpeedVector());
-        
         list.add(element);
-        
         event = new AttemptStartedEvent(this, list);
-
         for (AttemptStartedListener listener: movingElements) {
             listener.returnToStartPosition(event);
         }
     }
     
-    private void fireAttemptEnded(FieldElement element, boolean success) {
-        AttemptStartedEvent event;
-        ArrayList<FieldElement> list = new ArrayList<>();
-        //field.removeElement(element);
-        
-        //list.add(element);
-        
-        event = new AttemptStartedEvent(this, list);
-
+    /**
+     * Испустить сигнал, что попытка закончена
+     * 
+     * @param success успех попытки
+     */
+    private void fireAttemptEnded(boolean success) {
         for (AttemptStartedListener listener: movingElements) {
             listener.endGame(success);
         }
@@ -101,48 +109,78 @@ public class GameModel implements GameStateChangeListener {
     
     /**
      * Закончить игру
+     * 
+     * @param success успех/неуспех игры
      */
     public void endGame(boolean success) {
-        
-        fireAttemptEnded(null, success);
+        fireAttemptEnded(success);
     }
 
-    public void gameWasStarted() {
-        gameWasStarted = true;
+    /**
+     * Установить флаг, сто попытка начата
+     */
+    public void attemptWasStarted() {
+        attemptWasStarted = true;
     }
     
-    public void gameWasEnded() {
-        gameWasStarted = false;
+    /**
+     * Установить флаг, что попытка завершена
+     */
+    public void attemptWasEnded() {
+        attemptWasStarted = false;
     }
     
-    public boolean isGameStarted() {
-        return gameWasStarted;
+    /**
+     * Поптыка начата?
+     * 
+     * @return флаг, идет ли попытка или нет
+     */
+    public boolean isAttemptStarted() {
+        return attemptWasStarted;
     }
     
+    /**
+     * Начать попытку
+     */
     public void startAttempt() {
         field.changePositionForAttempt();
         fireAttemptStarted();
-        gameWasStarted = true;
+        attemptWasStarted = true;
     }
     
     @Override
+    /**
+     * Провал попытки
+     * 
+     * @param e событие изменения состояния игры
+     */
     public void fail(GameStateChangeEvent e) {
+        // Посчитать жизни игрока
         int lives = player.lives() - 1;
         ArrayList<FieldElement> elements = field.getElements("arcanoid.model.Ball");
+        // Нет больше элементов, которые управляют ходом игры
         if (elements.size() == 1) {
-        if (lives != 0) {
-            player.setLives(lives);
-            // Вернуть шарик на место.
-            fireAttemptEnded((FieldElement)e.element);
-            gameWasStarted = false;
+            // Есть еще жизни
+            if (lives != 0) {
+                player.setLives(lives);
+                // Вернуть шарик на место.
+                fireAttemptEnded((FieldElement) e.element);
+                attemptWasStarted = false;
+            } else {
+                // Закончить игру
+                endGame(false);
+            }
         } else {
-            endGame(false);
-        }
-        } else {
-            field.removeElement((FieldElement)e.element);
+            // Удалить элемент с поля
+            field.removeElement((FieldElement) e.element);
         }
     }
     
+    /**
+     * Получить данные игры
+     * 
+     * @return карта с данными игры
+     */
     public HashMap<String, String> getGameData() {
         HashMap<String, String> result = new HashMap <String, String>();
         result.put("Lives", String.valueOf(player.lives()));
@@ -151,22 +189,38 @@ public class GameModel implements GameStateChangeListener {
     }
 
     @Override
+    /**
+     * Закончить игру
+     * 
+     * @param e событие изменения состояния игры
+     */
     public void endGame(GameStateChangeEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // Т.к. пока нет роя, не реализовано
     }
     
+    /**
+     * Обработать действия пользователя
+     * 
+     * @param speed скорость движения мышью
+     */
     public void processPlayerAction(SpeedVector speed) {
         FieldElement racket = field.getElement("arcanoid.model.Racket");
         if (racket != null) {
             racket.setSpeed(speed);
         }
-        if (!isGameStarted()) {
+        // Если попытка не начата, двигать все объекты на ракетке вместе с ней
+        if (!isAttemptStarted()) {
             for (FieldElement element: field.getElements("arcanoid.model.Ball")) {
                 element.setSpeed(speed);
             }
         }
     }
     
+    /**
+     * Задать правила столкновения в игре
+     * 
+     * @param ambiance обстановка
+     */
     public void registerCollisionRules(Ambiance ambiance) {
         ambiance.addCollidedGroupPair("Racket", "Ball");
         ambiance.addCollidedGroupPair("Ball", "Ball");
