@@ -182,7 +182,7 @@ public class CollisionObjectWithObjectTest {
         System.out.println("Тест на столкновение мяча и боковой стороны кирпича");
         GameLoader game = new GameLoader();
         BallWithBricks test = new BallWithBricks(table);
-        test.setSpeed(new SpeedVector(-0.5, 1));
+        test.setSpeed(new SpeedVector(-0.5, 0));
         test.setFirstPoint(new Point(400, 500));
         test.setSecondPoint(new Point(320, 500));
         test.setThirdPoint(null);

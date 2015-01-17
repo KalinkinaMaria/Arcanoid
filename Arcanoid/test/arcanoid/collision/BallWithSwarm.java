@@ -71,7 +71,7 @@ public class BallWithSwarm extends Game implements CollisionHandleEndListener {
         table.addPair(ballElement, ball);
         table.addPair(swarmElementElement, swarm);
         ballElement.addCollisionHandleEndListener(this);
-        ball.setSpeed(0.5, 1);
+        ball.setSpeed(0.5, 0);
         // Добавление в спрайт группу и установка коллизии
         ballGroup.add(ball);
         swarmGroup.add(swarm);
