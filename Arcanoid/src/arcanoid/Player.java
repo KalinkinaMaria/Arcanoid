@@ -5,8 +5,6 @@
  */
 package arcanoid;
 
-import arcanoid.service.SpeedVector;
-
 /**
  * Игрок
  * 
@@ -66,6 +64,5 @@ public class Player {
     public void setScore(int score) {
         this.score = score;
     }
-    
-    
+
 }
