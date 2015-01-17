@@ -29,12 +29,17 @@ public class Bouncing extends FieldElement{
         double halfRacket = element.size().width()/2.0;
         double y = 0.0;
         double x = 0.0;
+        boolean collisionRightConer = position1.x > pointMiddleRacket.x + halfRacket;
+        boolean collisionLeftConer = position1.x < pointMiddleRacket.x - halfRacket;
         
         //Проверка на столкновение с углом ракетки
-        if (position1.x > pointMiddleRacket.x + halfRacket ||
-                position1.x < pointMiddleRacket.x - halfRacket) {
+        if (collisionRightConer && this.speed().x() < 0 || 
+                collisionLeftConer && this.speed().x() > 0) {
             this.handleCollision (Axis.Z, null);
-        } else {                
+        } else if (collisionRightConer && this.speed().x() > 0 || 
+                collisionLeftConer && this.speed().x() < 0) {
+            this.handleCollision (Axis.Y, null);
+        } else {
             x = - (pointMiddleRacket.x - position1.x);
 
             y = Math.sqrt(halfRacket*halfRacket - x*x);
