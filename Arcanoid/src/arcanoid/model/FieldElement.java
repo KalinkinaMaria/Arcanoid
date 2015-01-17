@@ -5,7 +5,6 @@
  */
 
 package arcanoid.model;
-
 import arcanoid.events.CollisionHandleEndListener;
 import arcanoid.events.GameFieldChangeEvent;
 import arcanoid.events.GameFieldChangeEvent.ChangingType;
@@ -28,7 +27,6 @@ public abstract class FieldElement {
     protected Buffer table;
     /** Вес */
     protected double weight;
-
     /** Слушатели изменения игрового поля*/
     private ArrayList<GameFieldChangeListener> gameFieldChangeListeners = new ArrayList<>();
     /** Слушатели окончания обработки столкновения ДЛЯ ТЕСТОВ*/
@@ -43,13 +41,14 @@ public abstract class FieldElement {
     }
     
     /**
-     * Испустить сигнал, что элемент поля создан
+     * Испустить сигнал, что элемент поля изменен
      */
     private void fireGameFieldChange(boolean creation) {
         GameFieldChangeEvent event;
+        // Создание элемента
         if (creation) {
             event = new GameFieldChangeEvent(this, ChangingType.creation, null);
-        } else {
+        } else { // Удаление элемента
             event = new GameFieldChangeEvent(this, ChangingType.removing, null);
         }
         for (GameFieldChangeListener gameListener: gameFieldChangeListeners) {
@@ -65,12 +64,18 @@ public abstract class FieldElement {
         
     }
     
+    /**
+     * Высчитать скорость столкновения двух элементов
+     * @param element с которым столкнулся
+     * @return массив из двух значений новых скоростей
+     */
     public ArrayList<SpeedVector> countSpeed(FieldElement element) {
         ArrayList<SpeedVector> result = new ArrayList();
         double speedX1;
         double speedY1;
         double speedX2;
         double speedY2;
+        // Подсчет новых значений скоростей
         speedX1 = (2*element.weight()*element.speed().x() + (this.weight() - element.weight()) * this.speed().x())/(this.weight() + element.weight());
         speedY1 = (2*element.weight()*element.speed().y() + (this.weight() - element.weight()) * this.speed().y())/(this.weight() + element.weight());
         speedX2 = (2*this.weight()*this.speed().x() + (element.weight() - this.weight())*element.speed().x())/(this.weight() + element.weight());
@@ -105,6 +110,10 @@ public abstract class FieldElement {
         return new Point((int)table.getSprite(this).getX(), (int)table.getSprite(this).getY());
     }
     
+    /**
+     * Задать позицию
+     * @param point позиция
+     */
     public void setPosition(Point point) {
         table.getSprite(this).setX(point.getX());
         table.getSprite(this).setY(point.getY());
@@ -148,7 +157,11 @@ public abstract class FieldElement {
         return weight;
     }
     
-    public void handleManagableCollision(FieldElement element) {
+    /**
+     * Обработчик управляемых столкновений
+     * @param element элемент с которым столкнулся
+     */
+    protected void handleManagableCollision(FieldElement element) {
         
     }
     
@@ -158,10 +171,10 @@ public abstract class FieldElement {
      * @param element элемент
      */
     public void handleCollision(FieldElement element) {
-        // Вызывает в зависимости от типа 1 из 3 методов
-        // Сюда передается копия элмента до столкновения
+        // Элемент - управляемое столкновение
         if (element instanceof Managable) {
             this.handleManagableCollision(element);
+        // От которого можно отскочить
         } else if (element instanceof Bounced) {
             //кирпич, мяч, ракетка
             if (this instanceof Bouncing) {
@@ -169,6 +182,7 @@ public abstract class FieldElement {
             } else {
                 this.handelCollision(ImpulseOfStrikeForce.count(element));
             }
+        // От которого нельзя отскочить
         } else {
             this.handelCollision(ImpulseOfStrikeForce.count(element));
         }
@@ -201,16 +215,26 @@ public abstract class FieldElement {
         this.weight = weight;
     }
     
+    /**
+     * Копирование полей объекта
+     * @param other объект из которого копируем
+     */
     protected void copy(FieldElement other) {
         this.weight = other.weight;
         this.setSpeed(other.speed().clone());
-        //this.gameFieldChangeListeners = other.gameFieldChangeListeners;
-        //this.collisionHandleEndListeners = other.collisionHandleEndListeners;
         this.setPosition(other.position());
     }
     
+    /**
+     * Клонирование элемента
+     * @return клонированный элемент
+     */
     public abstract FieldElement clone();
     
+    /**
+     * Задать правильную позицию
+     * @param delta приращение
+     */
     public void setRightPosition(int delta) {
         int y = this.position().y, x = this.position().x;
         if (this.position().y < 3) {
