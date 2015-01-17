@@ -178,9 +178,9 @@ public class GameField implements GameFieldChangeListener {
         
         for (int i = 1; i < startingElements.size(); i++) {
             if (i < 3) {
-                startingElements.get(i).setPosition(new Point(startPos - i*10 - width*i, yPos ));
+                startingElements.get(i).setPosition(new Point(startPos - i*20 - width*i, yPos ));
             } else {
-                startingElements.get(i).setPosition(new Point(startPos + (i-2)*10 + width*(i-2), yPos ));
+                startingElements.get(i).setPosition(new Point(startPos + (i-2)*20 + width*(i-2), yPos ));
             }
         }
     }

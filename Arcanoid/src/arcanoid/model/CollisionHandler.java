@@ -14,9 +14,14 @@ import com.golden.gamedev.object.CollisionManager;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.CollisionBounds;
 import com.golden.gamedev.object.collision.CollisionRect;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Обработчик столкновений
@@ -74,8 +79,6 @@ public class CollisionHandler implements SpritesCollidedListener {
     
     private ArrayList<Sprite> getSystem(Map storage) {
         ArrayList<Sprite> result = new ArrayList<>();
-        FieldElement keyElement;
-        Set keySet = storage.keySet();
         // Создание системы связанных соударившихся элементов
         for ( Object keySprite : storage.keySet()) {
             result.add((Sprite)keySprite);
@@ -90,8 +93,47 @@ public class CollisionHandler implements SpritesCollidedListener {
         return result;
     }
     
-    private void handleSystem() {
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaa");
+    private void handleSystem(ArrayList<Sprite> system) {
+        ArrayList<FieldElement> cloneElements = new ArrayList<>();
+        ArrayList<FieldElement> elements = new ArrayList<>();
+        HashMap<FieldElement, ArrayList<FieldElement>> elementsAsOne = new HashMap<>();
+        for (Sprite sprite:system) {
+            FieldElement element = table.getElement(sprite);
+            elements.add(element);
+            cloneElements.add(element.clone());
+        }
+        for (FieldElement element:elements) {
+            ArrayList<FieldElement> elementArray = new ArrayList<>();
+            for (FieldElement other:cloneElements) {
+                if (elements.indexOf(element) != cloneElements.indexOf(other)) {
+                    elementArray.add(other);
+                }
+            }
+            elementsAsOne.put(element, elementArray);
+        }
+        for (Map.Entry<FieldElement, ArrayList<FieldElement>> entrySet : elementsAsOne.entrySet()) {
+            try {
+                FieldElement key = entrySet.getKey();
+                ArrayList<FieldElement> values = entrySet.getValue();
+                Class classElement = values.get(0).getClass();
+                Constructor[] construct =  classElement.getDeclaredConstructors();
+                Object otherElement = construct[0].newInstance();
+                SpeedVector resultSpeed = new SpeedVector();
+                for (FieldElement value: values) {
+                    resultSpeed = resultSpeed.sum(value.speed());
+                }
+                ((FieldElement)otherElement).setSpeed(resultSpeed);
+                key.handleCollision((FieldElement)otherElement);
+            } catch (InstantiationException ex) {
+                Logger.getLogger(CollisionHandler.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IllegalAccessException ex) {
+                Logger.getLogger(CollisionHandler.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IllegalArgumentException ex) {
+                Logger.getLogger(CollisionHandler.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InvocationTargetException ex) {
+                Logger.getLogger(CollisionHandler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
     
     @Override
@@ -125,7 +167,7 @@ public class CollisionHandler implements SpritesCollidedListener {
             // Если есть система
             if (!system.isEmpty()) {
                 // Обработать столкновения внутри системы
-                handleSystem();
+                handleSystem(system);
                 // Удалить спрайты, входящие в систему
                 for ( Object keySprite : passive.keySet()) {
                     if (system.contains((Sprite)keySprite)) {
@@ -138,15 +180,16 @@ public class CollisionHandler implements SpritesCollidedListener {
                 keyElement = table.getElement((Sprite) keySprite);
                 Sprite[] valueSprites = (Sprite[]) passive.get(keySprite);
                 for (Sprite value:valueSprites) {
-                    CollisionRect intersectionRect = CollisionManager.getIntersectionRect(((Sprite)keySprite).getX(), ((Sprite)keySprite).getY(), ((Sprite)keySprite).getWidth(), ((Sprite)keySprite).getHeight(), value.getX(), value.getY(), value.getWidth(), value.getHeight());
-                    FieldElement originObject = table.getElement(value);
-                    FieldElement cloneKeyElement = keyElement.clone();
-                    FieldElement cloneValueElement = originObject.clone();
-
-                    originObject.handleCollision(cloneKeyElement);
-                    keyElement.handleCollision(cloneValueElement);
-                    table.deletePair(cloneKeyElement);
-                    table.deletePair(cloneValueElement);
+                    if (!system.contains(value)) {
+                        CollisionRect intersectionRect = CollisionManager.getIntersectionRect(((Sprite)keySprite).getX(), ((Sprite)keySprite).getY(), ((Sprite)keySprite).getWidth(), ((Sprite)keySprite).getHeight(), value.getX(), value.getY(), value.getWidth(), value.getHeight());
+                        FieldElement originObject = table.getElement(value);
+                        FieldElement cloneKeyElement = keyElement.clone();
+                        FieldElement cloneValueElement = originObject.clone();
+                        originObject.handleCollision(cloneKeyElement);
+                        keyElement.handleCollision(cloneValueElement);
+                        table.deletePair(cloneKeyElement);
+                        table.deletePair(cloneValueElement);
+                    }
                 }
             }
         }
