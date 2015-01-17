@@ -34,6 +34,9 @@ public abstract class ViewFieldElement implements CollisionHandleEndListener {
      */
     public abstract void showCollision() ;
     
+    /**
+     * Показать изображение
+     */
     public Sprite getViewSprite() {
         return view;
     }

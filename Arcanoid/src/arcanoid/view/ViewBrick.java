@@ -32,6 +32,11 @@ public class ViewBrick  extends ViewFieldElement{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Проверяет выполнение условия теста
+     * 
+     * @param e 
+     */
     @Override
     public void checkAssertion(CollisionHandleEndEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

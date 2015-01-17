@@ -15,6 +15,11 @@ import com.golden.gamedev.object.Sprite;
  */
 public class ViewBall extends ViewFieldElement {
 
+    /**
+     * Конструктор
+     * @param view изображение кирпича
+     * @param viewInCollision изображение кирпича при столкновении
+     */
     public ViewBall(Sprite view, Sprite viewInCollision) {
         super(view, viewInCollision);
     }
@@ -29,6 +34,11 @@ public class ViewBall extends ViewFieldElement {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }  
 
+    /**
+     * Проверяет выполнение условия теста
+     * 
+     * @param e 
+     */
     @Override
     public void checkAssertion(CollisionHandleEndEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
