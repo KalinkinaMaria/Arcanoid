@@ -51,8 +51,7 @@ public class Bouncing extends FieldElement{
         // Мячик попадает на поверхность ракетки
         } else if (positionCollision.x > element.position().x &&
                 positionCollision.x < element.position().x + element.size().width()) {
-            double lengthSpeedVector = Math.sqrt(this.speed().x()*this.speed().x() + 
-                    this.speed().y()*this.speed().y());
+            double lengthSpeedVector = this.speed().value();
             double distanceToMiddleRacket = positionCollision.x > positionMiddleRacket.x ?
                     positionCollision.x - positionMiddleRacket.x :
                     positionMiddleRacket.x - positionCollision.x;
