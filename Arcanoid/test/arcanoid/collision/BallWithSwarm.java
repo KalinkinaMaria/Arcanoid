@@ -9,6 +9,7 @@ package arcanoid.collision;
 import arcanoid.events.CollisionHandleEndEvent;
 import arcanoid.events.CollisionHandleEndListener;
 import arcanoid.model.Ball;
+import arcanoid.model.CollisionHandler;
 import arcanoid.model.Swarm;
 import arcanoid.model.SwarmElement;
 import arcanoid.service.Buffer;
@@ -70,11 +71,14 @@ public class BallWithSwarm extends Game implements CollisionHandleEndListener {
         table.addPair(ballElement, ball);
         table.addPair(swarmElementElement, swarm);
         ballElement.addCollisionHandleEndListener(this);
-        ball.setSpeed(0.5, 1);
+        ball.setSpeed(0.5, 0);
         // Добавление в спрайт группу и установка коллизии
         ballGroup.add(ball);
         swarmGroup.add(swarm);
+        CollisionHandler handler = new CollisionHandler(table);
+        handler.addHandleEndListener(this);
         collision = new CollisionObjectWithObject();
+        collision.addSpritesCollidedListener(handler);
         playfield.addCollisionGroup(ballGroup, swarmGroup, collision);
     }
 
@@ -104,5 +108,6 @@ public class BallWithSwarm extends Game implements CollisionHandleEndListener {
     public void checkAssertion(CollisionHandleEndEvent e) {
         assertEquals(e.firstElement.speed(), new SpeedVector());
         assertEquals(e.secondElement.weight(), 2.0);
+        this.stop();
     }
 }

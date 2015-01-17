@@ -70,7 +70,6 @@ public class Arcanoid  extends Game implements AttemptStartedListener {
         
         ambiance.setConnectionWithGhangingGameStateElement(gameModel);
         String fontString = "ABCDEFGHIJKLMNOPQRSTUVXWYZabcdefghijklmnopqrstuvxwyz1234567890aaaaaaaaa?!a.:- ";
-        int a = fontString.length();
         font = fontManager.getFont(getImages("img/font.png", 26, 3), fontString);
     }
 

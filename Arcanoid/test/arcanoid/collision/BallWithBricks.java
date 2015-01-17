@@ -10,6 +10,7 @@ import arcanoid.GameField;
 import arcanoid.events.CollisionHandleEndEvent;
 import arcanoid.events.CollisionHandleEndListener;
 import arcanoid.model.Ball;
+import arcanoid.model.CollisionHandler;
 import arcanoid.model.DestroyableBrick;
 import arcanoid.service.Buffer;
 import arcanoid.service.SpeedVector;
@@ -103,7 +104,10 @@ public class BallWithBricks extends Game implements CollisionHandleEndListener {
         if (thirdPoint != null) {
             brickGroup.add(brick2);
         }
+        CollisionHandler handler = new CollisionHandler(table);
+        handler.addHandleEndListener(this);
         collision = new CollisionObjectWithObject();
+        collision.addSpritesCollidedListener(handler);
         playfield.addCollisionGroup(ballGroup, brickGroup, collision);
         cloneBall = ballElement.clone();
         cloneBrick1 = brickElement1.clone();
@@ -142,6 +146,7 @@ public class BallWithBricks extends Game implements CollisionHandleEndListener {
         if (thirdPoint != null) {
             assertFalse(field.containsElement(e.thirdElement));
         }
+        this.stop();
     }
     
     public void setSpeed(SpeedVector speed) {
