@@ -13,10 +13,17 @@ import java.util.EventObject;
  *
  * @author Елена
  */
-public class AttemptStartedEvent extends EventObject {
-
+public class AttemptEvent extends EventObject {
+    /** Запускаемые объекты */
     public final ArrayList<FieldElement> pushingObjects;
-    public AttemptStartedEvent(Object source, ArrayList<FieldElement> pushing) {
+    
+    /**
+     * Конструктор
+     * 
+     * @param source источник
+     * @param pushing запускаемые объекты
+     */
+    public AttemptEvent(Object source, ArrayList<FieldElement> pushing) {
         super(source);
         pushingObjects = pushing;
     }

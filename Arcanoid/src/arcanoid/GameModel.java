@@ -5,8 +5,8 @@
  */
 package arcanoid;
 
-import arcanoid.events.AttemptStartedEvent;
-import arcanoid.events.AttemptStartedListener;
+import arcanoid.events.AttemptEvent;
+import arcanoid.events.AttemptListener;
 import arcanoid.events.GameFieldChangeListener;
 import arcanoid.events.GameStateChangeEvent;
 import arcanoid.events.GameStateChangeListener;
@@ -30,7 +30,7 @@ public class GameModel implements GameStateChangeListener {
     /** Флаг, о том, что попытка началась, т.е. игрок запустил шарик*/
     private boolean attemptWasStarted;
     /** Слушатели начала/конца попытки. Элементы, которые запускаются при начале попытки*/
-    private ArrayList<AttemptStartedListener> movingElements;
+    private ArrayList<AttemptListener> movingElements;
     
     /**
      * Начать игру
@@ -65,7 +65,7 @@ public class GameModel implements GameStateChangeListener {
      * 
      * @param listener слушатель
      */
-    public void addAttemptStartedListener (AttemptStartedListener listener) {
+    public void addAttemptStartedListener (AttemptListener listener) {
         movingElements.add(listener);
     }
     
@@ -73,9 +73,9 @@ public class GameModel implements GameStateChangeListener {
      * Испустить сигнал, что попытка начата
      */
     private void fireAttemptStarted() {
-        AttemptStartedEvent event;
-        event = new AttemptStartedEvent(this, field.getElements("arcanoid.model.Ball"));
-        for (AttemptStartedListener listener: movingElements) {
+        AttemptEvent event;
+        event = new AttemptEvent(this, field.getElements("arcanoid.model.Ball"));
+        for (AttemptListener listener: movingElements) {
             listener.startMoving(event);
         }
     }
@@ -86,12 +86,12 @@ public class GameModel implements GameStateChangeListener {
      * @param element элемент, из-за которого попытка была завершена
      */
     private void fireAttemptEnded(FieldElement element) {
-        AttemptStartedEvent event;
+        AttemptEvent event;
         ArrayList<FieldElement> list = new ArrayList<>();
         element.setSpeed(new SpeedVector());
         list.add(element);
-        event = new AttemptStartedEvent(this, list);
-        for (AttemptStartedListener listener: movingElements) {
+        event = new AttemptEvent(this, list);
+        for (AttemptListener listener: movingElements) {
             listener.returnToStartPosition(event);
         }
     }
@@ -102,7 +102,7 @@ public class GameModel implements GameStateChangeListener {
      * @param success успех попытки
      */
     private void fireAttemptEnded(boolean success) {
-        for (AttemptStartedListener listener: movingElements) {
+        for (AttemptListener listener: movingElements) {
             listener.endGame(success);
         }
     }

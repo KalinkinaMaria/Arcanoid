@@ -11,8 +11,8 @@ import java.util.EventListener;
  *
  * @author Елена
  */
-public interface AttemptStartedListener extends EventListener {
-    public void startMoving(AttemptStartedEvent e);
-    public void returnToStartPosition(AttemptStartedEvent e);
+public interface AttemptListener extends EventListener {
+    public void startMoving(AttemptEvent e);
+    public void returnToStartPosition(AttemptEvent e);
     public void endGame(boolean success);
 }
