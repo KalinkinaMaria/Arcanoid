@@ -148,6 +148,9 @@ public abstract class FieldElement {
         return weight;
     }
     
+    public void handleManagableCollision(FieldElement element) {
+        
+    }
     /**
      * Обработать столкновение
      * 
@@ -156,10 +159,14 @@ public abstract class FieldElement {
     public void handleCollision(FieldElement element) {
         // Вызывает в зависимости от типа 1 из 3 методов
         // Сюда передается копия элмента до столкновения
-        if (element instanceof Bounced) {
+        if (element instanceof Managable) {
+            this.handleManagableCollision(element);
+        } else if (element instanceof Bounced) {
             //кирпич, мяч, ракетка
             if (this instanceof Bouncing) {
                 ((Bouncing)this).handleCollision(this.position(), element);
+            } else {
+                this.handelCollision(ImpulseOfStrikeForce.count(element));
             }
         } else {
             this.handelCollision(ImpulseOfStrikeForce.count(element));

@@ -19,7 +19,7 @@ import java.util.ArrayList;
  * 
  * @author Елена
  */
-public class Racket extends FieldElement implements Bounced, AttemptStartedListener {
+public class Racket extends Managable implements Bounced, AttemptStartedListener {
 
     public final SpeedVector initialSpeed = new SpeedVector(0,-0.3);
     public Racket(Buffer table) {

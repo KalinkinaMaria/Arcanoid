@@ -22,13 +22,7 @@ public class Bouncing extends FieldElement{
         super(table);
     }
     
-    /**
-     * Обработать столкновение
-     * 
-     * @param element элемент
-     */
-    public void handleCollision (Point position, FieldElement element) {
-        
+    public void handleManagableCollision(FieldElement element) {
         //с ракеткой
         Point position1 = new Point(this.position().x + (int)this.size().width()/2, element.position().y);
         Point pointMiddleRacket = new Point((element.position().x+(int)element.size().width()/2), element.position().y);
@@ -52,6 +46,16 @@ public class Bouncing extends FieldElement{
             this.setSpeed(new SpeedVector(x/(2*(element.size().width()-this.size().height())), 
                     -y/(2*(element.size().width()-this.size().height()))));
         }
+    }
+    
+    /**
+     * Обработать столкновение
+     * 
+     * @param element элемент
+     */
+    public void handleCollision (Point position, FieldElement element) {
+        
+        
     }
     
     /**

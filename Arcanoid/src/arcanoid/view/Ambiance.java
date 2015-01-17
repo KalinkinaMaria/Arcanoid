@@ -15,6 +15,7 @@ import arcanoid.model.Bouncing;
 import arcanoid.model.ChangingGameState;
 import arcanoid.model.CollisionHandler;
 import arcanoid.model.FieldElement;
+import arcanoid.model.Managable;
 import arcanoid.service.Buffer;
 import com.golden.gamedev.Game;
 import com.golden.gamedev.object.Background;
@@ -79,6 +80,8 @@ public class Ambiance implements GameFieldChangeListener {
                 group = new SpriteGroup(name);
                 group.add(sprite);
                 bouncing.add(group);
+            } else if (e.element instanceof Managable) {
+                manageBounced.add(sprite);
             } else if (e.element instanceof Bounced) {
                 bounced.add(sprite);
             }
@@ -141,6 +144,9 @@ public class Ambiance implements GameFieldChangeListener {
         bounderCollision = new CollisionObjectWithBoundary(0, 0, 808, 640);
         bounderCollision.addSpritesCollidedListener(handler);
         playField.addCollisionGroup(bounced, null, bounderCollision);
+        bounderCollision = new CollisionObjectWithBoundary(0, 0, 808, 640);
+        bounderCollision.addSpritesCollidedListener(handler);
+        playField.addCollisionGroup(manageBounced, null, bounderCollision);
         for (SpriteGroup group : bouncing) {
             CollisionObjectWithBoundary collisionBouncing = new CollisionObjectWithBoundary(78, 0, 628, 640);
             bouncingCollisions.add(collisionBouncing);
@@ -153,7 +159,7 @@ public class Ambiance implements GameFieldChangeListener {
         for (Map.Entry<String, String> entrySet : collidedGroups.entrySet()) {
             String key = entrySet.getKey();
             String value = entrySet.getValue();
-            if (bounced.getSprites().length != 0) {
+            if (bounced.getSprites().length != 0 && table.getElement(bounced.getSprites()[0])!=null) {
                 if (key.compareTo(getClassName(table.getElement(bounced.getSprites()[0]))) == 0) {
                     if (manageBounced.getSprites().length != 0 && table.getElement(manageBounced.getSprites()[0])!=null) {
                         if (getClassName(table.getElement(manageBounced.getSprites()[0])).compareTo(value) == 0) {
@@ -173,14 +179,41 @@ public class Ambiance implements GameFieldChangeListener {
                     }
                 }
             }
+            if (manageBounced.getSprites().length != 0) {
+                if (key.compareTo(getClassName(table.getElement(manageBounced.getSprites()[0]))) == 0) {
+                    if (bounced.getSprites().length != 0 && table.getElement(bounced.getSprites()[0])!=null) {
+                        if (getClassName(table.getElement(bounced.getSprites()[0])).compareTo(value) == 0) {
+                            objectsCollision = new CollisionObjectWithObject();
+                            objectsCollision.addSpritesCollidedListener(handler);
+                            playField.addCollisionGroup(bounced, manageBounced, objectsCollision);
+                        }
+                    }
+                    for (SpriteGroup bounce:bouncing) {
+                        if (bounce.getSprites().length != 0) {
+                            if (getClassName(table.getElement(bounce.getSprites()[0])).compareTo(value) == 0) {
+                                objectsCollision = new CollisionObjectWithObject();
+                                objectsCollision.addSpritesCollidedListener(handler);
+                                playField.addCollisionGroup(manageBounced, bounce, objectsCollision);
+                            }
+                        }
+                    }
+                }
+            }
             for (SpriteGroup bounce:bouncing) {
                 if (bounce.getSprites().length != 0) {
                     if (getClassName(table.getElement(bounce.getSprites()[0])).compareTo(key) == 0) {
-                        if (bounced.getSprites().length != 0) {
+                        if (bounced.getSprites().length != 0 && table.getElement(bounced.getSprites()[0])!=null) {
                             if (getClassName(table.getElement(bounced.getSprites()[0])).compareTo(value) == 0) {
                                 objectsCollision = new CollisionObjectWithObject();
                                 objectsCollision.addSpritesCollidedListener(handler);
                                 playField.addCollisionGroup(bounced, bounce, objectsCollision);
+                            }
+                        }
+                        if (manageBounced.getSprites().length != 0 && table.getElement(manageBounced.getSprites()[0])!=null) {
+                            if (getClassName(table.getElement(manageBounced.getSprites()[0])).compareTo(value) == 0) {
+                                objectsCollision = new CollisionObjectWithObject();
+                                objectsCollision.addSpritesCollidedListener(handler);
+                                playField.addCollisionGroup(manageBounced, bounce, objectsCollision);
                             }
                         }
                         for (SpriteGroup bounce1:bouncing) {
