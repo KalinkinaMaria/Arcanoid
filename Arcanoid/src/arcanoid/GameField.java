@@ -145,7 +145,7 @@ public class GameField implements GameFieldChangeListener {
             Racket racket = new Racket(table);
             model.addAttemptStartedListener(racket);
             addElement(racket, new Point(310, 575));
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < 2; i++) {
                 Ball ball = new Ball(table);
                 ball.setWeight(1);
                 addElement(ball, new Point(388, 550));

@@ -49,7 +49,7 @@ public class CollisionObjectWithObject extends AdvanceCollisionGroup {
      */
     @Override
     public void collided(Sprite sprite, Sprite sprite1) {        
-        System.out.println("lllll");
+        //System.out.println("lllll");
         Map map = getStorage();
         fireSpritesCollided(getSourceSprite(), map);
     }

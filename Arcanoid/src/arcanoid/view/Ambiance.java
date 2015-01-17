@@ -19,6 +19,7 @@ import arcanoid.model.Managable;
 import arcanoid.service.Buffer;
 import com.golden.gamedev.Game;
 import com.golden.gamedev.object.Background;
+import com.golden.gamedev.object.CollisionManager;
 import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
@@ -199,6 +200,26 @@ public class Ambiance implements GameFieldChangeListener {
                     }
                 }
             }
+            
+        }
+        
+    }
+    
+    public void setAttemptCollisionBounds(PlayField playField, CollisionHandler handler) {
+        for (CollisionObjectWithBoundary collision: bouncingCollisions) {
+            playField.removeCollisionGroup(collision);
+        }
+        
+        for (SpriteGroup group : bouncing) {
+            CollisionObjectWithBoundary collisionBouncing = new CollisionObjectWithBoundary(0, 0, 808, 600);
+            bouncingCollisions.add(collisionBouncing);
+            collisionBouncing.addSpritesCollidedListener(handler);
+            playField.addCollisionGroup(group, null, collisionBouncing);
+        }
+        
+        for (Map.Entry<String, String> entrySet : collidedGroups.entrySet()) {
+            String key = entrySet.getKey();
+            String value = entrySet.getValue();
             for (SpriteGroup bounce:bouncing) {
                 if (bounce.getSprites().length != 0 && table.getElement(bounce.getSprites()[0]) != null) {
                     if (getClassName(table.getElement(bounce.getSprites()[0])).compareTo(key) == 0 ) {
@@ -218,7 +239,7 @@ public class Ambiance implements GameFieldChangeListener {
                         }
                         for (SpriteGroup bounce1:bouncing) {
                             if (bounce1.getSprites().length != 0 && table.getElement(bounce1.getSprites()[0]) != null) {
-                                if (getClassName(table.getElement(bounce1.getSprites()[0])).compareTo(value) == 0 && bounce != bounce1) {
+                                if (getClassName(table.getElement(bounce1.getSprites()[0])).compareTo(value) == 0 && bouncing.indexOf(bounce) < bouncing.indexOf(bounce1)) {
                                     objectsCollision = new CollisionObjectWithObject();
                                     objectsCollision.addSpritesCollidedListener(handler);
                                     playField.addCollisionGroup(bounce1, bounce, objectsCollision);
@@ -229,19 +250,7 @@ public class Ambiance implements GameFieldChangeListener {
                 }
             }
         }
-    }
-    
-    public void setAttemptCollisionBounds(PlayField playField, CollisionHandler handler) {
-        for (CollisionObjectWithBoundary collision: bouncingCollisions) {
-            playField.removeCollisionGroup(collision);
-        }
-        
-        for (SpriteGroup group : bouncing) {
-            CollisionObjectWithBoundary collisionBouncing = new CollisionObjectWithBoundary(0, 0, 808, 600);
-            bouncingCollisions.add(collisionBouncing);
-            collisionBouncing.addSpritesCollidedListener(handler);
-            playField.addCollisionGroup(group, null, collisionBouncing);
-        }
+        CollisionManager[] collisionGroups = playField.getCollisionGroups();
     }
     
     public void addCollidedGroupPair(String first, String second) {
