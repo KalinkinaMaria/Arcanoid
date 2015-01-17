@@ -5,8 +5,8 @@
  */
 package arcanoid;
 
-import arcanoid.events.AttemptStartedEvent;
-import arcanoid.events.AttemptStartedListener;
+import arcanoid.events.AttemptEvent;
+import arcanoid.events.AttemptListener;
 import arcanoid.service.Buffer;
 import arcanoid.service.SpeedVector;
 import arcanoid.view.Ambiance;
@@ -27,7 +27,7 @@ import java.util.Map;
  * 
  * @author Мария
  */
-public class Arcanoid  extends Game implements AttemptStartedListener {
+public class Arcanoid  extends Game implements AttemptListener {
     /** Игровое поле GTGE*/
     private PlayField playfield;
     /** Фон*/
@@ -159,7 +159,7 @@ public class Arcanoid  extends Game implements AttemptStartedListener {
     }
 
     @Override
-    public void startMoving(AttemptStartedEvent e) {
+    public void startMoving(AttemptEvent e) {
         
     }
 
@@ -169,7 +169,7 @@ public class Arcanoid  extends Game implements AttemptStartedListener {
      * @param e событие окончания попытки
      */
     @Override
-    public void returnToStartPosition(AttemptStartedEvent e) {
+    public void returnToStartPosition(AttemptEvent e) {
         CollisionManager[] collisionGroups = playfield.getCollisionGroups();
         // Удалить старые коллизионные группы
         for (CollisionManager manager: collisionGroups) {

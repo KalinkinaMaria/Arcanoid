@@ -6,8 +6,8 @@
 
 package arcanoid.model;
 
-import arcanoid.events.AttemptStartedEvent;
-import arcanoid.events.AttemptStartedListener;
+import arcanoid.events.AttemptEvent;
+import arcanoid.events.AttemptListener;
 import arcanoid.service.Buffer;
 import arcanoid.service.SpeedVector;
 import com.golden.gamedev.object.Sprite;
@@ -19,7 +19,7 @@ import java.util.ArrayList;
  * 
  * @author Елена
  */
-public class Racket extends Managable implements Bounced, AttemptStartedListener {
+public class Racket extends Managable implements Bounced, AttemptListener {
     private double speedVectorLength = 0.3;
     public ArrayList<SpeedVector> initialSpeed;
     public Racket(Buffer table) {
@@ -46,7 +46,7 @@ public class Racket extends Managable implements Bounced, AttemptStartedListener
     }
 
     @Override
-    public void startMoving(AttemptStartedEvent e) {
+    public void startMoving(AttemptEvent e) {
         int count = e.pushingObjects.size();
         if (count != 1) {
         double angleStep = 160/(count-1);
@@ -64,7 +64,7 @@ public class Racket extends Managable implements Bounced, AttemptStartedListener
     }
 
     @Override
-    public void returnToStartPosition(AttemptStartedEvent e) {
+    public void returnToStartPosition(AttemptEvent e) {
         FieldElement element = e.pushingObjects.get(0);
         element.setPosition(new Point((int)(this.position().x + this.size().width()/2 - element.size().width()/2), (int)(this.position().y - element.size().height())));
     }

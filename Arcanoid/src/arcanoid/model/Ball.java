@@ -6,8 +6,8 @@
 
 package arcanoid.model;
 
-import arcanoid.events.AttemptStartedEvent;
-import arcanoid.events.AttemptStartedListener;
+import arcanoid.events.AttemptEvent;
+import arcanoid.events.AttemptListener;
 import arcanoid.events.GameStateChangeEvent;
 import arcanoid.events.GameStateChangeListener;
 import arcanoid.service.Buffer;
