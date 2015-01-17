@@ -39,6 +39,10 @@ public class DestroyableBrick extends Brick implements Bounced {
         return strength;
     }
     
+    /**
+     * Клонировать
+     * @return клон кирпича
+     */
     public DestroyableBrick clone() {
         DestroyableBrick brick = new DestroyableBrick(this.table);
         Sprite sprite = new Sprite();
