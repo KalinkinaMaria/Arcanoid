@@ -12,7 +12,7 @@ import java.util.HashMap;
 
 /**
  * Буфер
- * 
+ * Хранит соответствие элемента и спрайта
  * @author Мария
  */
 public class Buffer {
@@ -34,7 +34,7 @@ public class Buffer {
     public FieldElement getElement(Sprite sprite) {
         Collection<FieldElement> keys;
         Sprite currentSprite;
-        
+        // Поиск соответствующего спрайту элемента
         keys = table.keySet();
         for (FieldElement key : keys) {
             currentSprite = table.get(key);
