@@ -6,6 +6,10 @@
 
 package arcanoid.model;
 
+import arcanoid.events.CollisionHandleEndEvent;
+import arcanoid.events.CollisionHandleEndListener;
+import arcanoid.events.GameStateChangeEvent;
+import arcanoid.events.GameStateChangeListener;
 import arcanoid.events.SpritesCollidedEvent;
 import arcanoid.events.SpritesCollidedListener;
 import arcanoid.service.Buffer;
@@ -32,10 +36,24 @@ public class CollisionHandler implements SpritesCollidedListener {
     /** Таблица соответствий элемента поля со спрайтом */
     private Buffer table;
     private boolean block = false;
+    private ArrayList<CollisionHandleEndListener> listeners;
     public CollisionHandler (Buffer table) {
         this.table = table;
+        listeners = new ArrayList<>();
     }
     
+    public void addHandleEndListener(CollisionHandleEndListener listener) {
+        listeners.add(listener);
+    }
+    
+    /**
+     * Испустить событие о том, что мяч упал за нижнюю грпницу
+     */
+    private void fireHandleEnd(FieldElement first, FieldElement second, FieldElement third) {
+        for (CollisionHandleEndListener listener: listeners) {
+            listener.checkAssertion(new CollisionHandleEndEvent(this,first,second, third));
+        }
+    }
     /**
      * Определить тип столкновения
      * 
@@ -99,8 +117,10 @@ public class CollisionHandler implements SpritesCollidedListener {
         HashMap<FieldElement, ArrayList<FieldElement>> elementsAsOne = new HashMap<>();
         for (Sprite sprite:system) {
             FieldElement element = table.getElement(sprite);
-            elements.add(element);
-            cloneElements.add(element.clone());
+            if (element instanceof Bouncing) {
+                elements.add(element);
+                cloneElements.add(element.clone());
+            }
         }
         for (FieldElement element:elements) {
             ArrayList<FieldElement> elementArray = new ArrayList<>();
@@ -201,6 +221,7 @@ public class CollisionHandler implements SpritesCollidedListener {
                         if (!block) {
                         originObject.handleCollision(cloneKeyElement);
                         keyElement.handleCollision(cloneValueElement);
+                            fireHandleEnd(keyElement, originObject, null);
                         }
                         if (intersectionRect.width > width/3 && intersectionRect.height > height/3) {
                             block = true;

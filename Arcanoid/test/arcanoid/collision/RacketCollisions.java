@@ -63,8 +63,7 @@ public class RacketCollisions extends Game implements CollisionHandleEndListener
         ballGroup = new SpriteGroup("Balls");
         racketGroup = new SpriteGroup("Rackets");
         
-        playfield.addGroup(ballGroup);
-        playfield.addGroup(racketGroup);
+        
         // Создание спрайтов
         BufferedImage ballImage = getImage("img/ball.png");
         BufferedImage racketImage = getImage("img/r.png");
@@ -76,11 +75,14 @@ public class RacketCollisions extends Game implements CollisionHandleEndListener
         table.addPair(ballElement, ball);
         table.addPair(racketElement, racket);
         ballElement.addCollisionHandleEndListener(this);
-        ball.setSpeed(firstVector.x(), secondVector.y());
+        ballElement.setSpeed(firstVector);
         // Добавление в спрайт группу и установка коллизии
         ballGroup.add(ball);
         racketGroup.add(racket);
+        playfield.addGroup(ballGroup);
+        playfield.addGroup(racketGroup);
         CollisionHandler handler = new CollisionHandler(table);
+        handler.addHandleEndListener(this);
         collision = new CollisionObjectWithObject();
         collision.addSpritesCollidedListener(handler);
         playfield.addCollisionGroup(ballGroup, racketGroup, collision);
@@ -118,6 +120,7 @@ public class RacketCollisions extends Game implements CollisionHandleEndListener
         cloneRacket.handleCollision(cloneBall1);
         assertEquals(e.firstElement.speed(), cloneBall.speed());
         assertEquals(e.secondElement.speed(), cloneRacket.speed());
+        this.stop();
     }
     
     public void setFirstSpeed(SpeedVector speed) {

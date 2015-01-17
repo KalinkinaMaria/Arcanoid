@@ -53,7 +53,7 @@ public class CollisionObjectWithObjectTest {
         System.out.println("Тест на столкновение мяча и ракетки");
         GameLoader game = new GameLoader();
         RacketCollisions test = new RacketCollisions(table);
-        test.setFirstSpeed(new SpeedVector(1, -1));
+        test.setFirstSpeed(new SpeedVector(0, 0.3));
         test.setSecondSpeed(new SpeedVector());
         test.setFirstPoint(new Point(280, 480));
         test.setSecondPoint(new Point(220, 525));
@@ -69,7 +69,7 @@ public class CollisionObjectWithObjectTest {
         System.out.println(" Тест на столкновение мяча и угла ракетки");
         GameLoader game = new GameLoader();
         RacketCollisions test = new RacketCollisions(table);
-        test.setFirstSpeed(new SpeedVector(-0.5, -1));
+        test.setFirstSpeed(new SpeedVector(-0.5, 1));
         test.setSecondSpeed(new SpeedVector());
         test.setFirstPoint(new Point(400, 500));
         test.setSecondPoint(new Point(220, 525));
@@ -85,7 +85,7 @@ public class CollisionObjectWithObjectTest {
         System.out.println("Тест на столкновение мяча и кирпича");
         GameLoader game = new GameLoader();
         BallWithBricks test = new BallWithBricks(table);
-        test.setSpeed(new SpeedVector(0.5, 1));
+        test.setSpeed(new SpeedVector(0.5, -1));
         test.setFirstPoint(new Point(400, 500));
         test.setSecondPoint(new Point(360, 470));
         test.setThirdPoint(null);
@@ -101,7 +101,7 @@ public class CollisionObjectWithObjectTest {
         System.out.println("Тест на столкновение мяча и двух кирпичей на одной линии");
         GameLoader game = new GameLoader();
         BallWithBricks test = new BallWithBricks(table);
-        test.setSpeed(new SpeedVector(0.5, 1));
+        test.setSpeed(new SpeedVector(0.5, -1));
         test.setFirstPoint(new Point(400, 500));
         test.setSecondPoint(new Point(333, 470));
         test.setThirdPoint(new Point(413, 470));
@@ -134,7 +134,7 @@ public class CollisionObjectWithObjectTest {
         System.out.println("Тест мяч пролетает между кирпичами");
         GameLoader game = new GameLoader();
         BallWithBricks test = new BallWithBricks(table);
-        test.setSpeed(new SpeedVector(0, 0.5));
+        test.setSpeed(new SpeedVector(-0.5, 0));
         test.setFirstPoint(new Point(400, 531));
         test.setSecondPoint(new Point(320, 500));
         test.setThirdPoint(new Point(320, 556));
@@ -150,7 +150,7 @@ public class CollisionObjectWithObjectTest {
         System.out.println("Тест на столкновение мяча и двух кирпичей c расстоянием");
         GameLoader game = new GameLoader();
         BallWithBricks test = new BallWithBricks(table);
-        test.setSpeed(new SpeedVector(0, 0.5));
+        test.setSpeed(new SpeedVector(-0.5, 0));
         test.setFirstPoint(new Point(400, 520));
         test.setSecondPoint(new Point(320, 500));
         test.setThirdPoint(new Point(320, 540));
@@ -166,7 +166,7 @@ public class CollisionObjectWithObjectTest {
         System.out.println("Тест на столкновение мяча и угла кирпича");
         GameLoader game = new GameLoader();
         BallWithBricks test = new BallWithBricks(table);
-        test.setSpeed(new SpeedVector(0.5, 1));
+        test.setSpeed(new SpeedVector(0.5, -1));
         test.setFirstPoint(new Point(400, 500));
         test.setSecondPoint(new Point(425, 470));
         test.setThirdPoint(null);
