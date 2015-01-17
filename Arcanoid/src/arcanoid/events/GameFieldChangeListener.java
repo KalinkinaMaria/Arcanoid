@@ -6,7 +6,7 @@
 package arcanoid.events;
 
 /**
- * Слуштель события создания элемента
+ * Слуштель события создания/удаления элемента
  * 
  * @author Мария
  */
@@ -22,7 +22,7 @@ public interface GameFieldChangeListener {
      */
     public void addElement(GameFieldChangeEvent e);
     /**
-     * Удалить элемент при его создании
+     * Удалить элемент при его удалении
      * @param e событие
      */
     public void removeElement(GameFieldChangeEvent e);

@@ -22,13 +22,15 @@ public class GameFieldChangeEvent extends EventObject {
     
     /** Созданный элемент*/
     public FieldElement element;
+    /** Позиция элемента, изменившего поле */
     public Point position;
     /** Тип события*/
     public ChangingType type;
     /**
      * Конструктор
      * @param source родительский объект
-     * @param element созданный элемент
+     * @param type тип события
+     * @param position позиция элемента, изменившего поле
      */
     public GameFieldChangeEvent(Object source, ChangingType type, Point position) {
         super(source);
