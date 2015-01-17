@@ -49,7 +49,8 @@ public class Ball extends Bouncing implements Bounced, ChangingGameState {
     
     public Ball clone() {
         Ball ball = new Ball(this.table);
-        Sprite sprite = new Sprite();
+        Sprite sprite = table.getSprite(this);
+        sprite = new Sprite(sprite.getImage(), sprite.getX(), sprite.getY());
         table.addPair(ball, sprite);
         ball.copy(this);
         return ball;
