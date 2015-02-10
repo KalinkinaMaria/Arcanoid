@@ -5,7 +5,7 @@
  */
 
 package arcanoid.model;
-import arcanoid.events.GameStateChangeListener;
+import arcanoid.events.BallFallenListener;
 import arcanoid.service.Buffer;
 import java.util.ArrayList;
 
@@ -22,7 +22,7 @@ public class Swarm extends FieldElement {
     /** Элементы роя*/
     private ArrayList<SwarmElement> elements;
     /** Слушатели события конца игры*/
-    private ArrayList<GameStateChangeListener> gameStateChangeListeners = new ArrayList<>();
+    private ArrayList<BallFallenListener> gameStateChangeListeners = new ArrayList<>();
 
     /**
      * Конструктор
@@ -48,7 +48,7 @@ public class Swarm extends FieldElement {
      * 
      * @param listener слушатель
      */
-    public void addGameStateChangeListener(GameStateChangeListener listener) {
+    public void addGameStateChangeListener(BallFallenListener listener) {
         
     }
     

@@ -67,6 +67,7 @@ public class CollisionHandler implements SpritesCollidedListener {
             listener.checkAssertion(new CollisionHandleEndEvent(this,first,second, third));
         }
     }
+    
     /**
      * Определить тип столкновения
      * 
@@ -261,7 +262,7 @@ public class CollisionHandler implements SpritesCollidedListener {
                         if (height > keyElement.size().height()) {
                             height = keyElement.size().height();
                         }
-                        if (block && intersectionRect.width < width/2 && intersectionRect.height < height/2) {
+                        if (block && intersectionRect.width < width/1.5 && intersectionRect.height < height/1.5) {
                             block = false;
                         }
                         if (!block) {

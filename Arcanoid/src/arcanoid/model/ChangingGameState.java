@@ -5,7 +5,7 @@
  */
 package arcanoid.model;
 
-import arcanoid.events.GameStateChangeListener;
+import arcanoid.events.BallFallenListener;
 
 /**
  * Элемент, который может изменить состояние игры (проигрыш, например, зависит от него)
@@ -21,6 +21,6 @@ public interface ChangingGameState {
      * Добавить слушателя события
      * @param listener слкшатель события
      */
-    public void addGameStateChangeListener(GameStateChangeListener listener);
+    public void addGameStateChangeListener(BallFallenListener listener);
     
 }

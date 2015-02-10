@@ -5,8 +5,8 @@
  */
 package arcanoid;
 
-import arcanoid.events.GameFieldChangeEvent;
-import arcanoid.events.GameFieldChangeListener;
+import arcanoid.events.GameFieldElementEvent;
+import arcanoid.events.GameFieldElementListener;
 import arcanoid.model.Ball;
 import arcanoid.model.FieldElement;
 import arcanoid.model.Racket;
@@ -21,20 +21,20 @@ import java.util.logging.Logger;
  * 
  * @author Мария
  */
-public class GameField implements GameFieldChangeListener {
+public class GameField implements GameFieldElementListener {
     /** Таблица соответствий элемента поля со спрайтом */
     private Buffer table;
     /** Элементы поля */
     private ArrayList<FieldElement> elements;
     /** Слушатели изменения игрового поля*/
-    private ArrayList<GameFieldChangeListener> gameFieldChangeListeners = new ArrayList<>();
+    private ArrayList<GameFieldElementListener> gameFieldChangeListeners = new ArrayList<>();
     
      /** 
      * Добавить слушателя изменения поля
      * 
      * @param listener слушатель
      */
-    public void addGameFieldChangeListener (GameFieldChangeListener listener) {
+    public void addGameFieldChangeListener (GameFieldElementListener listener) {
         gameFieldChangeListeners.add(listener);
     }
     
@@ -42,13 +42,13 @@ public class GameField implements GameFieldChangeListener {
      * Испустить сигнал, что элемент поля создан/удален
      */
     private void fireGameFieldChange(boolean creation, FieldElement element, Point position) {
-        GameFieldChangeEvent event;
+        GameFieldElementEvent event;
         if (creation) {
-            event = new GameFieldChangeEvent(element, GameFieldChangeEvent.ChangingType.creation, position);
+            event = new GameFieldElementEvent(element, GameFieldElementEvent.ChangingType.creation, position);
         } else {
-            event = new GameFieldChangeEvent(element, GameFieldChangeEvent.ChangingType.removing, position);
+            event = new GameFieldElementEvent(element, GameFieldElementEvent.ChangingType.removing, position);
         }
-        for (GameFieldChangeListener gameListener: gameFieldChangeListeners) {
+        for (GameFieldElementListener gameListener: gameFieldChangeListeners) {
             gameListener.changeElement(event);
         }
     }
@@ -151,7 +151,7 @@ public class GameField implements GameFieldChangeListener {
     public void createInitialAmbiance(GameModel model) {
         // Создать ракетку.
         Racket racket = new Racket(table);
-        model.addAttemptStartedListener(racket);
+        model.addAttemptListener(racket);
         addElement(racket, new Point(310, 575));
         // Создать шарики
         for (int i = 0; i < 5; i++) {
@@ -163,24 +163,24 @@ public class GameField implements GameFieldChangeListener {
     
 
     @Override
-    public void changeElement(GameFieldChangeEvent e) {
+    public void changeElement(GameFieldElementEvent e) {
         // Т.к. нет пока роя, не поддерживается
     }
 
     @Override
-    public void addElement(GameFieldChangeEvent e) {
+    public void addElement(GameFieldElementEvent e) {
         // Т.к. нет пока роя, не поддерживается
     }
 
     @Override
-    public void removeElement(GameFieldChangeEvent e) {
+    public void removeElement(GameFieldElementEvent e) {
         // Т.к. нет пока роя, не поддерживается
     }
     
     /**
      * Изменить позиции запускаемых элементов для начала попытки
      */
-    public void changePositionForAttempt() {
+    public void prepareForStartingAttempt() {
         // Получить стартующие элементы
         ArrayList<FieldElement> startingElements = getElements("arcanoid.model.Ball");
         // Получить позиции и высоту

@@ -35,30 +35,30 @@ public class Bouncing extends FieldElement{
      */
     @Override
     public void handleManagableCollision(FieldElement element) {
-        //с ракеткой
+        //с управляемым элементом
         Point positionCollision = new Point(this.position().x + (int)this.size().width()/2, this.position().y + (int)this.size().height());
         Point positionMiddleRacket = new Point((element.position().x+(int)element.size().width()/2), element.position().y);
         double lengthHalfRacket = element.size().width()/2.0;
 
-        //Проверка на столкновение с углом ракетки        
+        //Проверка на столкновение с углом элемента        
         boolean collisionRightConer = positionCollision.x > positionMiddleRacket.x + lengthHalfRacket &&
                 positionMiddleRacket.y < element.position().y + this.size().height()/2;
         boolean collisionLeftConer = positionCollision.x < positionMiddleRacket.x - lengthHalfRacket &&
                 positionMiddleRacket.y < element.position().y + this.size().height()/2;
-        // Мячик летит к ракетке к углу ракетки
+        // Мячик летит к ракетке к углу элемента
         if (collisionRightConer && this.speed().x() < 0 || 
                 collisionLeftConer && this.speed().x() > 0) {
             this.handleCollision (Axis.Z, null);
-        // Мячик летит вдоль ракетки к углу какетки
+        // Мячик летит вдоль ракетки к углу элемента
         } else if (collisionRightConer && this.speed().x() > 0 || 
                 collisionLeftConer && this.speed().x() < 0) { 
             this.handleCollision (Axis.Y, null);
-        // Мячик летит на угол ракетки под прямым углом
+        // Мячик летит на угол элемента под прямым углом
         } else if (collisionRightConer && this.speed().x() == 0) {
             this.setSpeed(new SpeedVector(0.3, -0.3));
         } else if (collisionLeftConer && this.speed().x() == 0) {
             this.setSpeed(new SpeedVector(-0.3, -0.3));
-        // Мячик попадает на поверхность ракетки
+        // Мячик попадает на поверхность элемента
         } else if (positionCollision.x > element.position().x &&
                 positionCollision.x < element.position().x + element.size().width()) {
             double lengthSpeedVector = this.speed().value();

@@ -6,9 +6,9 @@
 
 package arcanoid.model;
 import arcanoid.events.CollisionHandleEndListener;
-import arcanoid.events.GameFieldChangeEvent;
-import arcanoid.events.GameFieldChangeEvent.ChangingType;
-import arcanoid.events.GameFieldChangeListener;
+import arcanoid.events.GameFieldElementEvent;
+import arcanoid.events.GameFieldElementEvent.ChangingType;
+import arcanoid.events.GameFieldElementListener;
 import arcanoid.service.Buffer;
 import arcanoid.service.ImpulseOfStrikeForce;
 import arcanoid.service.Size;
@@ -28,7 +28,7 @@ public abstract class FieldElement {
     /** Вес */
     protected double weight;
     /** Слушатели изменения игрового поля*/
-    private ArrayList<GameFieldChangeListener> gameFieldChangeListeners = new ArrayList<>();
+    private ArrayList<GameFieldElementListener> gameFieldChangeListeners = new ArrayList<>();
     /** Слушатели окончания обработки столкновения ДЛЯ ТЕСТОВ*/
     private ArrayList<CollisionHandleEndListener> collisionHandleEndListeners = new ArrayList<>();
     
@@ -36,7 +36,7 @@ public abstract class FieldElement {
      * Добавить слушателя создания элемента
      * @param listener слушатель
      */
-    public void addGameFieldChangeListener (GameFieldChangeListener listener) {
+    public void addGameFieldChangeListener (GameFieldElementListener listener) {
         gameFieldChangeListeners.add(listener);
     }
     
@@ -44,14 +44,14 @@ public abstract class FieldElement {
      * Испустить сигнал, что элемент поля изменен
      */
     private void fireGameFieldChange(boolean creation) {
-        GameFieldChangeEvent event;
+        GameFieldElementEvent event;
         // Создание элемента
         if (creation) {
-            event = new GameFieldChangeEvent(this, ChangingType.creation, null);
+            event = new GameFieldElementEvent(this, ChangingType.creation, null);
         } else { // Удаление элемента
-            event = new GameFieldChangeEvent(this, ChangingType.removing, null);
+            event = new GameFieldElementEvent(this, ChangingType.removing, null);
         }
-        for (GameFieldChangeListener gameListener: gameFieldChangeListeners) {
+        for (GameFieldElementListener gameListener: gameFieldChangeListeners) {
             gameListener.changeElement(event);
         }
     }

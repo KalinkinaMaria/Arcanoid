@@ -6,8 +6,8 @@
 
 package arcanoid.model;
 
-import arcanoid.events.GameStateChangeEvent;
-import arcanoid.events.GameStateChangeListener;
+import arcanoid.events.BallFeltEvent;
+import arcanoid.events.BallFallenListener;
 import arcanoid.service.Buffer;
 import com.golden.gamedev.object.Sprite;
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class Ball extends Bouncing implements Bounced, ChangingGameState {
 
     /** Слушатели падения мяча*/
-    private ArrayList<GameStateChangeListener> failListeners = new ArrayList<> ();
+    private ArrayList<BallFallenListener> fallenListeners = new ArrayList<> ();
     
     /**
      * Конструктор
@@ -36,16 +36,16 @@ public class Ball extends Bouncing implements Bounced, ChangingGameState {
      * @param listener слушатель
      */
     @Override
-    public void addGameStateChangeListener(GameStateChangeListener listener) {
-        failListeners.add(listener);
+    public void addGameStateChangeListener(BallFallenListener listener) {
+        fallenListeners.add(listener);
     }
     
     /**
      * Испустить событие о том, что мяч упал за нижнюю грпницу
      */
-    private void fireGameStateChange() {
-        for (GameStateChangeListener listener: failListeners) {
-            listener.fail(new GameStateChangeEvent(this,GameStateChangeEvent.GameStateType.unsuccess));
+    private void fireBallFell() {
+        for (BallFallenListener listener: fallenListeners) {
+            listener.handleFail(new BallFeltEvent(this,BallFeltEvent.GameStateType.unsuccess));
         }
     }
     
@@ -67,6 +67,6 @@ public class Ball extends Bouncing implements Bounced, ChangingGameState {
      */
     @Override
     public void handleChangingGameState() {
-        fireGameStateChange();
+        fireBallFell();
     }
 }

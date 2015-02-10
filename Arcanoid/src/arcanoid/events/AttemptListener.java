@@ -25,7 +25,7 @@ public interface AttemptListener extends EventListener {
      * 
      * @param e событие конца попытки
      */
-    public void returnToStartPosition(AttemptEvent e);
+    public void returnToStartAttempt(AttemptEvent e);
     
     /**
      * Закончить игру

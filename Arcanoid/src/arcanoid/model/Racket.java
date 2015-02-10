@@ -33,7 +33,7 @@ public class Racket extends Managable implements Bounced, AttemptListener {
      * 
      * @param ball мяч
      */
-    protected void pushBall(Ball ball, SpeedVector speed) {        
+    protected void push(Ball ball, SpeedVector speed) {        
         ball.setSpeed(speed);
     }
     
@@ -67,11 +67,11 @@ public class Racket extends Managable implements Bounced, AttemptListener {
             for (FieldElement element:e.pushingObjects) {
                 speedX = speedVectorLength*Math.cos(10+angleStep*e.pushingObjects.indexOf(element));
                 speedY = speedVectorLength*Math.sin(10+angleStep*e.pushingObjects.indexOf(element));
-                pushBall((Ball)element, new SpeedVector(speedX, -Math.abs(speedY)));
+                push((Ball)element, new SpeedVector(speedX, -Math.abs(speedY)));
                 SpeedVector speed = element.speed();
             }
         } else { // Один мяч на ракетке
-            pushBall((Ball)e.pushingObjects.get(0), new SpeedVector(0, -speedVectorLength));
+            push((Ball)e.pushingObjects.get(0), new SpeedVector(0, -speedVectorLength));
         }
     }
 
@@ -80,7 +80,7 @@ public class Racket extends Managable implements Bounced, AttemptListener {
      * @param e сигнал
      */
     @Override
-    public void returnToStartPosition(AttemptEvent e) {
+    public void returnToStartAttempt(AttemptEvent e) {
         FieldElement element = e.pushingObjects.get(0);
         element.setPosition(new Point((int)(this.position().x + this.size().width()/2 - element.size().width()/2), (int)(this.position().y - element.size().height())));
     }

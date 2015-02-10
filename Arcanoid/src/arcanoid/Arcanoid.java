@@ -9,7 +9,7 @@ import arcanoid.events.AttemptEvent;
 import arcanoid.events.AttemptListener;
 import arcanoid.service.Buffer;
 import arcanoid.service.SpeedVector;
-import arcanoid.view.Ambiance;
+import arcanoid.view.GameFieldView;
 import com.golden.gamedev.Game;
 import com.golden.gamedev.GameLoader;
 import com.golden.gamedev.object.Background;
@@ -37,14 +37,14 @@ public class Arcanoid  extends Game implements AttemptListener {
     /** Предыдущая позиция мыши(для движения)*/
     private int oldMousePosition;
     /** Обстановка, отвечающая за графичечкое отображение элементов*/
-    private Ambiance ambiance;
+    private GameFieldView gameFieldView;
     /** Шрифт для вывода сообщений*/
     private GameFont font;
     /** Сообщение для пользователя*/
     private String message;
     
     // Раскомментировать, что убрать лишние счетчики и надписи
-    //{ distribute = true; }
+    { distribute = true; }
     
     /**
      * @param args the command line arguments
@@ -65,24 +65,24 @@ public class Arcanoid  extends Game implements AttemptListener {
         // Инициализация полей
         playfield = new PlayField();
         message = "";
-        ambiance = new Ambiance(buffer);
+        gameFieldView = new GameFieldView(buffer);
         gameModel = new GameModel(buffer);
-        // Связать модель и обстановку с помощью сигналов дляобщения в дальнейшем
-        gameModel.createConnectionWithField(ambiance);
+        // Связать модель и обстановку с помощью сигналов для общения в дальнейшем
+        gameModel.createConnectionWithField(gameFieldView);
         gameModel.startGame();
         oldMousePosition  = this.getMouseX();
         // Задать фон
         background = new ImageBackground(getImage("img/1.jpg"), 1000, 600);
         playfield.setBackground(background);
-        gameModel.addAttemptStartedListener(this);
+        gameModel.addAttemptListener(this);
         // Зарегистрировать существующие группы спрайтов
-        ambiance.registerSpriteGroups(playfield);
+        gameFieldView.registerSpriteGroups(playfield);
         hideCursor();
         // Установить правила столкновений игры
-        gameModel.registerCollisionRules(ambiance);
-        ambiance.setCollisionBounds(playfield);
+        gameModel.registerCollisionRules(gameFieldView);
+        gameFieldView.setCollisionBounds(playfield);
         // Установить связь с помощью сигналов с элементом, который отвечает за провал игры
-        ambiance.setConnectionWithGhangingGameStateElement(gameModel);
+        gameFieldView.setConnectionWithGhangingGameStateElement(gameModel);
         // Получение шрифта из картинки
         String fontString = "ABCDEFGHIJKLMNOPQRSTUVXWYZabcdefghijklmnopqrstuvxwyz1234567890aaaaaaaaa?!a.:- ";
         font = fontManager.getFont(getImages("img/font.png", 26, 3), fontString);
@@ -101,9 +101,9 @@ public class Arcanoid  extends Game implements AttemptListener {
         if (click() && !gameModel.isAttemptStarted()) {
             // Начать попытку
             gameModel.startAttempt();           
-            ambiance.setAttemptCollisionBounds(playfield);
+            gameFieldView.setAttemptCollisionBounds(playfield);
             // Установить коллизии между объектами
-            ambiance.setCollisionObjects(playfield);
+            gameFieldView.setCollisionObjects(playfield);
         }
         // Проверить движение мышки.
         checkMouseMoving(l);
@@ -134,7 +134,7 @@ public class Arcanoid  extends Game implements AttemptListener {
     }
     
     /**
-     * Проверить дфижение мыши
+     * Проверить движение мыши
      * 
      * @param l время на момент проверки
      */
@@ -169,15 +169,15 @@ public class Arcanoid  extends Game implements AttemptListener {
      * @param e событие окончания попытки
      */
     @Override
-    public void returnToStartPosition(AttemptEvent e) {
+    public void returnToStartAttempt(AttemptEvent e) {
         CollisionManager[] collisionGroups = playfield.getCollisionGroups();
         // Удалить старые коллизионные группы
         for (CollisionManager manager: collisionGroups) {
             playfield.removeCollisionGroup(manager);
         }
         // Настроить новые
-        ambiance.setCollisionBounds(playfield);
-        ambiance.setCollisionObjects(playfield);
+        gameFieldView.setCollisionBounds(playfield);
+        gameFieldView.setCollisionObjects(playfield);
     }
     
     /**

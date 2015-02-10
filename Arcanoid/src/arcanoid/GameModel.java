@@ -7,13 +7,13 @@ package arcanoid;
 
 import arcanoid.events.AttemptEvent;
 import arcanoid.events.AttemptListener;
-import arcanoid.events.GameFieldChangeListener;
-import arcanoid.events.GameStateChangeEvent;
-import arcanoid.events.GameStateChangeListener;
+import arcanoid.events.GameFieldElementListener;
+import arcanoid.events.BallFeltEvent;
+import arcanoid.events.BallFallenListener;
 import arcanoid.model.FieldElement;
 import arcanoid.service.Buffer;
 import arcanoid.service.SpeedVector;
-import arcanoid.view.Ambiance;
+import arcanoid.view.GameFieldView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -22,7 +22,7 @@ import java.util.HashMap;
  * 
  * @author Елена
  */
-public class GameModel implements GameStateChangeListener {
+public class GameModel implements BallFallenListener {
     /** Игровое поле*/
     private GameField field;
     /** Игрок*/
@@ -31,6 +31,9 @@ public class GameModel implements GameStateChangeListener {
     private boolean attemptWasStarted;
     /** Слушатели начала/конца попытки. Элементы, которые запускаются при начале попытки*/
     private ArrayList<AttemptListener> movingElements;
+    /* Количество жизней у игрока */
+    private final int playerLifes;
+    
     
     /**
      * Начать игру
@@ -48,15 +51,16 @@ public class GameModel implements GameStateChangeListener {
         field = new GameField(buffer);
         movingElements = new ArrayList<>();
         attemptWasStarted = false;
-        player = new Player(3);
+        playerLifes = 3;
+        player = new Player(playerLifes);
     }
     
     /**
-     * Создать связь с помощтю сигналов с полем, чтобы в дальнейшем знать об удалении/добавлении элементов
+     * Создать связь с помощью сигналов с полем, чтобы в дальнейшем знать об удалении/добавлении элементов
      * 
      * @param object объект, желающий получать сигналы
      */
-    public void createConnectionWithField(GameFieldChangeListener object) {
+    public void createConnectionWithField(GameFieldElementListener object) {
         field.addGameFieldChangeListener(object);
     }
     
@@ -65,7 +69,7 @@ public class GameModel implements GameStateChangeListener {
      * 
      * @param listener слушатель
      */
-    public void addAttemptStartedListener (AttemptListener listener) {
+    public void addAttemptListener (AttemptListener listener) {
         movingElements.add(listener);
     }
     
@@ -92,7 +96,7 @@ public class GameModel implements GameStateChangeListener {
         list.add(element);
         event = new AttemptEvent(this, list);
         for (AttemptListener listener: movingElements) {
-            listener.returnToStartPosition(event);
+            listener.returnToStartAttempt(event);
         }
     }
     
@@ -143,7 +147,7 @@ public class GameModel implements GameStateChangeListener {
      * Начать попытку
      */
     public void startAttempt() {
-        field.changePositionForAttempt();
+        field.prepareForStartingAttempt();
         fireAttemptStarted();
         attemptWasStarted = true;
     }
@@ -154,9 +158,9 @@ public class GameModel implements GameStateChangeListener {
      * 
      * @param e событие изменения состояния игры
      */
-    public void fail(GameStateChangeEvent e) {
+    public void handleFail(BallFeltEvent e) {
         // Посчитать жизни игрока
-        int lives = player.lives() - 1;
+        int lives = player.lifes() - 1;
         ArrayList<FieldElement> elements = field.getElements("arcanoid.model.Ball");
         // Нет больше элементов, которые управляют ходом игры
         if (elements.size() == 1) {
@@ -183,7 +187,7 @@ public class GameModel implements GameStateChangeListener {
      */
     public HashMap<String, String> getGameData() {
         HashMap<String, String> result = new HashMap <String, String>();
-        result.put("Lives", String.valueOf(player.lives()));
+        result.put("Lives", String.valueOf(player.lifes()));
         result.put("Score", String.valueOf(player.score()));
         return result;
     }
@@ -194,7 +198,7 @@ public class GameModel implements GameStateChangeListener {
      * 
      * @param e событие изменения состояния игры
      */
-    public void endGame(GameStateChangeEvent e) {
+    public void endGame(BallFeltEvent e) {
         // Т.к. пока нет роя, не реализовано
     }
     
@@ -221,7 +225,7 @@ public class GameModel implements GameStateChangeListener {
      * 
      * @param ambiance обстановка
      */
-    public void registerCollisionRules(Ambiance ambiance) {
+    public void registerCollisionRules(GameFieldView ambiance) {
         ambiance.addCollidedGroupPair("Racket", "Ball");
         ambiance.addCollidedGroupPair("Ball", "Ball");
     }

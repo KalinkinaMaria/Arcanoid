@@ -14,23 +14,23 @@ public class Player {
     /** Счет */
     private int score;
     /** Кол-во жизней */
-    private int lives;
+    private int lifes;
     
     /**
      *  Конструктор
      */
     public Player () {
         score = 0;
-        lives = 0;
+        lifes = 0;
     }
     
     /**
      * Конструктор
-     * @param lives кол-во жизней
+     * @param lifes кол-во жизней
      */
-    public Player (int lives) {
+    public Player (int lifes) {
         score = 0;
-        this.lives = lives;
+        this.lifes = lifes;
     }
     
     /**
@@ -38,15 +38,15 @@ public class Player {
      * @param countLives кол-во жизней
      */
     public void setLives(int countLives) {
-        this.lives = countLives;
+        this.lifes = countLives;
     }
     
     /**
      * Получить кол-во жизней
      * @return кол-во жизней
      */
-    public int lives() {
-        return lives;
+    public int lifes() {
+        return lifes;
     }
     
     /**
