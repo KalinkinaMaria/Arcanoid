@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  * 
  * @author Мария
  */
-public class GameField implements GameFieldElementListener {
+public class GameField {
     /** Таблица соответствий элемента поля со спрайтом */
     private Buffer table;
     /** Элементы поля */
@@ -161,22 +161,6 @@ public class GameField implements GameFieldElementListener {
         }
     }
     
-
-    @Override
-    public void changeElement(GameFieldElementEvent e) {
-        // Т.к. нет пока роя, не поддерживается
-    }
-
-    @Override
-    public void addElement(GameFieldElementEvent e) {
-        // Т.к. нет пока роя, не поддерживается
-    }
-
-    @Override
-    public void removeElement(GameFieldElementEvent e) {
-        // Т.к. нет пока роя, не поддерживается
-    }
-    
     /**
      * Изменить позиции запускаемых элементов для начала попытки
      */
@@ -197,4 +181,21 @@ public class GameField implements GameFieldElementListener {
             }
         }
     }
+    
+    private class GameFieldElementObserver implements GameFieldElementListener {
+        @Override
+        public void removeElement(GameFieldElementEvent e) {
+            // Т.к. нет пока роя, не поддерживается
+        }    
+
+        @Override
+        public void changeElement(GameFieldElementEvent e) {
+            // Т.к. нет пока роя, не поддерживается
+        }
+
+        @Override
+        public void addElement(GameFieldElementEvent e) {
+            // Т.к. нет пока роя, не поддерживается
+        }
+    } 
 }

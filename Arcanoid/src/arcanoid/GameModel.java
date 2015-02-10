@@ -19,7 +19,9 @@ import java.util.HashMap;
 
 /**
  * Класс логической модели игры
- * 
+ * (в этом классе не получается сделать приватный класс для слушателя,
+ * так как создается соединение с элементом BallFallenListener в
+ * классе GameFieldView)
  * @author Елена
  */
 public class GameModel implements BallFallenListener {

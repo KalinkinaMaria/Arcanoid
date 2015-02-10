@@ -27,7 +27,7 @@ import java.util.Map;
  * 
  * @author Мария
  */
-public class Arcanoid  extends Game implements AttemptListener {
+public class Arcanoid  extends Game {
     /** Игровое поле GTGE*/
     private PlayField playfield;
     /** Фон*/
@@ -74,7 +74,8 @@ public class Arcanoid  extends Game implements AttemptListener {
         // Задать фон
         background = new ImageBackground(getImage("img/1.jpg"), 1000, 600);
         playfield.setBackground(background);
-        gameModel.addAttemptListener(this);
+        AttemptObserver observer = new AttemptObserver();
+        gameModel.addAttemptListener(observer);
         // Зарегистрировать существующие группы спрайтов
         gameFieldView.registerSpriteGroups(playfield);
         hideCursor();
@@ -157,40 +158,42 @@ public class Arcanoid  extends Game implements AttemptListener {
         result = new SpeedVector(2*(this.getMouseX() - oldMousePosition)/l, 0);
         return result;
     }
-
-    @Override
-    public void startMoving(AttemptEvent e) {
-        
-    }
-
-    /**
-     * Вернуться на стратовую позицию
-     * 
-     * @param e событие окончания попытки
-     */
-    @Override
-    public void returnToStartAttempt(AttemptEvent e) {
-        CollisionManager[] collisionGroups = playfield.getCollisionGroups();
-        // Удалить старые коллизионные группы
-        for (CollisionManager manager: collisionGroups) {
-            playfield.removeCollisionGroup(manager);
-        }
-        // Настроить новые
-        gameFieldView.setCollisionBounds(playfield);
-        gameFieldView.setCollisionObjects(playfield);
-    }
     
-    /**
-     * Закончить игру
-     * 
-     * @param success результат игры
-     */
-    @Override
-    public void endGame(boolean success) {        
-        if (success) {
-            message = "You win!!!";
-        } else {
-            message = "You lose!!!";
+    private class AttemptObserver implements AttemptListener {
+        @Override
+        public void startMoving(AttemptEvent e) {
+
+        }
+
+        /**
+         * Вернуться на стратовую позицию
+         * 
+         * @param e событие окончания попытки
+         */
+        @Override
+        public void returnToStartAttempt(AttemptEvent e) {
+            CollisionManager[] collisionGroups = playfield.getCollisionGroups();
+            // Удалить старые коллизионные группы
+            for (CollisionManager manager: collisionGroups) {
+                playfield.removeCollisionGroup(manager);
+            }
+            // Настроить новые
+            gameFieldView.setCollisionBounds(playfield);
+            gameFieldView.setCollisionObjects(playfield);
+        }
+
+        /**
+         * Закончить игру
+         * 
+         * @param success результат игры
+         */
+        @Override
+        public void endGame(boolean success) {        
+            if (success) {
+                message = "You win!!!";
+            } else {
+                message = "You lose!!!";
+            }
         }
     }
 }

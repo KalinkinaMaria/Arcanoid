@@ -27,10 +27,12 @@ import java.util.logging.Logger;
 
 /**
  * Обработчик столкновений
- * 
+ * (в этом классе не получается сделать приватный класс для слушателя,
+ * так как создается соединение с элементом SpritesCollidedListener в
+ * классе GameFieldView)
  * @author Елена
  */
-public class CollisionHandler implements SpritesCollidedListener {
+public class CollisionHandler implements SpritesCollidedListener{
     /** Таблица соответствий элемента поля со спрайтом */
     private Buffer table;
     /** Блокировка стокновений, пока элемент не выйдет из гарницы другого*/
