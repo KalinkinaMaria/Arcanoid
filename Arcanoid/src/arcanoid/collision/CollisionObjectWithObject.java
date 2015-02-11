@@ -26,6 +26,7 @@ public class CollisionObjectWithObject extends AdvanceCollisionGroup {
      */
     public CollisionObjectWithObject() {
         super();
+        //pixelPerfectCollision = true;
     }
     
     /**

@@ -62,23 +62,5 @@ public class Ball extends Bouncing implements Bounced, ChangingGameState {
         fallenListeners.add(listener);
     }
     
-    private class ChangingGameObserver implements ChangingGameState {
-        /**
-        * Обработать изменение состояния игры
-        */
-       @Override
-       public void handleChangingGameState() {
-           
-       }
     
-        /**
-         * Добавить слушателя события падения мяча
-         * 
-         * @param listener слушатель
-         */
-        @Override
-        public void addGameStateChangeListener(BallFallenListener listener) {
-            fallenListeners.add(listener);
-        }
-    }
 }
