@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * 
  * @author Елена
  */
-public class Ball extends Bouncing implements Bounced {
+public class Ball extends Bouncing implements Bounced, ChangingGameState {
 
     /** Слушатели падения мяча*/
     private ArrayList<BallFallenListener> fallenListeners = new ArrayList<> ();
@@ -51,6 +51,16 @@ public class Ball extends Bouncing implements Bounced {
         ball.copy(this);
         return ball;
     }
+
+    @Override
+    public void handleChangingGameState() {
+        fireBallFell();
+    }
+
+    @Override
+    public void addGameStateChangeListener(BallFallenListener listener) {
+        fallenListeners.add(listener);
+    }
     
     private class ChangingGameObserver implements ChangingGameState {
         /**
@@ -58,7 +68,7 @@ public class Ball extends Bouncing implements Bounced {
         */
        @Override
        public void handleChangingGameState() {
-           fireBallFell();
+           
        }
     
         /**
